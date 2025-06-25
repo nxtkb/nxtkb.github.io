@@ -1,0 +1,84 @@
+baseURL: "https://nxtkb.com"
+languageCode: 'en-us'
+title: "NXTKB"
+
+# cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
+
+# Language settings
+contentDir: content/en
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+# Useful when translating.
+enableMissingTranslationPlaceholders: true
+
+enableRobotsTXT: true
+
+# Will give values to .Lastmod etc.
+enableGitInfo: true
+
+# Comment out to disable taxonomies in Docsy
+# disableKinds: [taxonomy]
+
+# You can add your own taxonomies
+taxonomies:
+  tag: tags
+  category: categories
+
+# Highlighting config
+pygmentsCodeFences: true
+pygmentsUseClasses: false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic: false
+# pygmentsOptions: "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle: tango
+
+# Configure how URLs look like per section.
+permalinks:
+  blog: /:section/:year/:month/:day/:slug/
+
+# Image processing configuration.
+imaging:
+  resampleFilter: CatmullRom
+  quality: 75
+  anchor: smart
+
+# Language configuration
+languages:
+  en:
+    languageName: English
+    title: NXTKB
+    params:
+      description: Build The Next Generation Keyboard
+    cSpell: enable
+  'zh':
+    languageName: 简体中文
+    contentDir: content/zh
+    title: NXTKB
+    params:
+      description: 打造下一代键盘
+
+markup:
+  goldmark:
+    parser:
+      attribute:
+        block: true
+    renderer:
+      unsafe: true
+  highlight:
+    # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+    style: tango
+    # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+    # guessSyntax: true
+
+# params:
+
+module:
+  # Uncomment the next line to build and serve using local docsy clone declared in the named Hugo workspace:
+  # workspace: docsy.work
+  hugoVersion:
+    extended: true
+    min: 0.146.0
+  imports:
+    - path: github.com/google/docsy
+      disable: false
