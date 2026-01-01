@@ -19,6 +19,78 @@ enableGitInfo: true
 # Comment out to disable taxonomies in Docsy
 # disableKinds: [taxonomy]
 
+# Comment out if you don't want the "print entire section" link enabled.
+outputs:
+  section: [HTML, print, RSS]
+
+params:
+  favicon: "icons/logo.svg"
+  copyright:
+    authors:
+      NXTKB | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+    from_year: 2025
+
+  # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
+  github_repo: https://github.com/nxtkb/nxtkb.github.io
+
+  # An optional link to a related project repo. For example, the sibling repository where your product code lives.
+  # github_project_repo: https://github.com/nxtkb/nxtkb.github.io
+
+  # Specify a value here if your content directory is not in your repo's root directory
+  # github_subdir: ""
+
+  # Uncomment this if your GitHub repo does not have "main" as the default branch,
+  # or specify a new value if you want to reference another branch in your GitHub links
+  github_branch: main
+  ui:
+    showLightDarkModeMenu: true
+    # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top navbar
+    navbar_logo: true
+    # Set to true to disable breadcrumb navigation.
+    breadcrumb_disable: false
+    # Set to true if you don't want the top navbar to be translucent when over a `block/cover`, like on the homepage.
+    navbar_translucent_over_cover_disable: false
+    # Enable to show the side bar menu in its compact state.
+    sidebar_menu_compact: false
+    # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+    sidebar_search_disable: true
+    # Enable light/dark mode toggle menu in the navbar
+    showLightDarkModeMenu: true
+    # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+    # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+    # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+    # add "hide_feedback: true" to the page's front matter.
+    feedback:
+      enable: true
+      # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+      'yes': >-
+        Glad to hear it! Please <a
+        href="https://github.com/nxtkb/nxtkb.github.io/issues/new">tell us how we
+        can improve</a>.
+      'no': >-
+        Sorry to hear that. Please <a
+        href="https://github.com/nxtkb/nxtkb.github.io/issues/new">tell us how we
+        can improve</a>.
+    # Adds a reading time to the top of each doc.
+    # If you want this feature, but occasionally need to remove the Reading time from a single page,
+    # add "hide_readingtime: true" to the page's front matter
+    readingtime:
+      enable: true
+  offlineSearch: true
+  links:
+    # End user relevant links. These will show up on left side of footer and in the community page if you have one.
+    user:
+      # - name: Discord
+      #   url: https://github.com/nxtkb/
+      #   icon: fab fa-discord
+      #   desc: Discussion takes place here!
+    # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+    developer:
+      - name: GitHub
+        url: https://github.com/nxtkb/
+        icon: fab fa-github
+        desc: Development takes place here!
+
 # You can add your own taxonomies
 taxonomies:
   tag: tags
@@ -51,12 +123,12 @@ languages:
     params:
       description: Build The Next Generation Keyboard
     cSpell: enable
-  'zh':
-    languageName: 简体中文
-    contentDir: content/zh
-    title: NXTKB
-    params:
-      description: 打造下一代键盘
+  # 'zh':
+  #   languageName: 简体中文
+  #   contentDir: content/zh
+  #   title: NXTKB
+  #   params:
+  #     description: 打造下一代键盘
 
 markup:
   goldmark:
@@ -71,7 +143,30 @@ markup:
     # Uncomment if you want your chosen highlight style used for code blocks without a specified language
     # guessSyntax: true
 
-# params:
+menu:
+  main:
+    - name: Products
+      weight: 10
+      url: /products/
+    - name: Docs
+      weight: 15
+      url: /docs/
+    - name: Blogs
+      weight: 20
+      url: /blog/
+    # - name: About
+    #   weight: 30
+    #   url: /about/
+  footer:
+    # - name: About
+    #   weight: 5
+    #   url: /about/
+    - name: Documentation
+      weight: 10
+      url: /docs/
+    - name: Products
+      weight: 15
+      url: /products/
 
 module:
   # Uncomment the next line to build and serve using local docsy clone declared in the named Hugo workspace:
