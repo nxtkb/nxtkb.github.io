@@ -12,26 +12,8 @@ Welcome to the comprehensive documentation for NXTKB products. Here you'll find 
 ## Categories
 
 ### Getting Started
-- [Unboxing and Initial Setup](../setup/)
-- [Understanding Ergonomic Benefits](../ergonomics/)
-- [Basic Configuration Guide](../configuration/)
-
-### Product Manuals
-- [Ferris Sweep Manual](../products/ferris-sweep/)
-- [Ferris Sweep Pro Manual](../products/ferris-sweep-pro/)
-- [Accessories Guide](../products/accessories/)
+- [Unboxing and Initial Setup](./setup/)
 
 ### Advanced Topics
-- [Custom Keymaps](../keymaps/)
-- [Firmware Updates](../firmware/)
-- [Maintenance and Care](../maintenance/)
-
-### Troubleshooting
-- [Common Issues](../troubleshooting/)
-- [Contact Support](../support/)
-
-## Quick Links
-
-- [Switch Identification Guide](../switches/guide/)
-- [Keycap Compatibility](../keycaps/compatibility/)
-- [Wireless Connection Troubleshooting](../connection/)
+- [Custom Keymaps](./keymaps/)
+- [Firmware Updates](./firmware/)
