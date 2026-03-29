@@ -1,5 +1,5 @@
 baseURL: "https://nxtkb.com"
-languageCode: 'en-us'
+languageCode: "en-us"
 title: "NXTKB"
 
 # cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
@@ -26,9 +26,8 @@ outputs:
 params:
   favicon: "icons/logo.svg"
   copyright:
-    authors:
-      NXTKB | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
-    from_year: 2025
+    authors: NXTKB | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+    from_year: 2024
 
   # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
   github_repo: https://github.com/nxtkb/nxtkb.github.io
@@ -43,7 +42,6 @@ params:
   # or specify a new value if you want to reference another branch in your GitHub links
   github_branch: main
   ui:
-    showLightDarkModeMenu: true
     # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top navbar
     navbar_logo: true
     # Set to true to disable breadcrumb navigation.
@@ -63,11 +61,11 @@ params:
     feedback:
       enable: true
       # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-      'yes': >-
+      "yes": >-
         Glad to hear it! Please <a
         href="https://github.com/nxtkb/nxtkb.github.io/issues/new">tell us how we
         can improve</a>.
-      'no': >-
+      "no": >-
         Sorry to hear that. Please <a
         href="https://github.com/nxtkb/nxtkb.github.io/issues/new">tell us how we
         can improve</a>.
@@ -123,12 +121,12 @@ languages:
     params:
       description: Build The Next Generation Keyboard
     cSpell: enable
-  # 'zh':
-  #   languageName: 简体中文
-  #   contentDir: content/zh
-  #   title: NXTKB
-  #   params:
-  #     description: 打造下一代键盘
+  "zh":
+    languageName: 简体中文
+    contentDir: content/zh
+    title: NXTKB
+    params:
+      description: 打造下一代键盘
 
 markup:
   goldmark:

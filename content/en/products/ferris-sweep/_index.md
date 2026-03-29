@@ -1,6 +1,7 @@
 ---
 title: "Ferris Sweep"
 weight: 2
+draft: true
 description: >
   The classic open source 34 keys split keyboard ferris sweep with better casing and some upgrades.
 ---

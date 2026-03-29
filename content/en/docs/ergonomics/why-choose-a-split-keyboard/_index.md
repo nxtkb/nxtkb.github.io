@@ -1,6 +1,7 @@
 ---
 title: "Why choose a split keyboard"
 weight: 2
+draft: true
 description: Learn about the ergonomic science behind split keyboard design and how NXTKB models optimize your typing posture and comfort.
 ---
 

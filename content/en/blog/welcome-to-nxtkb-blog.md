@@ -31,6 +31,12 @@ categories: ["News"]
 - Configuration guides
 - Troubleshooting tips
 
+## About This Site
+
+- built with hugo
+- theme: docsy
+  - [docsy shortcodes](https://www.docsy.dev/docs/content/shortcodes/)
+
 ## Why Start This Blog?
 
 At NXTKB, we believe that healthy computing should be accessible to everyone. Through this blog, we aim to share our knowledge and help you make informed decisions about your computing setup.

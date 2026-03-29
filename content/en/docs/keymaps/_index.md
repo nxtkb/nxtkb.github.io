@@ -1,4 +1,4 @@
 ---
 title: "Keymaps"
-weight: 1
+weight: 2
 ---
