@@ -1,41 +1,21 @@
 ---
-title: "ZMK Keymaps"
+title: "Keymaps"
 weight: 3
 ---
 
-NXTKB keyboards use [Zephyr-based Modular Keyboard (ZMK)](https://zmk.dev) firmware, which provides a flexible and powerful keymap system.
+NXTKB keyboards use [ZMK (Zephyr-based Modular Keyboard)](https://zmk.dev) firmware. ZMK keymaps let you define what each key does, organize keys into switchable layers, and assign tap-hold behaviors — all through customizable configuration files.
 
-## What is a ZMK Keymap?
+## Default Keymaps
 
-A ZMK keymap is a configuration that defines how each physical key on your keyboard behaves. Unlike traditional firmware where key functions are hardcoded, ZMK allows for:
+Each NXTKB keyboard comes with a pre-configured keymap optimized for its layout:
 
-- **Layer-based organization**: Multiple layers (default, function, navigation, etc.) that can be switched between
-- **Tap-Hold behavior**: Keys can perform different actions when tapped vs. held (e.g., tap for letter, hold for modifier)
-- **Modular design**: Keymaps are defined in code files that can be customized and compiled
+- [Ferris Sweep Pro Keymap](ferris-sweep-pro-keymap/)
+- [Ferris Sweep Keymap](ferris-sweep-keymap/)
 
-Keymaps in ZMK are written in a declarative format that maps physical key positions to specific behaviors and functions.
-
-## Our Keymap Implementation
-
-NXTKB uses custom ZMK keymaps optimized for our keyboard designs. Each keyboard model has its own tailored keymap that takes advantage of the unique layout and features of that specific hardware.
-
-### Key Features of Our Keymaps:
-- **Efficient modifier placement**: Modifiers are positioned for ergonomic access
-- **Layer switching**: Intuitive layer transitions using thumb keys or other convenient positions
-- **Bluetooth connectivity**: Built-in support for multiple device connections
-- **Advanced functionality**: Mouse control, macro support, and customization options
-
-## Specific Keyboard Keymaps
-
-For detailed information about the keymap for your specific NXTKB keyboard, please refer to the dedicated documentation:
-
-- [Ferris Sweep Pro Keymap](../../keymaps/ferris-sweep-pro-keymap/)
-- [Ferris Sweep Keymap](../../keymaps/ferris-sweep-keymap/)
-
-These pages contain visual representations of each layer and detailed explanations of the key functions.
+These pages contain visual layer diagrams and detailed explanations of each key function.
 
 ## Customization
 
-If you want to customize your keymap further, ZMK provides tools like [ZMK Studio](https://zmk.studio) for visual editing, or you can modify the source code directly in our GitHub repositories.
+Want to change your keymap? See [How to Update Keymaps](how-to-update-keymaps/) for step-by-step instructions using ZMK Studio, the Keyboard Editor, or direct source code modification.
 
-For more information about ZMK keymaps and customization options, see the [official ZMK documentation](https://zmk.dev/docs/).
+For more on ZMK, see the [official ZMK documentation](https://zmk.dev/docs/).

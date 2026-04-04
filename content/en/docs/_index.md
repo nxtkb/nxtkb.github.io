@@ -15,5 +15,4 @@ Welcome to the comprehensive documentation for NXTKB products. Here you'll find 
 - [Unboxing and Initial Setup](./setup/)
 
 ### Advanced Topics
-- [Custom Keymaps](./keymaps/)
 - [Firmware Updates](./firmware/)

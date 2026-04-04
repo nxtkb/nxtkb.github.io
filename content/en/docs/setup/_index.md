@@ -18,7 +18,7 @@ When you receive your NXTKB, you'll find:
 This section contains detailed walkthroughs for getting your keyboard operational:
 
 - [Connecting to Your Device](connect/) - Complete guide for USB and Bluetooth connections
-- [Understanding Keymaps](keymap/) - Introduction to default key functions and how to access your keyboard's specific layout
+- [Keymaps](keymap/) - Default keymaps for each keyboard model, layer diagrams, and customization guides
 
 ## Support Resources
 

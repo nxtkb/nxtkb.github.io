@@ -12,7 +12,7 @@ weight: 10
 - 您已更新配置文件（例如`sweep.conf`）
 - 您需要重置蓝牙配对信息或其他存储信息（如从zmk studio更新的键位映射）
 
-> **注意**: 如果您只需要更改键位映射，请考虑使用[ZMK Studio](../../keymaps/how-to-update-keymaps/)，它允许在不重新刷写固件的情况下更新键位映射。
+> **注意**: 如果您只需要更改键位映射，请考虑使用[ZMK Studio](../../setup/keymap/how-to-update-keymaps/)，它允许在不重新刷写固件的情况下更新键位映射。
 
 ## 刷写固件步骤
 

@@ -12,7 +12,7 @@ You need to flash firmware when:
 - You've updated configuration files (e.g., `sweep.conf`)
 - You need to reset Bluetooth pairing information or other stored information (like keymap updated from zmk studio)
 
-> **Note**: If you only need to change your keymap, consider using [ZMK Studio](../../keymaps/how-to-update-keymaps/) instead, which allows keymap updates without firmware re-flashing.
+> **Note**: If you only need to change your keymap, consider using [ZMK Studio](../../setup/keymap/how-to-update-keymaps/) instead, which allows keymap updates without firmware re-flashing.
 
 ## Steps to Flash Firmware
 
