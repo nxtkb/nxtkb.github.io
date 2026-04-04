@@ -1,3 +1,15 @@
+// Navbar dropdown hover behavior
+.td-navbar .nav-item.dropdown {
+  &:hover > .dropdown-menu,
+  &:focus-within > .dropdown-menu {
+    display: block;
+  }
+
+  > .dropdown-menu {
+    margin-top: 0;
+  }
+}
+
 // Product page styles
 .product-page {
   .td-heading-self-link {

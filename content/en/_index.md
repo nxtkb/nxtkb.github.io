@@ -1,5 +1,5 @@
 ---
-title: "NXTKB - Next Generation Keyboards"
+title: "NXTKB - Ergonomic Split Keyboards"
 type: "pages"
 layout: "index"
 ---
@@ -10,7 +10,7 @@ layout: "index"
   }
 </style>
 
-{{< blocks/cover title="Welcome to NXTKB: Next Generation Keyboards!" image_anchor="top" height="full" >}}
+{{< blocks/cover title="Welcome to NXTKB" image_anchor="top" height="full" >}}
 
 <a class="btn btn-lg btn-primary me-3 mb-4" href="{{< relref "/products/" >}}">
   Products <i class="fas fa-keyboard ms-2"></i>
@@ -18,13 +18,13 @@ layout: "index"
 <a class="btn btn-lg btn-secondary me-3 mb-4" href="{{< relref "/docs/" >}}">
   Docs <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<p class="lead mt-5">Get your next generation keyboards designed for comfort, ergonomics, and productivity.</p>
+<p class="lead mt-5">Ergonomic split keyboards designed for comfort, productivity, and your next level typing experience.</p>
 
 {{< blocks/link-down color="info" >}} {{< /blocks/cover >}}
 
 {{% blocks/lead color="primary" %}}
 
-NXTKB provides cutting-edge keyboard solutions with focus on comfort, ergonomics, and customization for enhanced productivity and healthy typing experience.
+NXTKB crafts ergonomic split keyboards with a focus on comfort, customization, and a healthier typing experience.
 
 {{% /blocks/lead %}}
 

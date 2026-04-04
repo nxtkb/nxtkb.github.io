@@ -1,5 +1,5 @@
 ---
-title: "NXTKB - 下一代键盘"
+title: "NXTKB - 人体工学分体键盘"
 type: "pages"
 layout: "index"
 ---
@@ -10,7 +10,7 @@ layout: "index"
   }
 </style>
 
-{{< blocks/cover title="欢迎来到NXTKB：下一代键盘！" image_anchor="top" height="full" >}}
+{{< blocks/cover title="欢迎来到 NXTKB" image_anchor="top" height="full" >}}
 
 <a class="btn btn-lg btn-primary me-3 mb-4" href="{{< relref "./products/" >}}">
   产品 <i class="fas fa-keyboard ms-2"></i>
@@ -18,13 +18,13 @@ layout: "index"
 <a class="btn btn-lg btn-secondary me-3 mb-4" href="{{< relref "./docs/" >}}">
   文档 <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<p class="lead mt-5">获取专为舒适性、人体工学设计和提高生产力而打造的下一代键盘。</p>
+<p class="lead mt-5">专为舒适、高效和健康打字体验而设计的人体工学分体键盘。</p>
 
 {{< blocks/link-down color="info" >}} {{< /blocks/cover >}}
 
 {{% blocks/lead color="primary" %}}
 
-NXTKB提供前沿的键盘解决方案，专注于舒适性、人体工学和定制化，以提升生产力并带来健康的打字体验。
+NXTKB 专注打造人体工学分体键盘，兼顾舒适、定制与健康的打字体验。
 
 {{% /blocks/lead %}}
 

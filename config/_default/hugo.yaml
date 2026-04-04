@@ -119,14 +119,14 @@ languages:
     languageName: English
     title: NXTKB
     params:
-      description: Build The Next Generation Keyboard
+      description: Ergonomic Split Keyboards
     cSpell: enable
   "zh":
     languageName: 简体中文
     contentDir: content/zh
     title: NXTKB
     params:
-      description: 打造下一代键盘
+      description: 人体工学分体键盘
 
 markup:
   goldmark:
@@ -146,6 +146,11 @@ menu:
     - name: Products
       weight: 10
       url: /products/
+      identifier: products
+    - name: Ferris Sweep Pro
+      parent: products
+      weight: 1
+      url: /products/ferris-sweep-pro/
     - name: Docs
       weight: 15
       url: /docs/
