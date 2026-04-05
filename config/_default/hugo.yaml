@@ -146,11 +146,6 @@ menu:
     - name: Products
       weight: 10
       url: /products/
-      identifier: products
-    - name: Ferris Sweep Pro
-      parent: products
-      weight: 1
-      url: /products/ferris-sweep-pro/
     - name: Docs
       weight: 15
       url: /docs/
