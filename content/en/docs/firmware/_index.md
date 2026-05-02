@@ -1,4 +1,0 @@
----
-title: "Firmware"
-weight: 3
----

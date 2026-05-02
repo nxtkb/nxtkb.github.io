@@ -1,0 +1,133 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+const base = isZh ? '/zh' : '';
+const assetBase = isZh ? '/zh/products/magnetic-stand' : '/products/magnetic-stand';
+const taobaoUrl =
+  'https://item.taobao.com/item.htm?id=964509272744&mi_id=0000ZtXfGtbtLnobsFdYAGPVo40WJhOxT0lGUqoYaC6azAk&spm=a21xtw.29178619.0.0&xxc=shop&skuId=5900600484037';
+
+const t = isZh
+  ? {
+      title: 'Ferris Sweep 磁吸支架 | NXTKB',
+      description: 'Ferris Sweep 磁吸支架，一对黑色金属夹持式万向支架。',
+      eyebrow: 'Magnetic stand',
+      h1: 'Ferris Sweep 磁吸支架。',
+      lead:
+        '用于分体键盘的黑色磁吸万向支架，一对装，帮助固定分体角度，也可作为手机、相机或麦克风支架使用。',
+      buy: '淘宝购买',
+      back: '查看全部产品',
+      featureTitle: '商品信息',
+      featureLead: '以下信息来自已登录淘宝页面解析；价格、库存和发货承诺仍以淘宝实时页面为准。',
+      detailTitle: '购买前确认',
+      detailLead: '淘宝页面当前显示黑色支架一对，价格 ¥60，SKU 当前有货。',
+      galleryTitle: '支架展示',
+      specs: [
+        ['标题', 'ferris sweep支架 磁吸支架 分体键盘支架 万向支架'],
+        ['价格', '淘宝当前显示 ¥60，快递免运费。'],
+      ],
+      details: [
+        ['颜色分类', '黑色支架一对'],
+        ['材质', '金属'],
+        ['固定方式', '夹持式'],
+        ['重量', '200g'],
+        ['长度', '10cm'],
+        ['发货', '淘宝当前显示 48 小时内发货'],
+      ],
+    }
+  : {
+      title: 'Ferris Sweep Magnetic Stand | NXTKB',
+      description: 'A pair of black metal magnetic stands for Ferris Sweep split keyboards.',
+      eyebrow: 'Magnetic stand',
+      h1: 'Ferris Sweep magnetic stand.',
+      lead:
+        'A pair of black magnetic ball-joint stands for split keyboard positioning, also usable as a phone, camera, or microphone stand.',
+      buy: 'Buy on Taobao',
+      back: 'View all products',
+      featureTitle: 'Product details',
+      featureLead:
+        'These details were parsed from the logged-in Taobao item page. Price, stock, and shipping promises should still be checked on Taobao before ordering.',
+      detailTitle: 'Before ordering',
+      detailLead: 'The Taobao page currently lists one pair of black stands at ¥60, with the SKU shown as in stock.',
+      galleryTitle: 'Stand gallery',
+      specs: [
+        ['Title', 'Ferris Sweep magnetic stand, split-keyboard stand, universal stand.'],
+        ['Price', 'Taobao currently shows ¥60 with free domestic express shipping.'],
+      ],
+      details: [
+        ['Option', 'One pair of black stands'],
+        ['Material', 'Metal'],
+        ['Mount', 'Clamp style'],
+        ['Weight', '200g'],
+        ['Length', '10cm'],
+        ['Shipping', 'Taobao currently shows shipment within 48 hours'],
+      ],
+    };
+---
+
+<SiteLayout title={t.title} description={t.description} lang={lang}>
+  <section class="hero" style={`--hero-image: url('${assetBase}/stand-1.png')`}>
+    <div class="hero-content">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.h1}</h1>
+      <p>{t.lead}</p>
+      <div class="actions">
+        <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        <a class="button secondary" href={`${base}/products/`}>{t.back}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.featureTitle}</h2>
+        <p>{t.featureLead}</p>
+      </div>
+      <div class="spec-grid">
+        {t.specs.map(([label, copy]) => (
+          <div class="spec">
+            <span>{label}</span>
+            <strong>{copy}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap media-row">
+      <div class="media-copy">
+        <h2>{t.detailTitle}</h2>
+        <p>{t.detailLead}</p>
+        <ul>
+          {t.details.map(([label, copy]) => <li><strong>{label}:</strong> {copy}</li>)}
+        </ul>
+        <div class="actions">
+          <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        </div>
+      </div>
+      <div class="media-frame">
+        <img src={`${assetBase}/stand-2.png`} alt={t.title} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.galleryTitle}</h2>
+      </div>
+      <div class="gallery">
+        <img src={`${assetBase}/stand-1.png`} alt={t.galleryTitle} loading="lazy" />
+        <img src={`${assetBase}/stand-2.png`} alt={t.galleryTitle} loading="lazy" />
+        <img src={`${assetBase}/stand-3.png`} alt={t.galleryTitle} loading="lazy" />
+      </div>
+    </div>
+  </section>
+</SiteLayout>

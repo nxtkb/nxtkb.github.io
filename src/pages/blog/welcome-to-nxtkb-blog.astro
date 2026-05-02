@@ -1,0 +1,31 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Welcome to the NXTKB Blog | NXTKB" description="Introducing the NXTKB blog.">
+  <section class="hero" style="--hero-image: url('/featured-background.png')">
+    <div class="hero-content">
+      <p class="eyebrow">Announcement</p>
+      <h1>Welcome to the NXTKB Blog</h1>
+      <p>Product updates, ergonomic insights, technical notes, and stories from people building better input workflows.</p>
+    </div>
+  </section>
+  <article class="section">
+    <div class="wrap">
+      <div class="info-grid">
+        <section class="info-card">
+          <h3>Product Updates</h3>
+          <p>New product announcements, firmware improvements, feature releases, and manufacturing updates.</p>
+        </section>
+        <section class="info-card">
+          <h3>Ergonomic Insights</h3>
+          <p>Research-backed tips for healthy computing, workspace setup, and reducing repetitive strain.</p>
+        </section>
+        <section class="info-card">
+          <h3>Technical Content</h3>
+          <p>Configuration guides, troubleshooting notes, product comparisons, and customization ideas.</p>
+        </section>
+      </div>
+    </div>
+  </article>
+</SiteLayout>

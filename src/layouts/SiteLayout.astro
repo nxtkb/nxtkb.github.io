@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'en' | 'zh';
+}
+
+const { title, description = 'Ergonomic split keyboards by NXTKB.', lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+const nav = isZh
+  ? [
+      ['产品', '/zh/products/'],
+      ['文档', '/zh/docs/'],
+      ['工具', '/zh/tools/'],
+      ['博客', '/zh/blog/'],
+    ]
+  : [
+      ['Products', '/products/'],
+      ['Docs', '/docs/'],
+      ['Tools', '/tools/'],
+      ['Blog', '/blog/'],
+    ];
+const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const untranslatedPathFallbacks: Record<string, string> = {
+  '/blog/welcome-to-nxtkb-blog/': '/zh/blog/',
+};
+const translatedPath = isZh
+  ? currentPath.replace(/^\/zh(?=\/|$)/, '') || '/'
+  : untranslatedPathFallbacks[currentPath] ?? `/zh${currentPath}`;
+const langHref = translatedPath === '' ? '/' : translatedPath;
+const langLabel = isZh ? 'English' : '简体中文';
+---
+
+<!doctype html>
+<html lang={isZh ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicons/favicon.svg" />
+    <script is:inline src="/scripts/site-preferences.js"></script>
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+          <a class="brand" href={isZh ? '/zh/' : '/'}>
+            <img src="/icons/logo.svg" alt="" />
+            <span>NXTKB</span>
+          </a>
+          <div class="nav-links">
+            {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+            <a class="lang-switch" href={langHref}>{langLabel}</a>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <div class="wrap footer-grid">
+          <div>
+            <strong>NXTKB</strong>
+            <p>{isZh ? '人体工学分体键盘、固件与使用文档。' : 'Ergonomic split keyboards, firmware, and docs.'}</p>
+          </div>
+          <div>
+            <a href="https://github.com/nxtkb/">GitHub</a>
+            <span> · </span>
+            <a href={isZh ? '/zh/docs/' : '/docs/'}>{isZh ? '文档' : 'Docs'}</a>
+            <span> · </span>
+            <a href={isZh ? '/zh/tools/' : '/tools/'}>{isZh ? '工具' : 'Tools'}</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+const t = isZh
+  ? {
+      title: 'NXTKB | 人体工学分体键盘',
+      description: '高颜值、可定制、面向真实工作流的分体键盘。',
+      eyebrow: '人体工学分体键盘',
+      h1: '把键盘变成桌面上最顺手的工具。',
+      lead:
+        'NXTKB 面向长期写代码、创作和高频输入的人，提供超薄分体结构、ZMK 固件、触控板、电子墨水屏和可实时调整的键位体验。',
+      buy: '查看 Ferris Sweep Pro',
+      docs: '阅读使用文档',
+      featuresTitle: '为高频输入重新设计',
+      featuresLead: '不是把传统键盘一分为二，而是从手指路径、桌面空间和固件可控性重新组织输入体验。',
+      productsTitle: '产品',
+      productsLead: '先聚焦最成熟的 Ferris Sweep Pro，再逐步扩展配件和后续形态。',
+      docsTitle: '上手不靠猜',
+      docsLead: '连接、刷固件、改键、理解默认层级，都应该能在几分钟内找到答案。',
+      toolsTitle: '测试和改键入口',
+      toolsLead: '收货后先用 NXTKB Input Tester 检查按键、鼠标键和滚轮事件；需要改键时继续使用官方 ZMK Studio。',
+      trust: [
+        ['中文支持', '微信和文档都面向国内用户'],
+        ['ZMK Studio', '日常改键无需重新刷机'],
+        ['开源固件', '配置和键位可追溯、可扩展'],
+        ['真实产品图', '先看清楚再决定是否购买'],
+      ],
+    }
+  : {
+      title: 'NXTKB | Ergonomic Split Keyboards',
+      description: 'Beautiful, customizable split keyboards built for real workflows.',
+      eyebrow: 'Ergonomic split keyboards',
+      h1: 'A keyboard that earns its place on your desk.',
+      lead:
+        'NXTKB builds low-profile split keyboards for people who code, write, and customize their tools. Get ZMK firmware, a Cirque trackpad, an e-ink display, and a layout designed for daily work.',
+      buy: 'View Ferris Sweep Pro',
+      docs: 'Read the docs',
+      featuresTitle: 'Designed around high-frequency input',
+      featuresLead:
+        'This is not a conventional keyboard cut in half. It is a compact control surface shaped around finger travel, desk space, and firmware-level control.',
+      productsTitle: 'Products',
+      productsLead: 'Start with the fully featured Ferris Sweep Pro, then expand with accessories and upcoming devices.',
+      docsTitle: 'Useful docs, not a maze',
+      docsLead: 'Pairing, flashing firmware, editing keymaps, and understanding layers should be findable in minutes.',
+      toolsTitle: 'Tester and keymap tools',
+      toolsLead: 'After delivery, use NXTKB Input Tester to check keys, mouse buttons, and wheel events. For keymap edits, use the official ZMK Studio for now.',
+      trust: [
+        ['Online support', 'Docs and direct contact are easy to find'],
+        ['ZMK Studio', 'Edit everyday keymaps without reflashing'],
+        ['Open firmware', 'Config and keymaps stay inspectable'],
+        ['Real product media', 'See the hardware before you decide'],
+      ],
+    };
+
+const base = isZh ? '/zh' : '';
+---
+
+<SiteLayout title={t.title} description={t.description} lang={lang}>
+  <section class="hero" style={`--hero-image: url('/products/ferris-sweep-pro/background-poster.png')`}>
+    <div class="hero-content">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.h1}</h1>
+      <p>{t.lead}</p>
+      <div class="actions">
+        <a class="button primary" href={`${base}/products/ferris-sweep-pro/`}>{t.buy}</a>
+        <a class="button secondary" href={`${base}/docs/`}>{t.docs}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label={isZh ? '购买信任信息' : 'Purchase confidence'}>
+    <div class="wrap trust-grid">
+      {t.trust.map(([label, copy]) => (
+        <div class="trust-item">
+          <strong>{label}</strong>
+          <span>{copy}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.featuresTitle}</h2>
+        <p>{t.featuresLead}</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="mark">1</span>
+          <h3>{isZh ? '34 键紧凑布局' : '34-key compact layout'}</h3>
+          <p>{isZh ? '双手自然分开，减少肩颈内扣，同时把常用修饰键放在更短的手指路径上。' : 'Keep your hands naturally separated while moving modifiers and layers into shorter finger paths.'}</p>
+        </article>
+        <article class="feature-card">
+          <span class="mark">2</span>
+          <h3>{isZh ? '触控板和旋钮' : 'Trackpad and encoders'}</h3>
+          <p>{isZh ? '光标、滚动、音量、亮度和宏操作都能留在键盘上完成，减少频繁离开主键区。' : 'Cursor movement, scrolling, volume, brightness, and macros stay on the keyboard surface.'}</p>
+        </article>
+        <article class="feature-card">
+          <span class="mark">3</span>
+          <h3>{isZh ? 'ZMK Studio 支持' : 'ZMK Studio support'}</h3>
+          <p>{isZh ? '日常键位调整不需要重新编译固件，适合不断打磨自己工作流的用户。' : 'Tune your daily keymap without rebuilding firmware every time your workflow changes.'}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.productsTitle}</h2>
+        <p>{t.productsLead}</p>
+      </div>
+      <div class="product-grid">
+        <a class="product-card" href={`${base}/products/ferris-sweep-pro/`}>
+          <img src="/products/ferris-sweep-pro/poster.png" alt="Ferris Sweep Pro" />
+          <div class="body">
+            <h3>Ferris Sweep Pro</h3>
+            <p>{isZh ? '触控板、电子墨水屏、双旋钮、4000mAh 电池，可选磁吸支架套餐。' : 'Trackpad, e-ink display, dual encoders, a 4000mAh battery, and an optional magnetic-stand kit.'}</p>
+          </div>
+        </a>
+        <a class="product-card" href={`${base}/products/ferris-sweep/`}>
+          <img src="/products/ferris-sweep/sweep-1.png" alt="Ferris Sweep" />
+          <div class="body">
+            <h3>Ferris Sweep</h3>
+            <p>{isZh ? '34 键矮轴无线分体键盘，支持热插拔和 ZMK Studio。' : '34-key low-profile wireless split keyboard with hot-swap switches and ZMK Studio support.'}</p>
+          </div>
+        </a>
+        <a class="product-card" href={`${base}/products/magnetic-stand/`}>
+          <img src="/products/magnetic-stand/stand-1.png" alt={isZh ? '分体键盘磁吸支架' : 'Magnetic stand for split keyboards'} />
+          <div class="body">
+            <h3>{isZh ? '磁吸支架' : 'Magnetic stand'}</h3>
+            <p>{isZh ? '黑色金属夹持式支架一对，用于稳定分体键盘角度。' : 'A pair of black metal clamp-style stands for stable split-keyboard positioning.'}</p>
+          </div>
+        </a>
+        <a class="product-card" href={`${base}/products/low-profile-keycaps/`}>
+          <img src="/products/low-profile-keycaps/white.png" alt={isZh ? 'NXTKB 矮轴键帽' : 'NXTKB low-profile keycaps'} />
+          <div class="body">
+            <h3>{isZh ? 'NXTKB 矮轴键帽' : 'NXTKB low-profile keycaps'}</h3>
+            <p>{isZh ? '34 键 PBT 热升华矮轴键帽，提供白色和黑色。' : '34-key PBT dye-sub low-profile keycaps, available in white and black.'}</p>
+          </div>
+        </a>
+        <article class="product-card">
+          <img src="/products/ferris-sweep-pro/studio.png" alt="ZMK Studio" />
+          <div class="body">
+            <h3>ZMK Studio</h3>
+            <p>{isZh ? '图形化实时改键，更适合第一次接触 34 键分体键盘的用户。' : 'Live graphical keymap editing for users new to compact split layouts.'}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap media-row reverse">
+      <div class="media-copy">
+        <h2>{t.docsTitle}</h2>
+        <p>{t.docsLead}</p>
+        <div class="actions">
+          <a class="button primary" href={`${base}/docs/`}>{isZh ? '打开文档' : 'Open docs'}</a>
+        </div>
+      </div>
+      <div class="media-frame">
+        <img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_default_layer.svg" alt={isZh ? '默认键位图' : 'Default keymap'} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.toolsTitle}</h2>
+        <p>{t.toolsLead}</p>
+      </div>
+      <div class="info-grid">
+        <a class="info-card link-card" href="https://input-test.nxtkb.com" target="_blank" rel="noopener noreferrer">
+          <h3>{isZh ? 'NXTKB Input Tester' : 'NXTKB Input Tester'}</h3>
+          <p>{isZh ? '网页中直接测试键盘、鼠标键、滚轮和触控板相关输入。' : 'Test keyboard, mouse button, wheel, and trackpad-related input directly in the browser.'}</p>
+        </a>
+        <a class="info-card link-card" href="https://zmk.studio" target="_blank" rel="noopener noreferrer">
+          <h3>ZMK Studio</h3>
+          <p>{isZh ? '目前使用官方 ZMK Studio 做实时改键，未来再考虑 NXTKB 定制版。' : 'Use the official ZMK Studio for live keymap editing today; a custom NXTKB experience can come later.'}</p>
+        </a>
+        <a class="info-card link-card" href={`${base}/tools/`}>
+          <h3>{isZh ? '工具说明' : 'Tool guide'}</h3>
+          <p>{isZh ? '查看推荐使用顺序和源码入口。' : 'See the recommended workflow and source links.'}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</SiteLayout>

@@ -1,0 +1,28 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="博客 | NXTKB" description="NXTKB 产品更新与人体工学输入内容。" lang="zh">
+  <section class="hero" style="--hero-image: url('/zh/featured-background.png')">
+    <div class="hero-content">
+      <p class="eyebrow">Blog</p>
+      <h1>NXTKB 的产品、固件与使用记录。</h1>
+      <p>后续产品更新、固件变化、人体工学思考和构建故事都可以放在这里。</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap product-grid">
+      <a class="product-card link-card" href="/zh/blog/why-choose-a-split-keyboard/">
+        <img src="/blog/split-keyboard-ergonomics/wrist-alignment.png" alt="分体键盘手腕对齐示意图" />
+        <div class="body">
+          <h3>为什么选择分体键盘？</h3>
+          <p>用图片解释手腕角度、肩宽、指针设备距离和紧凑分体键盘的桌面布局。</p>
+        </div>
+      </a>
+      <article class="info-card">
+        <h3>欢迎来到 NXTKB Blog</h3>
+        <p>这里会整理产品更新、人体工学输入、技术内容和用户故事。</p>
+      </article>
+    </div>
+  </section>
+</SiteLayout>

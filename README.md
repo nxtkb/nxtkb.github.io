@@ -1,92 +1,71 @@
 # NXTKB Official Website
 
-[![Built with Hugo](https://img.shields.io/badge/Built%20with-Hugo-ff4088?logo=hugo)](https://gohugo.io/)
+[![Built with Astro](https://img.shields.io/badge/Built%20with-Astro-ff5d01?logo=astro)](https://astro.build/)
 [![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-222222?logo=github)](https://pages.github.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Introduction
 
-This repository contains the official website for **NXTKB** - Next Generation Keyboard, a cutting-edge split keyboard designed for comfort, ergonomics, and productivity. The website showcases our product, provides documentation, and serves as a hub for the NXTKB community.
-
-NXTKB represents the future of keyboard design, featuring advanced ergonomics, customization, and cutting-edge technology to enhance your typing experience. This Hugo-powered site provides comprehensive information about our innovative split keyboard solution.
+This repository contains the official website for **NXTKB**. The site is built with Astro, uses custom product pages for the marketing surface, and uses Starlight for documentation.
 
 ## Features
 
-- **Responsive Design**: Works seamlessly across all devices
-- **Documentation**: Comprehensive user guides and setup instructions
-- **Product Showcase**: Detailed information about NXTKB features and variants
-- **Multi-language Support**: English and Chinese content available
-- **Fast Loading**: Optimized static site performance with Hugo
-- **Search Functionality**: Easy navigation through content
+- **Product-first design**: Custom Astro pages for the homepage and product showcase
+- **Documentation**: Starlight-powered user guides and setup instructions
+- **Multi-language Support**: English root pages and Chinese pages under `/zh/`
+- **Fast Loading**: Static Astro output deployed to GitHub Pages
+- **Search Functionality**: Starlight documentation search
 
 ## Prerequisites
 
-- [Hugo](https://gohugo.io/) (extended version)
-- Git
-- Node.js (for development tools, if needed)
+- Node.js 24
+- npm
 
 ## Setup Instructions
 
-### 1. Clone the repository
+### 1. Install dependencies
 
 ```bash
-git clone https://github.com/yourusername/nxtkb.github.io.git
-cd nxtkb.github.io
+npm install
 ```
 
-### 2. Initialize Git submodules (for the Docsy theme)
+### 2. Run the site locally
 
 ```bash
-git submodule update --init --recursive
+npm run dev
 ```
 
-### 3. Install Go modules (if Hugo modules are used)
-
-```bash
-go mod tidy
-```
-
-### 4. Run the site locally
-
-```bash
-hugo server
-```
-
-The site will be available at `http://localhost:1313`
+The site will be available at `http://localhost:4321`
 
 ## Development
 
 ### Adding Content
 
-- Content is written in Markdown format
-- English content goes in `/content/en/`
-- Chinese content goes in `/content/zh/`
-- Use the `hugo new` command to create new content:
+- Product and landing pages live in `/src/pages/` and `/src/components/`
+- Documentation lives in `/src/content/docs/docs/`
+- Chinese documentation lives in `/src/content/docs/zh/docs/`
+- Static files live in `/public/`
 
 ```bash
-hugo new content/en/docs/new-post.md
+npm run dev
 ```
 
 ### Building for Production
 
 ```bash
-hugo --minify
+npm run build
 ```
 
 ## Technologies Used
 
-- **[Hugo](https://gohugo.io/)**: Blazing fast static site generator
-- **[Docsy Theme](https://www.docsy.dev/)**: Modern documentation theme
+- **[Astro](https://astro.build/)**: Content-driven static site framework
+- **[Starlight](https://starlight.astro.build/)**: Documentation framework for Astro
 - **[GitHub Actions](https://docs.github.com/en/actions)**: CI/CD pipeline
 - **[GitHub Pages](https://pages.github.com/)**: Hosting platform
 
 ## Deployment
 
-The site is automatically deployed to GitHub Pages using GitHub Actions when changes are pushed to the main branch. The deployment workflow includes:
-1. Installing Hugo and dependencies
-2. Checking out the repository with submodules
-3. Building the site with optimizations
-4. Deploying to the `gh-pages` branch
+The site is automatically deployed to GitHub Pages using GitHub Actions when changes are pushed to the main branch. The deployment workflow installs Node.js dependencies, runs the Astro build, uploads `dist/`, and deploys via GitHub Pages.
 
 ## Contributing
 
@@ -105,18 +84,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For support with the NXTKB product, please contact us at [your-email@example.com] or visit our [support page](support-link).
-
-## About NXTKB
-
-**NXTKB** (Next Generation Keyboard) is a revolutionary split keyboard designed to revolutionize the way you type. Our ergonomic design prioritizes your health, comfort, and productivity, offering:
-- Advanced wireless technology
-- Customizable key mapping
-- Adjustable split angle
-- Superior build quality
-- Long battery life
-
-Join the typing revolution with NXTKB - where comfort meets productivity!
-
-
+For support with the NXTKB product, see the documentation or product pages.
 

@@ -1,0 +1,120 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+
+const t = isZh
+  ? {
+      title: '工具 | NXTKB',
+      description: 'NXTKB 键盘测试和键位配置工具入口。',
+      eyebrow: 'Tools',
+      h1: '测试输入，调整键位，然后继续工作。',
+      lead:
+        '这里集中放 NXTKB 用户最常用的网页工具。测试键盘和鼠标输入使用 NXTKB Input Tester；日常改键目前继续使用官方 ZMK Studio。',
+      testerTitle: 'NXTKB Input Tester',
+      testerCopy:
+        '测试键盘按键、鼠标按键和滚轮输入，适合收货后检查、排查按键问题、验证触控板和鼠标层行为。',
+      testerAction: '打开测试工具',
+      testerCode: '查看源码',
+      studioTitle: 'ZMK Studio',
+      studioCopy:
+        '官方 ZMK Studio 用于实时调整支持 Studio 的 ZMK 键盘键位。NXTKB 未来会考虑做定制体验，目前先使用官方工具。',
+      studioAction: '打开官方 Studio',
+      studioDocs: '查看 ZMK Studio 文档',
+      flowTitle: '推荐使用顺序',
+      flow: [
+        ['连接键盘', '确认蓝牙或 USB-C 已连接。'],
+        ['打开测试工具', '按下每个键，检查键盘、鼠标键和滚轮事件。'],
+        ['需要改键时打开 ZMK Studio', '保存后再回到测试工具验证。'],
+      ],
+    }
+  : {
+      title: 'Tools | NXTKB',
+      description: 'NXTKB keyboard tester and keymap configuration tool links.',
+      eyebrow: 'Tools',
+      h1: 'Test input, tune the keymap, get back to work.',
+      lead:
+        'This page keeps the browser tools NXTKB users need most. Use NXTKB Input Tester for keyboard and mouse input checks, and use the official ZMK Studio for live keymap editing for now.',
+      testerTitle: 'NXTKB Input Tester',
+      testerCopy:
+        'Test keyboard keys, mouse buttons, and wheel input after delivery, while troubleshooting, or when validating trackpad and mouse-layer behavior.',
+      testerAction: 'Open tester',
+      testerCode: 'View source',
+      studioTitle: 'ZMK Studio',
+      studioCopy:
+        'The official ZMK Studio edits keymaps live on supported ZMK keyboards. NXTKB may build a customized experience later; for now, use the official tool.',
+      studioAction: 'Open official Studio',
+      studioDocs: 'Read ZMK Studio docs',
+      flowTitle: 'Recommended flow',
+      flow: [
+        ['Connect the keyboard', 'Pair over Bluetooth or plug in over USB-C.'],
+        ['Open the tester', 'Press each key and check keyboard, mouse button, and wheel events.'],
+        ['Open ZMK Studio when you need changes', 'Save the keymap, then return to the tester to verify it.'],
+      ],
+    };
+---
+
+<SiteLayout title={t.title} description={t.description} lang={lang}>
+  <section class="hero" style="--hero-image: url('/products/ferris-sweep-pro/studio.png')">
+    <div class="hero-content">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.h1}</h1>
+      <p>{t.lead}</p>
+      <div class="actions">
+        <a class="button primary" href="https://input-test.nxtkb.com" target="_blank" rel="noopener noreferrer">{t.testerAction}</a>
+        <a class="button secondary" href="https://zmk.studio" target="_blank" rel="noopener noreferrer">{t.studioAction}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap product-grid">
+      <article class="product-card">
+        <img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_mouse_layer.svg" alt={t.testerTitle} />
+        <div class="body">
+          <h3>{t.testerTitle}</h3>
+          <p>{t.testerCopy}</p>
+          <div class="actions compact-actions">
+            <a class="button primary" href="https://input-test.nxtkb.com" target="_blank" rel="noopener noreferrer">{t.testerAction}</a>
+            <a class="button outline" href="https://github.com/nxtkb/keyboard-mouse-tester">{t.testerCode}</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card">
+        <img src="/products/ferris-sweep-pro/studio.png" alt={t.studioTitle} />
+        <div class="body">
+          <h3>{t.studioTitle}</h3>
+          <p>{t.studioCopy}</p>
+          <div class="actions compact-actions">
+            <a class="button primary" href="https://zmk.studio" target="_blank" rel="noopener noreferrer">{t.studioAction}</a>
+            <a class="button outline" href="https://zmk.dev/docs/features/studio">{t.studioDocs}</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.flowTitle}</h2>
+      </div>
+      <div class="path-list">
+        {t.flow.map(([label, copy], index) => (
+          <article class="path-step">
+            <span>{index + 1}</span>
+            <div>
+              <h3>{label}</h3>
+              <p>{copy}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</SiteLayout>

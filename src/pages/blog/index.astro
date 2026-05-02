@@ -1,0 +1,28 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Blog | NXTKB" description="Product updates and ergonomic computing notes.">
+  <section class="hero" style="--hero-image: url('/featured-background.png')">
+    <div class="hero-content">
+      <p class="eyebrow">Blog</p>
+      <h1>Updates from the NXTKB workbench.</h1>
+      <p>Product notes, firmware changes, ergonomic ideas, and build stories will live here.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap product-grid">
+      <a class="product-card link-card" href="/blog/why-choose-a-split-keyboard/">
+        <img src="/blog/split-keyboard-ergonomics/wrist-alignment.png" alt="Split keyboard wrist alignment illustration" />
+        <div class="body">
+          <h3>Why choose a split keyboard?</h3>
+          <p>A visual explanation of wrist angle, shoulder width, pointer reach, and compact split keyboard setup.</p>
+        </div>
+      </a>
+      <a class="info-card link-card" href="/blog/welcome-to-nxtkb-blog/">
+        <h3>Welcome to the NXTKB Blog</h3>
+        <p>News, product updates, ergonomic insights, technical content, and user stories.</p>
+      </a>
+    </div>
+  </section>
+</SiteLayout>

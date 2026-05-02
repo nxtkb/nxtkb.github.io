@@ -1,0 +1,157 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+const base = isZh ? '/zh' : '';
+const assetBase = isZh ? '/zh/products/ferris-sweep' : '/products/ferris-sweep';
+const taobaoUrl =
+  'https://item.taobao.com/item.htm?id=818899575086&mi_id=0000vbbrI9IbnKujM5-ONDwr6gQkqoYUtGd1s7COILWkB6o&skuId=6089823135222&spm=a21xtw.29178619.0.0&xxc=shop';
+
+const t = isZh
+  ? {
+      title: 'Ferris Sweep | NXTKB',
+      description: '34 键 Ferris Sweep 矮轴无线分体键盘，支持 ZMK Studio 和多平台连接。',
+      eyebrow: 'Ferris Sweep',
+      h1: '34 键矮轴无线分体键盘。',
+      lead:
+        '热插拔、蓝牙无线连接、支持 ZMK Studio，可选多种外壳颜色、轴体和磁吸支架套餐。',
+      buy: '淘宝购买',
+      docs: '查看键位文档',
+      back: '查看全部产品',
+      featureTitle: '商品信息',
+      featureLead: '以下信息来自已登录淘宝页面解析；价格、库存和发货承诺仍以淘宝实时页面为准。',
+      detailTitle: '购买前确认',
+      detailLead: '淘宝页面当前显示键盘 ¥600 起，另有键盘+磁吸支架套餐；单独支架选项会低于键盘价格。',
+      keymapTitle: '默认键位预览',
+      keymapLead: 'Ferris Sweep 使用 34 键分层布局，默认键位文档中包含字符、导航、符号、功能和鼠标层。',
+      galleryTitle: '商品图集',
+      specs: [
+        ['标题', 'ferris sweep人体工学键盘 矮轴键盘 分体键盘 客制化键盘 34键'],
+        ['价格', '淘宝当前显示键盘 ¥600 起，快递免运费。'],
+      ],
+      details: [
+        ['键位', '34 键 Ferris Sweep 布局'],
+        ['轴体', '凯华 Choc V1 矮轴，含红轴、粉红轴、红 Pro、白轴、茶轴和定制轴体选项'],
+        ['颜色', '黑色、白色、绿色、圣诞绿、蓝色、橙色、红色、金色，以及多种双色和自定义配色'],
+        ['套餐', '官方标配 / 键盘+磁吸支架'],
+        ['兼容平台', 'Linux、Windows、Android、HarmonyOS、macOS、iOS'],
+        ['发货', '淘宝当前显示 48 小时内发货'],
+      ],
+    }
+  : {
+      title: 'Ferris Sweep | NXTKB',
+      description: 'A 34-key low-profile wireless Ferris Sweep split keyboard with ZMK Studio support.',
+      eyebrow: 'Ferris Sweep',
+      h1: 'A 34-key low-profile wireless split keyboard.',
+      lead:
+        'Hot-swappable, Bluetooth wireless, ZMK Studio capable, with multiple case colors, switch choices, and an optional magnetic stand kit.',
+      buy: 'Buy on Taobao',
+      docs: 'View keymap docs',
+      back: 'View all products',
+      featureTitle: 'Product details',
+      featureLead:
+        'These details were parsed from the logged-in Taobao item page. Price, stock, and shipping promises should still be checked on Taobao before ordering.',
+      detailTitle: 'Before ordering',
+      detailLead: 'The Taobao page currently shows the keyboard from ¥600, with an optional keyboard-plus-magnetic-stand kit. A stand-only option is listed separately at a lower price.',
+      keymapTitle: 'Default keymap preview',
+      keymapLead: 'Ferris Sweep uses a 34-key layered layout. The keymap docs cover character, navigation, symbol, function, and mouse layers.',
+      galleryTitle: 'Product gallery',
+      specs: [
+        ['Title', 'Ferris Sweep ergonomic low-profile custom 34-key split keyboard.'],
+        ['Price', 'Taobao currently shows the keyboard from ¥600 with free domestic express shipping.'],
+      ],
+      details: [
+        ['Layout', '34-key Ferris Sweep layout'],
+        ['Switches', 'Kailh Choc V1 low-profile options including red, pink, red pro, white, brown, and custom switches'],
+        ['Colors', 'Black, white, green, Christmas green, blue, orange, red, gold, two-tone options, and custom colors'],
+        ['Kits', 'Standard kit / keyboard plus magnetic stand'],
+        ['Platforms', 'Linux, Windows, Android, HarmonyOS, macOS, and iOS'],
+        ['Shipping', 'Taobao currently shows shipment within 48 hours'],
+      ],
+    };
+---
+
+<SiteLayout title={t.title} description={t.description} lang={lang}>
+  <section class="hero" style={`--hero-image: url('${assetBase}/sweep-1.png')`}>
+    <div class="hero-content">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.h1}</h1>
+      <p>{t.lead}</p>
+      <div class="actions">
+        <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        <a class="button secondary" href={`${base}/docs/setup/keymap/ferris-sweep-keymap/`}>{t.docs}</a>
+        <a class="button secondary" href={`${base}/products/`}>{t.back}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.featureTitle}</h2>
+        <p>{t.featureLead}</p>
+      </div>
+      <div class="spec-grid">
+        {t.specs.map(([label, copy]) => (
+          <div class="spec">
+            <span>{label}</span>
+            <strong>{copy}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap media-row">
+      <div class="media-copy">
+        <h2>{t.detailTitle}</h2>
+        <p>{t.detailLead}</p>
+        <ul>
+          {t.details.map(([label, copy]) => <li><strong>{label}:</strong> {copy}</li>)}
+        </ul>
+        <div class="actions">
+          <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        </div>
+      </div>
+      <div class="media-frame">
+        <img src={`${assetBase}/sweep-2.png`} alt={t.title} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap media-row">
+      <div class="media-copy">
+        <h2>{t.keymapTitle}</h2>
+        <p>{t.keymapLead}</p>
+        <div class="actions">
+          <a class="button primary" href={`${base}/docs/setup/keymap/ferris-sweep-keymap/`}>{t.docs}</a>
+        </div>
+      </div>
+      <div class="media-frame keymap-frame">
+        <img src="/keymaps/ferris-sweep/ferris_sweep_keymap.svg" alt={t.keymapTitle} loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.galleryTitle}</h2>
+      </div>
+      <div class="gallery">
+        <img src={`${assetBase}/sweep-1.png`} alt={t.galleryTitle} loading="lazy" />
+        <img src={`${assetBase}/sweep-2.png`} alt={t.galleryTitle} loading="lazy" />
+        <img src={`${assetBase}/sweep-3.png`} alt={t.galleryTitle} loading="lazy" />
+        <img src={`${assetBase}/sweep-4.png`} alt={t.galleryTitle} loading="lazy" />
+        <img src={`${assetBase}/sweep-5.png`} alt={t.galleryTitle} loading="lazy" />
+      </div>
+    </div>
+  </section>
+</SiteLayout>

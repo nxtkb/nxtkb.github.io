@@ -1,0 +1,146 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+const base = isZh ? '/zh' : '';
+const assetBase = isZh ? '/zh/products/low-profile-keycaps' : '/products/low-profile-keycaps';
+const taobaoUrl =
+  'https://item.taobao.com/item.htm?id=1028293273125&mi_id=0000G3EVNeypsZ9T0TAyCUzKLFATYuWyNxGO6FVQ0VUx67c';
+
+const t = isZh
+  ? {
+      title: 'NXTKB 矮轴键帽 | NXTKB',
+      description: 'NXTKB 超薄矮轴键帽，PBT 热升华刻字，34 键 Sweep 键帽。',
+      eyebrow: 'NXTKB 矮轴键帽',
+      h1: 'NXTKB 超薄矮轴键帽。',
+      lead:
+        'PBT 颗粒材质、五面热升华刻字，34 键套装，适用于 Sweep Pro 和同类紧凑分体键盘。',
+      buy: '淘宝购买',
+      back: '查看全部产品',
+      featureTitle: '商品信息',
+      featureLead: '以下信息来自已登录淘宝页面解析；价格、库存和发货承诺仍以淘宝实时页面为准。',
+      detailTitle: '购买前确认',
+      detailLead: '淘宝页面当前显示黑色、白色两个颜色分类，价格均为 ¥70，单色 SKU 当前显示有货。',
+      legendTitle: '键位图',
+      legendLead: '图文详情中的键帽图例，展示白色与黑色套装的正刻、侧刻和副层级标识。',
+      galleryTitle: '颜色展示',
+      specs: [
+        ['标题', 'NXTKB超薄矮轴键帽 PBT热升华刻字 34键 sweep键帽 分体键盘键帽'],
+        ['价格', '淘宝当前显示 ¥70，快递免运费。'],
+        ['颜色', '白色、黑色。'],
+      ],
+      details: [
+        ['套装', '34 键'],
+        ['工艺', 'PBT 颗粒，五面热升华'],
+        ['库存', '白色与黑色 SKU 当前均显示有货'],
+        ['发货', '淘宝当前显示承诺今天发货'],
+      ],
+    }
+  : {
+      title: 'NXTKB Low-profile Keycaps | NXTKB',
+      description: 'NXTKB ultra-low-profile PBT dye-sub keycaps for 34-key Sweep layouts.',
+      eyebrow: 'NXTKB low-profile keycaps',
+      h1: 'NXTKB ultra-low-profile keycaps.',
+      lead:
+        'A 34-key PBT dye-sub keycap kit for Sweep Pro and similar compact split keyboards, available in white and black.',
+      buy: 'Buy on Taobao',
+      back: 'View all products',
+      featureTitle: 'Product details',
+      featureLead:
+        'These details were parsed from the logged-in Taobao item page. Price, stock, and shipping promises should still be checked on Taobao before ordering.',
+      detailTitle: 'Before ordering',
+      detailLead: 'The Taobao page currently lists white and black color options at ¥70, with both SKUs shown as in stock.',
+      legendTitle: 'Legend map',
+      legendLead: 'The Taobao detail image shows the white and black kits with top legends, side legends, and layer markings.',
+      galleryTitle: 'Color options',
+      specs: [
+        ['Title', 'NXTKB ultra-low-profile PBT dye-sub 34-key Sweep split-keyboard keycaps.'],
+        ['Price', 'Taobao currently shows ¥70 with free domestic express shipping.'],
+        ['Colors', 'White and black.'],
+      ],
+      details: [
+        ['Kit', '34 keys'],
+        ['Process', 'PBT texture with five-sided dye sublimation'],
+        ['Stock', 'White and black SKUs are currently shown as in stock'],
+        ['Shipping', 'Taobao currently shows same-day shipping promise'],
+      ],
+    };
+---
+
+<SiteLayout title={t.title} description={t.description} lang={lang}>
+  <section class="hero" style={`--hero-image: url('${assetBase}/white.png')`}>
+    <div class="hero-content">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.h1}</h1>
+      <p>{t.lead}</p>
+      <div class="actions">
+        <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        <a class="button secondary" href={`${base}/products/`}>{t.back}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.featureTitle}</h2>
+        <p>{t.featureLead}</p>
+      </div>
+      <div class="spec-grid">
+        {t.specs.map(([label, copy]) => (
+          <div class="spec">
+            <span>{label}</span>
+            <strong>{copy}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap media-row">
+      <div class="media-copy">
+        <h2>{t.detailTitle}</h2>
+        <p>{t.detailLead}</p>
+        <ul>
+          {t.details.map(([label, copy]) => <li><strong>{label}:</strong> {copy}</li>)}
+        </ul>
+        <div class="actions">
+          <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        </div>
+      </div>
+      <div class="media-frame">
+        <img src={`${assetBase}/white.png`} alt={isZh ? '白色 NXTKB 矮轴键帽' : 'White NXTKB low-profile keycaps'} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.legendTitle}</h2>
+        <p>{t.legendLead}</p>
+      </div>
+      <div class="detail-image-frame">
+        <img src={`${assetBase}/keymap.png`} alt={t.legendTitle} loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>{t.galleryTitle}</h2>
+      </div>
+      <div class="gallery">
+        <img src={`${assetBase}/white.png`} alt={isZh ? '白色 NXTKB 矮轴键帽' : 'White NXTKB low-profile keycaps'} loading="lazy" />
+        <img src={`${assetBase}/black.png`} alt={isZh ? '黑色 NXTKB 矮轴键帽' : 'Black NXTKB low-profile keycaps'} loading="lazy" />
+      </div>
+    </div>
+  </section>
+</SiteLayout>
