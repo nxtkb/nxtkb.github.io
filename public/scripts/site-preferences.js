@@ -92,11 +92,97 @@
     );
   }
 
+  function createKeymapLightbox() {
+    var lightbox = document.createElement('div');
+    lightbox.className = 'keymap-js-lightbox';
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+
+    var backdrop = document.createElement('button');
+    backdrop.className = 'keymap-js-lightbox-backdrop';
+    backdrop.type = 'button';
+    backdrop.setAttribute('aria-label', 'Close keymap preview');
+
+    var panel = document.createElement('figure');
+    panel.className = 'keymap-js-lightbox-panel';
+
+    var close = document.createElement('button');
+    close.className = 'keymap-js-lightbox-close';
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close keymap preview');
+    close.textContent = '\u00d7';
+
+    var image = document.createElement('img');
+    image.alt = '';
+
+    panel.appendChild(close);
+    panel.appendChild(image);
+    lightbox.appendChild(backdrop);
+    lightbox.appendChild(panel);
+    document.body.appendChild(lightbox);
+
+    function hide() {
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('nxtkb-keymap-lightbox-open');
+      image.removeAttribute('src');
+    }
+
+    function show(source, alt) {
+      image.src = source;
+      image.alt = alt || 'Keymap preview';
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('nxtkb-keymap-lightbox-open');
+      close.focus();
+    }
+
+    backdrop.addEventListener('click', hide);
+    close.addEventListener('click', hide);
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') hide();
+    });
+
+    return { show: show };
+  }
+
+  function enhanceKeymapImages() {
+    var content = document.querySelector('.sl-markdown-content');
+    if (!content) return;
+
+    var lightbox;
+    content.querySelectorAll('img[src^="/keymaps/"]').forEach(function (image) {
+      if (image.closest('.keymap-lightbox')) return;
+      if (image.closest('.keymap-overview')) return;
+      if (image.closest('.keymap-image-link')) return;
+
+      var link = document.createElement('a');
+      link.className = 'keymap-image-link';
+      link.href = image.currentSrc || image.src;
+      link.setAttribute('aria-label', image.alt ? 'Open ' + image.alt : 'Open keymap image');
+      image.parentNode.insertBefore(link, image);
+      link.appendChild(image);
+
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (!lightbox) lightbox = createKeymapLightbox();
+        lightbox.show(image.currentSrc || image.src, image.alt);
+      });
+    });
+  }
+
   redirectToPreferredLanguage();
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindLanguageControls, { once: true });
+    document.addEventListener(
+      'DOMContentLoaded',
+      function () {
+        bindLanguageControls();
+        enhanceKeymapImages();
+      },
+      { once: true }
+    );
   } else {
     bindLanguageControls();
+    enhanceKeymapImages();
   }
 })();
