@@ -2,27 +2,34 @@
 title: "入门指南"
 ---
 
-欢迎来到下一代打字舒适体验！本指南将帮助您完成新分体式键盘的设置，步骤如下：
+这页是新键盘第一次上手的检查清单。目标很简单：开机、确认能输入、按你的使用方式连接，然后理解默认层。
 
-## 包装内容
+## 第一次上手
 
-收到您的NXTKB时，您将发现：
-- 两个键盘半体
-- 2根USB充电线（一根Type-C to Type-C，一根USB-B to Type-C）
-- 键盘收纳袋
-- 其他惊喜...
+1. 打开左右两半键盘电源。
+2. 先用 USB-C 连接左手半边。
+3. 打开[键鼠测试](keymap/input-tester/)，按几个键确认有输入。
+4. 如果需要无线使用，再进行蓝牙配对。
+5. 查看对应型号的默认键位。
+6. 如果你的 Sweep Pro 带触控板或墨水屏，再查看对应功能说明。
 
-## 设置说明
+## 选择你的键盘
 
-本节包含使您的键盘正常运行的详细操作指南：
+| 键盘 | 先看这里 | 额外说明 |
+| :--- | :--- | :--- |
+| Ferris Sweep Pro | [Ferris Sweep Pro 键位](keymap/ferris-sweep-pro-keymap/) | [触控板](keymap/trackpad/)、[墨水屏](../firmware/sweep-pro-display/) |
+| Ferris Sweep | [Ferris Sweep 键位](keymap/ferris-sweep-keymap/) | [Ferris Sweep 配置文件](../firmware/ferris-sweep-configuration/) |
 
-- [连接到设备](connect/) - USB和蓝牙连接的完整指南
-- [键位映射](keymap/) - 各键盘型号的默认键位映射、层图表及自定义指南
-- [键位测试工具](keymap/input-tester/) - 在浏览器中测试键盘、鼠标、滚轮和触控板输入
+## 常用下一步
 
-## 支持资源
+- [连接到设备](connect/)：说明 USB、蓝牙配对和多设备切换。
+- [键鼠测试](keymap/input-tester/)：在浏览器中验证按键、鼠标键、滚轮事件和触控板行为。
+- [键位概览](keymap/)：查看默认层图和改键说明。
+- [如何刷写固件](../firmware/how-to-flash-a-firmware/)：需要更新固件时，说明如何刷 UF2。
 
-- 查看[文档](/zh/docs/)获取全面指南
-- 需要确认按键、鼠标键、滚轮事件或触控板手势是否被识别时，可以使用[键位测试工具](keymap/input-tester/)
+## 如果遇到问题
 
-现在您已准备好开始使用NXTKB的健康打字之旅！享受新键盘为您带来的健康益处和提升的舒适度。
+- 先测试 USB。它是确认键盘能正常发送按键事件的最短路径。
+- 如果蓝牙配对失败，清除当前蓝牙槽位后重新配对。
+- 如果只有半边有反应，确认左右两半都已打开电源。
+- 如果触控板或滚轮事件不符合预期，先用[键鼠测试](keymap/input-tester/)观察事件，再看[触控板说明](keymap/trackpad/)。

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
   title: string;
@@ -11,14 +12,16 @@ const { title, description = 'Ergonomic split keyboards by NXTKB.', lang = 'en' 
 const isZh = lang === 'zh';
 const nav = isZh
   ? [
+      ['键鼠测试', 'https://input-test.nxtkb.com', 'tool'],
       ['产品', '/zh/products/'],
-      ['文档', '/zh/docs/'],
+      ['文档', '/zh/docs/setup/'],
       ['工具', '/zh/tools/'],
       ['博客', '/zh/blog/'],
     ]
   : [
+      ['Input Tester', 'https://input-test.nxtkb.com', 'tool'],
       ['Products', '/products/'],
-      ['Docs', '/docs/'],
+      ['Docs', '/docs/setup/'],
       ['Tools', '/tools/'],
       ['Blog', '/blog/'],
     ];
@@ -52,7 +55,16 @@ const langLabel = isZh ? 'English' : '简体中文';
             <span>NXTKB</span>
           </a>
           <div class="nav-links">
-            {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+            {nav.map(([label, href, kind]) => (
+              <a
+                class={kind === 'tool' ? 'nav-tool-link' : undefined}
+                href={href}
+                aria-label={kind === 'tool' ? (isZh ? `${label}，在新标签页打开外部测试网站` : `${label}, opens the external tester site in a new tab`) : undefined}
+                {...externalLinkAttrs(href)}
+              >
+                {label}
+              </a>
+            ))}
             <a class="lang-switch" href={langHref}>{langLabel}</a>
           </div>
         </nav>
@@ -67,9 +79,9 @@ const langLabel = isZh ? 'English' : '简体中文';
             <p>{isZh ? '人体工学分体键盘、固件与使用文档。' : 'Ergonomic split keyboards, firmware, and docs.'}</p>
           </div>
           <div>
-            <a href="https://github.com/nxtkb/">GitHub</a>
+            <a href="https://github.com/nxtkb/" {...externalLinkAttrs('https://github.com/nxtkb/')}>GitHub</a>
             <span> · </span>
-            <a href={isZh ? '/zh/docs/' : '/docs/'}>{isZh ? '文档' : 'Docs'}</a>
+            <a href={isZh ? '/zh/docs/setup/' : '/docs/setup/'}>{isZh ? '文档' : 'Docs'}</a>
             <span> · </span>
             <a href={isZh ? '/zh/tools/' : '/tools/'}>{isZh ? '工具' : 'Tools'}</a>
           </div>

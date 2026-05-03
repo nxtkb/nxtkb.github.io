@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -19,7 +20,7 @@ const t = isZh
       testerTitle: 'NXTKB Input Tester',
       testerCopy:
         '测试键盘按键、鼠标按键和滚轮输入，适合收货后检查、排查按键问题、验证触控板和鼠标层行为。',
-      testerAction: '打开测试工具',
+      testerAction: '打开键鼠测试',
       testerCode: '查看源码',
       studioTitle: 'ZMK Studio',
       studioCopy:
@@ -29,8 +30,8 @@ const t = isZh
       flowTitle: '推荐使用顺序',
       flow: [
         ['连接键盘', '确认蓝牙或 USB-C 已连接。'],
-        ['打开测试工具', '按下每个键，检查键盘、鼠标键和滚轮事件。'],
-        ['需要改键时打开 ZMK Studio', '保存后再回到测试工具验证。'],
+        ['打开键鼠测试', '按下每个键，检查键盘、鼠标键和滚轮事件。'],
+        ['需要改键时打开 ZMK Studio', '保存后再回到键鼠测试验证。'],
       ],
     }
   : {
@@ -66,8 +67,8 @@ const t = isZh
       <h1>{t.h1}</h1>
       <p>{t.lead}</p>
       <div class="actions">
-        <a class="button primary" href="https://input-test.nxtkb.com" target="_blank" rel="noopener noreferrer">{t.testerAction}</a>
-        <a class="button secondary" href="https://zmk.studio" target="_blank" rel="noopener noreferrer">{t.studioAction}</a>
+        <a class="button primary" href="https://input-test.nxtkb.com" {...externalLinkAttrs('https://input-test.nxtkb.com')}>{t.testerAction}</a>
+        <a class="button secondary" href="https://zmk.studio" {...externalLinkAttrs('https://zmk.studio')}>{t.studioAction}</a>
       </div>
     </div>
   </section>
@@ -80,8 +81,8 @@ const t = isZh
           <h3>{t.testerTitle}</h3>
           <p>{t.testerCopy}</p>
           <div class="actions compact-actions">
-            <a class="button primary" href="https://input-test.nxtkb.com" target="_blank" rel="noopener noreferrer">{t.testerAction}</a>
-            <a class="button outline" href="https://github.com/nxtkb/keyboard-mouse-tester">{t.testerCode}</a>
+            <a class="button primary" href="https://input-test.nxtkb.com" {...externalLinkAttrs('https://input-test.nxtkb.com')}>{t.testerAction}</a>
+            <a class="button outline" href="https://github.com/nxtkb/keyboard-mouse-tester" {...externalLinkAttrs('https://github.com/nxtkb/keyboard-mouse-tester')}>{t.testerCode}</a>
           </div>
         </div>
       </article>
@@ -91,8 +92,8 @@ const t = isZh
           <h3>{t.studioTitle}</h3>
           <p>{t.studioCopy}</p>
           <div class="actions compact-actions">
-            <a class="button primary" href="https://zmk.studio" target="_blank" rel="noopener noreferrer">{t.studioAction}</a>
-            <a class="button outline" href="https://zmk.dev/docs/features/studio">{t.studioDocs}</a>
+            <a class="button primary" href="https://zmk.studio" {...externalLinkAttrs('https://zmk.studio')}>{t.studioAction}</a>
+            <a class="button outline" href="https://zmk.dev/docs/features/studio" {...externalLinkAttrs('https://zmk.dev/docs/features/studio')}>{t.studioDocs}</a>
           </div>
         </div>
       </article>

@@ -2,7 +2,7 @@
 title: "How to Update Keymaps"
 ---
 
-There are three methods to update keymaps for NXTKB keyboards. We recommend **Method 1** (fork and modify repository) for permanent changes and **Method 3** (ZMK Studio) for quick adjustments without re-flashing.
+There are three methods to update keymaps for NXTKB keyboards. We recommend **Method 1** (fork and modify repository) for permanent changes and **Method 2** (ZMK Studio) for quick adjustments without re-flashing.
 
 ## Method 1: Fork and Modify Configuration Repository (Recommended for Permanent Changes)
 

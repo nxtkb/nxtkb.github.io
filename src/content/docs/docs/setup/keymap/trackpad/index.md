@@ -15,22 +15,29 @@ Ferris Sweep Pro versions with the Cirque trackpad can handle pointer movement, 
 | Double click | Tap twice quickly. |
 | Right click | Tap the lower-right area of the trackpad. |
 | Vertical edge scroll | Slide up or down along the right edge of the trackpad. |
-| Free-direction scroll | Hold `Z`, then move on the trackpad. Pointer movement becomes scroll movement while held, so you can scroll in any direction. |
-| Horizontal edge scroll | Hold `Shift` or `Z`, then use the right-edge scroll gesture. The right edge changes from vertical scrolling to horizontal scrolling while held. |
+| Hold-to-scroll | Hold `Z`, then move on the trackpad. Pointer movement becomes wheel movement while held, so horizontal finger movement sends horizontal wheel events and vertical finger movement sends vertical wheel events. |
+| Horizontal edge scroll | Hold `Z`, then use the right-edge scroll gesture. Sweep Pro converts the native right-edge wheel event into a horizontal wheel event while `Z` is held. |
+| App-level horizontal scroll | Some desktop apps also treat `Shift` + vertical wheel as horizontal scroll. This is handled by the app or operating system, not by the trackpad firmware. |
 | Drag or select | Hold `X` to hold left click, move on the trackpad, then release `X`. |
 
-The `Z` and `X` keys still type normal characters when tapped. Their touchpad behaviors only activate when you hold them.
+The `Z` and `X` keys still type normal characters when tapped. Their trackpad helpers only activate when you hold them.
 
 ## Trackpad Modes
 
-The trackpad starts in absolute mode by default. The `Mode` key on the mouse layer toggles between absolute mode and relative mode.
+The current Sweep Pro firmware boots the Cirque controller in relative mode:
 
-| Mode | What it feels like | Best for |
+```text
+data-mode = "relative";
+```
+
+The `Mode` key on the mouse layer runs `&crq_mode CIRQUE_MODE_TOGGLE`, which switches the Cirque controller between relative mode and absolute mode at runtime. Switch modes while your finger is off the trackpad for the cleanest transition.
+
+| Mode | What it feels like | Sweep Pro behavior |
 | :--- | :--- | :--- |
-| Absolute mode | The firmware reads the finger position on the pad and converts it into pointer motion. It has more room for extended behaviors such as tap-drag, right-edge scroll, horizontal edge scroll, and edge motion. | Daily use when you want the full Sweep Pro trackpad feature set. |
-| Relative mode | The trackpad behaves more like a mature, stable small mouse sensor: finger movement is reported as relative pointer movement. | When stability and predictable mouse-like movement matter more than the extended absolute-mode features. |
+| Relative mode | The Cirque ASIC reports mouse-like relative packets. This is the boot default and the most mature path. | Supports pointer movement, tap buttons, native right-edge vertical scrolling, GlideExtend, hold-to-scroll with `Z`, runtime pointer speed, and runtime scroll speed. |
+| Absolute mode | The driver reads absolute finger coordinates, then converts them back into `REL_X/Y` pointer movement. This gives the firmware more control over gesture thresholds. | Supports software tap detection, lower-right right-click zone, tap-drag, right-edge vertical scroll, edge auto-pan, hold-to-scroll with `Z`, runtime pointer speed, and runtime scroll speed. |
 
-Use absolute mode if you want the default feature-rich behavior. Switch to relative mode if you prefer the more mature and stable mouse-like behavior. If the pointer feel changes after pressing `Mode`, press `Mode` again to return to the previous mode.
+Use relative mode when you want the stable mouse-like default behavior. Try absolute mode when you want the more tunable software gesture layer, especially tap-drag and edge auto-pan. If the pointer feel changes after pressing `Mode`, press `Mode` again to switch back.
 
 ## Mouse Layer
 
@@ -47,13 +54,36 @@ On the mouse layer:
 - `MB4` and `MB5` are browser back and forward.
 - `MCLK`, `LCLK`, and `RCLK` send middle, left, and right mouse clicks.
 - The arrow-style mouse keys move the pointer or send wheel events without using the trackpad.
-- `Ptr` and `Scroll` speed keys adjust pointer and scroll speed. Use the previous/next keys to step down or up.
-- `Mode` toggles the Cirque trackpad between absolute mode and relative mode.
+- `Ptr` speed keys adjust pointer speed.
+- `Scroll` speed keys adjust hold-to-scroll, native edge-wheel, and absolute edge-scroll speed.
+- `Mode` toggles the Cirque trackpad between relative mode and absolute mode.
+
+## Implementation Notes
+
+Sweep Pro's right half defines the Cirque hardware in `sweep_right_trackpad.overlay`:
+
+- I2C address `0x2a` with `data-ready-gpios`.
+- `sensitivity = "2x"`.
+- `startup-delay-ms = <600>` to give the controller time to recover after resets or firmware flashing.
+- `idle-packets-count = <3>` so relative-mode tap/drag release can be detected after finger lift.
+- `primary-tap-enable`, `glide-extend-enable`, `sleep-mode-enable`, and `invert-y`.
+- Absolute-mode tuning for touch threshold, tap timing, tap-drag, lower-right secondary tap, edge auto-pan, and right-edge scroll.
+
+The shared keymap connects the trackpad listener to two processors:
+
+```text
+&glidepoint_listener {
+    input-processors = <&pointer_processor 0 0 &drag_scroll_processor 1 8>;
+};
+```
+
+`pointer_processor` handles runtime pointer speed when `Z` is not held. `drag_scroll_processor` handles hold-to-scroll, native edge-wheel scaling, and the `horizontal-when-enabled` conversion that turns right-edge wheel into horizontal wheel while `Z` is held.
 
 ## Tips
 
 - Edge scrolling is a right-edge gesture, not a two-finger laptop-style gesture.
-- Hold `Shift` or `Z` before using the right edge when you need horizontal wheel events.
+- Hold `Z` when you need firmware-generated horizontal wheel events from the trackpad.
+- Use the mouse layer's `SCRL_LEFT` and `SCRL_RIGHT` keys when you need guaranteed horizontal wheel events without relying on app-level `Shift` + wheel behavior.
 - For text selection, holding `X` is usually more predictable than relying on tap-drag timing.
 - After powering on or flashing firmware, give the right half a few seconds to initialize the trackpad.
 - Use [NXTKB Input Tester](https://input-test.nxtkb.com) to check mouse buttons, pointer movement, and wheel events in the browser.
@@ -64,4 +94,5 @@ On the mouse layer:
 - Turn on both keyboard halves. The trackpad is on the right half and sends input through the split connection.
 - If the right-hand trackpad does not respond, especially right after flashing firmware to the right half, press the reset button on the right half once.
 - If only keys work, but the pointer still does not move, power-cycle both halves and try the right-half reset again.
+- If right-edge scrolling works but moves on the wrong axis, confirm whether you are holding `Z`. Firmware-level horizontal conversion only happens while drag-scroll is enabled.
 - If scrolling goes the wrong way for your system preference, adjust the operating system's mouse or touchpad scroll direction setting.

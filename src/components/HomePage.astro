@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -69,7 +70,7 @@ const base = isZh ? '/zh' : '';
       <p>{t.lead}</p>
       <div class="actions">
         <a class="button primary" href={`${base}/products/ferris-sweep-pro/`}>{t.buy}</a>
-        <a class="button secondary" href={`${base}/docs/`}>{t.docs}</a>
+        <a class="button secondary" href={`${base}/docs/setup/`}>{t.docs}</a>
       </div>
     </div>
   </section>
@@ -163,7 +164,7 @@ const base = isZh ? '/zh' : '';
         <h2>{t.docsTitle}</h2>
         <p>{t.docsLead}</p>
         <div class="actions">
-          <a class="button primary" href={`${base}/docs/`}>{isZh ? '打开文档' : 'Open docs'}</a>
+          <a class="button primary" href={`${base}/docs/setup/`}>{isZh ? '打开文档' : 'Open docs'}</a>
         </div>
       </div>
       <div class="media-frame">
@@ -179,11 +180,11 @@ const base = isZh ? '/zh' : '';
         <p>{t.toolsLead}</p>
       </div>
       <div class="info-grid">
-        <a class="info-card link-card" href="https://input-test.nxtkb.com" target="_blank" rel="noopener noreferrer">
+        <a class="info-card link-card" href="https://input-test.nxtkb.com" {...externalLinkAttrs('https://input-test.nxtkb.com')}>
           <h3>{isZh ? 'NXTKB Input Tester' : 'NXTKB Input Tester'}</h3>
           <p>{isZh ? '网页中直接测试键盘、鼠标键、滚轮和触控板相关输入。' : 'Test keyboard, mouse button, wheel, and trackpad-related input directly in the browser.'}</p>
         </a>
-        <a class="info-card link-card" href="https://zmk.studio" target="_blank" rel="noopener noreferrer">
+        <a class="info-card link-card" href="https://zmk.studio" {...externalLinkAttrs('https://zmk.studio')}>
           <h3>ZMK Studio</h3>
           <p>{isZh ? '目前使用官方 ZMK Studio 做实时改键，未来再考虑 NXTKB 定制版。' : 'Use the official ZMK Studio for live keymap editing today; a custom NXTKB experience can come later.'}</p>
         </a>

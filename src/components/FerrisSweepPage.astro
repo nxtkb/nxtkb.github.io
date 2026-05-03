@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -83,7 +84,7 @@ const t = isZh
       <h1>{t.h1}</h1>
       <p>{t.lead}</p>
       <div class="actions">
-        <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+        <a class="button primary" href={taobaoUrl} {...externalLinkAttrs(taobaoUrl)}>{t.buy}</a>
         <a class="button secondary" href={`${base}/docs/setup/keymap/ferris-sweep-keymap/`}>{t.docs}</a>
         <a class="button secondary" href={`${base}/products/`}>{t.back}</a>
       </div>
@@ -116,7 +117,7 @@ const t = isZh
           {t.details.map(([label, copy]) => <li><strong>{label}:</strong> {copy}</li>)}
         </ul>
         <div class="actions">
-          <a class="button primary" href={taobaoUrl}>{t.buy}</a>
+          <a class="button primary" href={taobaoUrl} {...externalLinkAttrs(taobaoUrl)}>{t.buy}</a>
         </div>
       </div>
       <div class="media-frame">

@@ -1,5 +1,5 @@
 ---
-title: "键位测试工具"
+title: "键鼠测试"
 ---
 
 使用 [NXTKB Input Tester](https://input-test.nxtkb.com) 可以在浏览器里测试键盘按键、鼠标按键、滚轮事件和触控板行为。

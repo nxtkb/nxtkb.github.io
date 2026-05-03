@@ -1,10 +1,14 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { rehypeExternalLinks } from './src/utils/external-links.mjs';
 
 const site = process.env.SITE || 'https://nxtkb.com';
 
 export default defineConfig({
   site,
+  markdown: {
+    rehypePlugins: [[rehypeExternalLinks, { site }]],
+  },
   integrations: [
     starlight({
       title: 'NXTKB Docs',
@@ -41,7 +45,6 @@ export default defineConfig({
           label: 'Start',
           translations: { 'zh-CN': '开始' },
           items: [
-            { slug: 'docs', label: 'Documentation', translations: { 'zh-CN': '文档首页' } },
             {
               slug: 'docs/setup',
               label: 'Getting Started',
@@ -51,6 +54,11 @@ export default defineConfig({
               slug: 'docs/setup/connect',
               label: 'Connect to Your Device',
               translations: { 'zh-CN': '连接到设备' },
+            },
+            {
+              slug: 'docs/setup/keymap/input-tester',
+              label: 'Keyboard & Mouse Test',
+              translations: { 'zh-CN': '键鼠测试' },
             },
           ],
         },
@@ -74,19 +82,25 @@ export default defineConfig({
               translations: { 'zh-CN': 'Ferris Sweep 键位' },
             },
             {
-              slug: 'docs/setup/keymap/input-tester',
-              label: 'Input Tester',
-              translations: { 'zh-CN': '键位测试工具' },
-            },
-            {
-              slug: 'docs/setup/keymap/trackpad',
-              label: 'Use the Trackpad',
-              translations: { 'zh-CN': '使用触控板' },
-            },
-            {
               slug: 'docs/setup/keymap/how-to-update-keymaps',
               label: 'Update Keymaps',
               translations: { 'zh-CN': '更新键位' },
+            },
+          ],
+        },
+        {
+          label: 'Sweep Pro Features',
+          translations: { 'zh-CN': 'Sweep Pro 功能' },
+          items: [
+            {
+              slug: 'docs/setup/keymap/trackpad',
+              label: 'Trackpad',
+              translations: { 'zh-CN': '触控板' },
+            },
+            {
+              slug: 'docs/firmware/sweep-pro-display',
+              label: 'E-Ink Display',
+              translations: { 'zh-CN': '墨水屏' },
             },
           ],
         },

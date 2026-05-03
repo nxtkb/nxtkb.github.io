@@ -17,7 +17,7 @@ Use [ZMK Studio](/docs/setup/keymap/how-to-update-keymaps/) for live keymap edit
 | `config/sweep.keymap` | Layers, key bindings, encoder bindings, mouse layer bindings, pointer processors, `Z` drag-scroll behavior, `X` left-click hold, and `Mode` switching. | Usually left/main half; flash right too if you changed right-side split behavior or want both halves rebuilt together. |
 | `config/sweep.conf` | Shared ZMK options: USB, Bluetooth, mouse support, ZMK Studio, battery reporting, soft-off, behavior queue size, stack sizes, and sleep policy. | Both halves that use the shared config. |
 | `config/sweep_left.conf` | Left central pointing behavior, currently smooth scrolling. | Left half. |
-| `config/sweep_left_display_hw.conf` | Display, LVGL, SSD16XX, and e-ink rendering options. | Left display firmware. |
+| `config/sweep_left_display_hw.conf` | Display, LVGL, SSD16XX, and e-ink rendering options. See [Sweep Pro E-Ink Display](../sweep-pro-display/) for the user-facing status screen. | Left display firmware. |
 | `config/sweep_right.conf` | Right half role configuration. | Right half. |
 | `config/sweep_right_trackpad.conf` | I2C and input stack options needed by the right-hand trackpad. | Right trackpad firmware. |
 | `build.yaml` | GitHub Actions build matrix and artifact names for each hardware variant. | No direct flashing; it controls which UF2 files Actions builds. |
@@ -31,7 +31,7 @@ Use [ZMK Studio](/docs/setup/keymap/how-to-update-keymaps/) for live keymap edit
 | Tune pointer or scroll speed curves | `pointer_processor` and `drag_scroll_processor` in `config/sweep.keymap` | The mouse layer `Ptr` and `Scroll` keys adjust runtime speed; these processors define the baseline behavior. |
 | Change `Z` hold-to-scroll behavior | `ds_z` and `drag_scroll_processor` in `config/sweep.keymap` | `Z` toggles drag-scroll while held. The current drag-scroll processor supports conditional horizontal wheel behavior when enabled. |
 | Change Bluetooth or battery behavior | `config/sweep.conf` | Includes battery reporting interval, split battery proxy options, Bluetooth 2M PHY setting, TX power, and sleep policy. |
-| Change display firmware capabilities | `config/sweep_left_display_hw.conf` | Display, LVGL, display thread, font, and memory-pool build options live here. |
+| Change display firmware capabilities | `config/sweep_left_display_hw.conf` | Display, LVGL, display thread, font, and memory-pool build options live here. The custom status screen UI comes from `zmk-vfx-sweep-pro-display`. |
 | Change right-trackpad firmware capabilities | `config/sweep_right_trackpad.conf` | I2C and input thread stack options live here; daily trackpad behavior is covered in [Use the Trackpad](/docs/setup/keymap/trackpad/). |
 | Change which firmware artifacts GitHub Actions builds | `build.yaml` | Keep artifact names clear: `sweep_left`, `sweep_left_display`, `sweep_right`, `sweep_right_trackpad`. |
 

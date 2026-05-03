@@ -2,27 +2,34 @@
 title: "Getting Started"
 ---
 
-Welcome to the next generation of typing comfort! This guide will help you set up your new split keyboard with the following steps:
+Use this page as the first-run checklist for a new NXTKB keyboard. The goal is simple: power it on, confirm it sends input, connect it the way you want, then learn the default layers.
 
-## What's in the Box
+## First-Run Checklist
 
-When you receive your NXTKB, you'll find:
-- Two keyboard halves
-- 2 USB charging cables (one c-to-c, one b-to-c)
-- A bag for the keyboards
-- other suprises...
+1. Turn on both keyboard halves.
+2. Connect the left half over USB-C first.
+3. Open [Keyboard & Mouse Test](keymap/input-tester/) and press a few keys.
+4. Pair over Bluetooth if you want wireless use.
+5. Review the default keymap for your model.
+6. For Sweep Pro versions with extra hardware, read the trackpad or display guide.
 
-## Setup Instructions
+## Choose Your Keyboard
 
-This section contains detailed walkthroughs for getting your keyboard operational:
+| Keyboard | Start here | Extra guides |
+| :--- | :--- | :--- |
+| Ferris Sweep Pro | [Ferris Sweep Pro Keymap](keymap/ferris-sweep-pro-keymap/) | [Trackpad](keymap/trackpad/), [E-ink display](../firmware/sweep-pro-display/) |
+| Ferris Sweep | [Ferris Sweep Keymap](keymap/ferris-sweep-keymap/) | [Ferris Sweep Configuration](../firmware/ferris-sweep-configuration/) |
 
-- [Connecting to Your Device](connect/) - Complete guide for USB and Bluetooth connections
-- [Keymaps](keymap/) - Default keymaps for each keyboard model, layer diagrams, and customization guides
-- [Input Tester](keymap/input-tester/) - Browser-based keyboard, mouse, wheel, and trackpad input checks
+## Common Next Steps
 
-## Support Resources
+- [Connect to Your Device](connect/) explains USB, Bluetooth pairing, and device switching.
+- [Keyboard & Mouse Test](keymap/input-tester/) verifies keys, mouse buttons, wheel events, and trackpad behavior in the browser.
+- [Keymap Overview](keymap/) links to the default layer diagrams and keymap update guide.
+- [How to Flash a Firmware](../firmware/how-to-flash-a-firmware/) explains UF2 flashing when you need to update firmware.
 
-- Check the [Documentation](/docs/) for comprehensive guides
-- Use [NXTKB Input Tester](keymap/input-tester/) when you need to verify whether a key, mouse button, wheel event, or trackpad gesture is being detected
+## If Something Does Not Work
 
-Now you're ready to begin your ergonomic typing journey with NXTKB! Enjoy the health benefits and improved comfort your new keyboard will provide.
+- Test USB first. It is the shortest path to confirm that the keyboard sends normal key events.
+- If Bluetooth pairing fails, clear the current Bluetooth slot and try pairing again.
+- If only one half works, confirm both halves are powered on.
+- If trackpad or wheel events are confusing, use [Keyboard & Mouse Test](keymap/input-tester/) and then read [Trackpad](keymap/trackpad/).

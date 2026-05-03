@@ -105,6 +105,25 @@ img {
   color: var(--teal);
 }
 
+.nav-links a.nav-tool-link {
+  gap: 0.35rem;
+  border: 1px solid rgba(0, 124, 120, 0.32);
+  background: rgba(0, 124, 120, 0.1);
+  color: var(--teal);
+  box-shadow: 0 8px 22px rgba(0, 124, 120, 0.14);
+}
+
+.nav-links a.nav-tool-link::after {
+  content: "🧪";
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+.nav-links a.nav-tool-link:hover {
+  background: var(--teal);
+  color: #fffdf8;
+}
+
 .lang-switch {
   border: 1px solid rgba(20, 17, 15, 0.13);
 }

@@ -2,73 +2,62 @@
 title: "Connect to Your Device"
 ---
 
-This guide will show you how to connect your NXTKB keyboard to your computer using various connection methods.
+NXTKB keyboards can work over USB or Bluetooth. For a new keyboard, start with USB first because it is the fastest way to confirm that both halves are powered and the keyboard sends normal input.
 
-## Connection Methods Overview
+## Before You Start
 
-ZMK split keyboards support multiple connection methods:
+- Turn on both keyboard halves.
+- Use the left half as the main half for USB connection and Bluetooth output.
+- Keep the right half powered on. It sends its input through the split connection.
+- Open [Keyboard & Mouse Test](../keymap/input-tester/) when you want to confirm what the browser receives.
 
-- **USB Wired Connection**: Direct connection via USB cable
-- **Bluetooth Wireless Connection**: Wireless connection to your device (up to 5 devices by default)
+## USB First Check
 
-ZMK (Zephyr-based Modular Keyboard) uses a modular design where the secondary keyboard (right) sends keypress data to the main keyboard (usually left), which handles input processing and transmits the combined output to your target device through the selected connection method.
+USB is the most reliable first test.
 
-## USB Connection
+1. Turn on both halves.
+2. Connect the left half to your computer with a USB-C cable.
+3. Open [Keyboard & Mouse Test](../keymap/input-tester/).
+4. Press keys on both halves.
+5. If your keyboard has a mouse layer or trackpad, test mouse buttons, wheel events, and pointer movement too.
 
-The USB connection is the most straightforward and reliable connection method.
+If key events appear in the tester, the keyboard is sending input correctly.
 
-### Requirements
-- USB-C cable (included in your package)
-- USB port on your target device (computer, phone, tablet, etc.)
+## Bluetooth Pairing
 
-### Steps
-1. **Prepare the connection**: Secure your USB-C cable and ensure your device has a compatible USB port
-2. **Power on both keyboard halves**: Turn on the power switch on both left and right halves (charging will only happen when power is switched on)
-3. **Connect the main half**: Connect the left keyboard half to your target device using the USB-C cable
-4. **Test the connection**: Begin typing to confirm that the keyboard is properly connected
+Use Bluetooth after the USB check works.
 
-## Bluetooth Connection
+1. Turn on both halves.
+2. Select the Bluetooth slot you want to use, if your keymap exposes `BT_SEL 0` through `BT_SEL 4`.
+3. If that slot was paired before, clear it with `BT_CLR`.
+4. Open Bluetooth settings on your computer, phone, or tablet.
+5. Find the keyboard name and pair with it.
+6. Disconnect USB, or switch output away from USB if your keymap has an output toggle key.
+7. Test typing again in [Keyboard & Mouse Test](../keymap/input-tester/).
 
-Bluetooth offers wireless freedom but requires initial pairing to establish the connection.
+The exact Bluetooth control keys depend on the keymap. Check your model's keymap page if you are not sure where `BT_SEL`, `BT_CLR`, or output toggle keys are:
 
-### Connecting New Devices
+- [Ferris Sweep Pro Keymap](../keymap/ferris-sweep-pro-keymap/)
+- [Ferris Sweep Keymap](../keymap/ferris-sweep-keymap/)
 
-1. **Enable Bluetooth**: Ensure your target device has Bluetooth capability and that it's turned on
-2. **Power on the keyboard**: Turn on power switches on both halves of your keyboard
-3. **Put keyboard in pairing mode**: 
-   - If connecting to a new device, you may need to clear the current device slot first
-   - By default, keyboards start in device position 1
-4. **Clear existing pairings** (optional): If the current position is already paired with another device, you may need to clear it first using `BT_CLR` key
-5. **Find your keyboard**: 
-   - On your target device, scan for Bluetooth devices
-   - Look for your keyboard's specific name in the device list
-   - Select and connect/pair with your keyboard
-6. **Switch connection mode** (optional): 
-   - If your main keyboard is currently connected via USB, you can disconnect the USB cable
-   - Or switch from USB to Bluetooth mode using the `&tog` key
-7. **Test the connection**: Start typing to verify the connection is working
+## Reconnect or Switch Devices
 
-### Reconnecting to Previously Paired Devices
+ZMK keyboards can store multiple Bluetooth profiles. To switch devices:
 
-1. **Power on the keyboard**: Turn on both halves
-2. **Ensure desired device slot is selected**: Use `BT_SEL 0` to `BT_SEL 4` to select the proper device number
-3. **Wait for automatic reconnection**: The keyboard will automatically attempt to connect to the previously paired device
-4. **Switch connection mode** (optional): 
-   - If your main keyboard is still connected via USB, disconnect the USB cable
-   - Or toggle between USB and Bluetooth modes using `&tog`
-5. **Test the connection**: Type to confirm the connection
+1. Select the target Bluetooth slot with `BT_SEL`.
+2. Wait a few seconds for the keyboard to reconnect.
+3. If it does not reconnect, remove the keyboard from the target device's Bluetooth list, clear the slot on the keyboard, and pair again.
 
-## Device Switching
+USB usually takes priority while plugged in. If you want to use Bluetooth, disconnect USB or use your keymap's output toggle key.
 
-- Switch between bluetooth devices with `BT_SEL <device_number>`
-- By default, USB input takes priority
-- Use the `&tog` key to switch between USB and Bluetooth modes
+## Troubleshooting
 
-## Troubleshooting Common Issues
+| Problem | What to try |
+| :--- | :--- |
+| Nothing types over USB | Confirm both halves are powered on. Try another USB-C cable and connect the left half directly to the computer. |
+| Left half works but right half does not | Turn on the right half, then power-cycle both halves. |
+| Bluetooth pairing fails | Verify USB input first, clear the selected Bluetooth slot with `BT_CLR`, remove old pairings from the host device, and pair again. |
+| Keyboard appears paired but does not type | Check whether USB is still selected or plugged in. Select the Bluetooth slot again and wait for reconnection. |
+| Mouse or trackpad events are unclear | Use [Keyboard & Mouse Test](../keymap/input-tester/) to inspect mouse buttons, wheel events, and pointer movement. |
 
-### Bluetooth Pairing Fails
-1. Ensure the keyboard is functioning in USB mode first
-2. Check if other Bluetooth positions have existing connections - you may need to clear them first
-3. Try pairing with a different target device to determine if the issue is with the keyboard or the target device
-
-After reconnecting, use [NXTKB Input Tester](../keymap/input-tester/) to confirm that the keyboard is sending events normally.
+If USB input works but Bluetooth repeatedly fails, flash `settings_reset` once to clear stored ZMK settings, then flash the normal firmware again. See [How to Flash a Firmware](../../firmware/how-to-flash-a-firmware/).

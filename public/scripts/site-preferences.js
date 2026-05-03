@@ -92,6 +92,29 @@
     );
   }
 
+  function enhanceExternalLinks() {
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      var url;
+
+      try {
+        url = new URL(link.getAttribute('href'), window.location.href);
+      } catch {
+        return;
+      }
+
+      if (url.origin === window.location.origin) return;
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+
+      link.setAttribute('target', '_blank');
+
+      var rel = (link.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+      ['noopener', 'noreferrer'].forEach(function (value) {
+        if (!rel.includes(value)) rel.push(value);
+      });
+      link.setAttribute('rel', rel.join(' '));
+    });
+  }
+
   function createKeymapLightbox() {
     var lightbox = document.createElement('div');
     lightbox.className = 'keymap-js-lightbox';
@@ -177,12 +200,14 @@
       'DOMContentLoaded',
       function () {
         bindLanguageControls();
+        enhanceExternalLinks();
         enhanceKeymapImages();
       },
       { once: true }
     );
   } else {
     bindLanguageControls();
+    enhanceExternalLinks();
     enhanceKeymapImages();
   }
 })();
