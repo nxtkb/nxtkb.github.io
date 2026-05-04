@@ -84,9 +84,8 @@ The shared keymap connects the trackpad listener to two processors:
 
 - Edge scrolling is a right-edge gesture, not a two-finger laptop-style gesture.
 - Hold `Z` when you need firmware-generated horizontal wheel events from the trackpad.
-- Use the mouse layer's `SCRL_LEFT` and `SCRL_RIGHT` keys when you need guaranteed horizontal wheel events without relying on app-level `Shift` + wheel behavior.
-- For text selection or dragging, use the mouse layer's `LCLK` key when you need an explicit held button.
-- After powering on or flashing firmware, give the right half a few seconds to initialize the trackpad.
+- To avoid relying on app-level `Shift` + wheel behavior, hold `Z` while using the right-edge scroll gesture, or use the mouse layer's `SCRL_LEFT` and `SCRL_RIGHT` keys.
+- For text selection or window dragging, hold the `D` + `F` left-click combo, use the mouse layer's `LCLK`, or double-tap the trackpad and keep your finger down on the second tap.
 - Use [NXTKB Input Tester](https://input-test.nxtkb.com) to check mouse buttons, pointer movement, and wheel events in the browser.
 
 ## If It Does Not Work
