@@ -32,7 +32,8 @@ title: "Ferris Sweep Pro 键位映射"
 - 默认层和Windows层都是字符输入层。
 - 两层都使用本位排修饰键：`CTRL`、`OPTION (ALT)`、`COMMAND (WINDOWS)` 与左右手无名指、中指和食指上的字符键共用位置。按住触发修饰键，轻按输入字符。
 - 按住 `Z` 并移动触控板时，可以向任意方向滚动。使用右边缘滚动时，按住 `Shift` 或 `Z` 会把右边缘手势从垂直滚动切换为水平滚动。
-- 按住 `X` 是左键点击，轻按 `X` 输入字符。
+- `X` 在这些层中是普通字符键。
+- 鼠标点击 combo 的 timeout 为 25 ms：`E` + `R` 是右键，`D` + `F` 是左键，`C` + `V` 是中键。
 - 左侧编码器：
   - 旋转：调节音量
   - 按下：切换静音
@@ -80,5 +81,6 @@ title: "Ferris Sweep Pro 键位映射"
 - 按 `Q` 或 `P` 退出鼠标层。
 - `M4` 和 `M5` 分别用于浏览器后退和前进。
 - 左下角按键用于调节指针和滚动速度，`Mode` 用于切换Cirque触控板模式。
+- Sweep Pro 默认以相对模式启动 Cirque 触控板；`Mode` 可在运行时切换相对模式和绝对模式。
 
 ![鼠标层](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_mouse_layer.svg)

@@ -18,9 +18,9 @@ Ferris Sweep Pro versions with the Cirque trackpad can handle pointer movement, 
 | Hold-to-scroll | Hold `Z`, then move on the trackpad. Pointer movement becomes wheel movement while held, so horizontal finger movement sends horizontal wheel events and vertical finger movement sends vertical wheel events. |
 | Horizontal edge scroll | Hold `Z`, then use the right-edge scroll gesture. Sweep Pro converts the native right-edge wheel event into a horizontal wheel event while `Z` is held. |
 | App-level horizontal scroll | Some desktop apps also treat `Shift` + vertical wheel as horizontal scroll. This is handled by the app or operating system, not by the trackpad firmware. |
-| Drag or select | Hold `X` to hold left click, move on the trackpad, then release `X`. |
+| Mouse click combos | Press `D` + `F` for left click, `E` + `R` for right click, or `C` + `V` for middle click. These combos use a short 25 ms timeout so normal typing is less likely to trigger them by accident. |
 
-The `Z` and `X` keys still type normal characters when tapped. Their trackpad helpers only activate when you hold them.
+`Z` still types a normal character when tapped, and only enables drag-scroll while held. `X` is a normal character key on the base character layers.
 
 ## Trackpad Modes
 
@@ -57,6 +57,7 @@ On the mouse layer:
 - `Ptr` speed keys adjust pointer speed.
 - `Scroll` speed keys adjust hold-to-scroll, native edge-wheel, and absolute edge-scroll speed.
 - `Mode` toggles the Cirque trackpad between relative mode and absolute mode.
+- On the character layers, `E` + `R`, `D` + `F`, and `C` + `V` provide right, left, and middle click with a 25 ms combo timeout.
 
 ## Implementation Notes
 
@@ -84,7 +85,7 @@ The shared keymap connects the trackpad listener to two processors:
 - Edge scrolling is a right-edge gesture, not a two-finger laptop-style gesture.
 - Hold `Z` when you need firmware-generated horizontal wheel events from the trackpad.
 - Use the mouse layer's `SCRL_LEFT` and `SCRL_RIGHT` keys when you need guaranteed horizontal wheel events without relying on app-level `Shift` + wheel behavior.
-- For text selection, holding `X` is usually more predictable than relying on tap-drag timing.
+- For text selection or dragging, use the mouse layer's `LCLK` key when you need an explicit held button.
 - After powering on or flashing firmware, give the right half a few seconds to initialize the trackpad.
 - Use [NXTKB Input Tester](https://input-test.nxtkb.com) to check mouse buttons, pointer movement, and wheel events in the browser.
 

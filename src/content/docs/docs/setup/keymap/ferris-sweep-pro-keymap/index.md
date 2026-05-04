@@ -32,7 +32,8 @@ The source code for this keymap is available at [nxtkb/Sweep-Pro](https://github
 - The default layer and Windows layer are the character layers.
 - Both layers use home-row modifiers: `CTRL`, `OPTION (ALT)`, and `COMMAND (WINDOWS)` share the same positions as character keys on the ring, middle, and index fingers. Hold the key for the modifier, or tap it for the character.
 - Hold `Z` and move on the trackpad to scroll in any direction. For right-edge scrolling, hold `Shift` or `Z` to change the edge gesture from vertical scrolling to horizontal scrolling.
-- Hold `X` for left click, or tap `X` to type the character.
+- `X` is a normal character key on these layers.
+- Mouse click combos use a 25 ms timeout: `E` + `R` for right click, `D` + `F` for left click, and `C` + `V` for middle click.
 - left encoder:
   - rotation: adjust volume
   - click: toggle mute
@@ -80,5 +81,6 @@ The source code for this keymap is available at [nxtkb/Sweep-Pro](https://github
 - Press `Q` or `P` to leave the mouse layer.
 - `M4` and `M5` are browser back and forward.
 - The bottom-left keys adjust pointer and scroll speed. `Mode` toggles the Cirque trackpad mode.
+- Sweep Pro boots the Cirque trackpad in relative mode by default; `Mode` switches between relative and absolute mode at runtime.
 
 ![mouse layer](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_mouse_layer.svg)
