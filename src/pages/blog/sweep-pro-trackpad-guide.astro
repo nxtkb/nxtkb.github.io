@@ -1,0 +1,139 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Sweep Pro Trackpad: Keep Pointer Actions on the Keyboard | NXTKB"
+  description="A read-aloud script for the Sweep Pro trackpad: what it solves, how to use it, and where it fits in daily pointer work."
+>
+  <section class="hero article-hero" style="--hero-image: url('/products/ferris-sweep-pro/trackpad.png')">
+    <div class="hero-content">
+      <p class="eyebrow">Sweep Pro Trackpad</p>
+      <h1>Keep pointer actions on the keyboard</h1>
+      <p>The goal is not to replace every mouse. It is to reduce small, frequent reaches for cursor movement, clicks, scrolling, horizontal scrolling, and basic drag work.</p>
+    </div>
+  </section>
+
+  <article class="article">
+    <div class="article-body">
+      <p class="article-lede">
+        Hi, in this post I want to talk about the trackpad on Sweep Pro. At first glance, it is just a round touch area on the right half of the keyboard. But the real point is not the extra hardware. The real point is how it changes the way you use a mouse while typing.
+      </p>
+
+      <div class="video-embed" aria-label="Video embed placeholder">
+        <div class="video-placeholder">
+          <strong>The video will be embedded here after publishing.</strong>
+          <span>Replace this block with a YouTube, Bilibili, or other platform iframe when the video is ready.</span>
+        </div>
+        <!-- Replace this placeholder after publishing the video.
+        <iframe
+          src="VIDEO_EMBED_URL"
+          title="Sweep Pro trackpad guide"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+        -->
+      </div>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Replace this with the finished video after publishing. Do not read this block when recording.</p>
+      </aside>
+
+      <p>
+        If you already use a split keyboard, this feeling is probably familiar: the keyboard can sit in a comfortable position, but as soon as you need to click a button, scroll a page, or drag a window, your hand still leaves the keyboard and reaches for the mouse.
+      </p>
+
+      <p>
+        The Sweep Pro trackpad is meant to reduce that interruption. It is not trying to replace every mouse use case. It brings small, frequent pointer actions back near the keyboard: moving the cursor, clicking a link, scrolling a document, panning across long lines of code, or doing a quick drag. If your work is mostly CAD, gaming, or long precise dragging, a separate mouse is still the better tool.
+      </p>
+
+      <figure class="article-figure wide">
+        <img src="/products/ferris-sweep-pro/trackpad.png" alt="The Cirque round trackpad on the right half of Ferris Sweep Pro." />
+        <figcaption>Sweep Pro uses a 40mm Cirque round trackpad for frequent, lightweight pointer actions.</figcaption>
+      </figure>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Replace this with a close-up of the Sweep Pro right-half trackpad, or a short GIF showing a finger moving naturally from the keys to the trackpad.</p>
+      </aside>
+
+      <h2>Basic gestures</h2>
+      <p>
+        Let's start with the basics. Slide one finger on the trackpad to move the cursor. Tap once for left click. Tap twice quickly for double click. Tap the lower-right area for right click. Slide along the right edge for vertical scrolling.
+      </p>
+
+      <p>
+        One expectation is important: Sweep Pro scrolling is a right-edge gesture, not a laptop-style two-finger gesture. Think of it as a small pointer device on the keyboard, with the right edge acting like the wheel.
+      </p>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Add five short GIFs or one continuous screen recording: cursor movement, left click, double click, lower-right right click, and right-edge vertical scrolling.</p>
+      </aside>
+
+      <h2>Hold Z to scroll</h2>
+      <p>
+        Next is the feature I think is most worth showing: hold <kbd>Z</kbd>, and movement on the trackpad temporarily becomes scrolling.
+      </p>
+
+      <p>
+        By default, moving your finger on the trackpad moves the cursor. While holding <kbd>Z</kbd>, the same movement becomes wheel events: up and down scroll vertically, left and right scroll horizontally. Release <kbd>Z</kbd>, and the trackpad goes back to cursor movement.
+      </p>
+
+      <p>
+        This is especially useful when writing code or reading docs. On a long article, hold <kbd>Z</kbd> and slide up or down to scroll. In a wide code file or table, hold <kbd>Z</kbd> and slide left or right to pan horizontally.
+      </p>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Add two real examples: vertical scrolling on a long page, and horizontal scrolling in a wide code file or table. Ideally show both the keyboard and the screen.</p>
+      </aside>
+
+      <h2>Right-edge horizontal scrolling</h2>
+      <p>
+        There is one more detail: if you hold <kbd>Z</kbd> and use the right-edge scroll gesture, Sweep Pro converts the normal right-edge vertical wheel into horizontal wheel.
+      </p>
+
+      <p>
+        In other words, without <kbd>Z</kbd>, the right edge scrolls vertically. With <kbd>Z</kbd>, the same right-edge gesture scrolls horizontally. It sounds small, but it is very useful for long code lines, tables, timelines, and design files.
+      </p>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Use the same horizontal content for a comparison: first right-edge vertical scrolling without Z, then right-edge horizontal scrolling while holding Z.</p>
+      </aside>
+
+      <figure class="article-figure wide">
+        <img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_mouse_layer.svg" alt="Ferris Sweep Pro mouse layer keymap." />
+        <figcaption>The Sweep Pro mouse layer provides mouse buttons, pointer speed, and scroll speed controls.</figcaption>
+      </figure>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Replace or supplement this with a highlighted mouse-layer image. Emphasize Ptr, Scroll, LCLK, RCLK, and MCLK. Mode is mainly for advanced users who want to experiment with custom gestures, so it does not need to be a video focus.</p>
+      </aside>
+
+      <h2>Why mouse keys and combos still matter</h2>
+      <p>
+        The trackpad is good for sliding and tapping, but some actions are more stable on physical keys. Text selection, window dragging, and click-and-hold file movement all need a clear "hold." For those actions, a key or combo is often easier to control than a pure gesture.
+      </p>
+
+      <p>
+        Sweep Pro provides a few mouse combos on the character layers: <kbd>D</kbd> plus <kbd>F</kbd> for left click, <kbd>E</kbd> plus <kbd>R</kbd> for right click, <kbd>C</kbd> plus <kbd>V</kbd> for middle click, <kbd>F</kbd> plus <kbd>G</kbd> for browser back, and <kbd>R</kbd> plus <kbd>T</kbd> for browser forward. The same combos also work on the mouse layer, which has explicit <kbd>LCLK</kbd>, <kbd>RCLK</kbd>, and <kbd>MCLK</kbd> keys.
+      </p>
+
+      <p>
+        So the better model is this: the trackpad is not replacing every mouse action by itself. It works together with the mouse layer and click combos. Sliding belongs on the trackpad; precise click-and-hold actions can stay on keys.
+      </p>
+
+      <aside class="production-note">
+        <p><strong>Asset placeholder:</strong> Record a drag or text-selection example: one hand moves on the trackpad while the other holds D+F or mouse-layer LCLK.</p>
+      </aside>
+
+      <h2>Summary</h2>
+      <p>
+        If you are just starting with the Sweep Pro trackpad, remember three things. First, basic movement and clicking happen directly on the trackpad. Second, the right edge handles scrolling. Third, hold <kbd>Z</kbd> and trackpad movement becomes wheel movement, both vertical and horizontal. Learn those first, then try the mouse layer and speed controls.
+      </p>
+
+      <p>
+        That is the core idea of the Sweep Pro trackpad: it is not hiding a mouse inside the keyboard. It is bringing the most common, lightweight, rhythm-breaking pointer actions back under your hands.
+      </p>
+    </div>
+  </article>
+</SiteLayout>

@@ -19,25 +19,26 @@ Ferris Sweep Pro versions with the Cirque trackpad can handle pointer movement, 
 | Horizontal edge scroll | Hold `Z`, then use the right-edge scroll gesture. Sweep Pro converts the native right-edge wheel event into a horizontal wheel event while `Z` is held. |
 | App-level horizontal scroll | Some desktop apps also treat `Shift` + vertical wheel as horizontal scroll. This is handled by the app or operating system, not by the trackpad firmware. |
 | Mouse click combos | Press `D` + `F` for left click, `E` + `R` for right click, or `C` + `V` for middle click. These combos use a short 25 ms timeout so normal typing is less likely to trigger them by accident. |
+| Browser navigation combos | Press `F` + `G` for browser back (`MB4`) or `R` + `T` for browser forward (`MB5`). |
 
 `Z` still types a normal character when tapped, and only enables drag-scroll while held. `X` is a normal character key on the base character layers.
 
 ## Trackpad Modes
 
-The current Sweep Pro firmware boots the Cirque controller in relative mode:
+The current Sweep Pro firmware boots the Cirque controller in absolute mode:
 
 ```text
-data-mode = "relative";
+data-mode = "absolute";
 ```
 
 The `Mode` key on the mouse layer runs `&crq_mode CIRQUE_MODE_TOGGLE`, which switches the Cirque controller between relative mode and absolute mode at runtime. Switch modes while your finger is off the trackpad for the cleanest transition.
 
 | Mode | What it feels like | Sweep Pro behavior |
 | :--- | :--- | :--- |
-| Relative mode | The Cirque ASIC reports mouse-like relative packets. This is the boot default and the most mature path. | Supports pointer movement, tap buttons, native right-edge vertical scrolling, GlideExtend, hold-to-scroll with `Z`, runtime pointer speed, and runtime scroll speed. |
-| Absolute mode | The driver reads absolute finger coordinates, then converts them back into `REL_X/Y` pointer movement. This gives the firmware more control over gesture thresholds. | Supports software tap detection, lower-right right-click zone, tap-drag, right-edge vertical scroll, edge auto-pan, hold-to-scroll with `Z`, runtime pointer speed, and runtime scroll speed. |
+| Absolute mode | The driver reads absolute finger coordinates, then converts them back into `REL_X/Y` pointer movement. This is the boot default and gives the firmware more control over gesture thresholds. | Supports software tap detection, lower-right right-click zone, tap-drag, right-edge vertical scroll, edge auto-pan, hold-to-scroll with `Z`, runtime pointer speed, and runtime scroll speed. |
+| Relative mode | The Cirque ASIC reports mouse-like relative packets. | Supports pointer movement, tap buttons, native right-edge vertical scrolling, GlideExtend, hold-to-scroll with `Z`, runtime pointer speed, and runtime scroll speed. |
 
-Use relative mode when you want the stable mouse-like default behavior. Try absolute mode when you want the more tunable software gesture layer, especially tap-drag and edge auto-pan. If the pointer feel changes after pressing `Mode`, press `Mode` again to switch back.
+Use the default absolute mode when you want the more tunable software gesture layer, especially tap-drag and edge auto-pan. Switch to relative mode when you want the ASIC's stock relative packet and GlideExtend behavior. If the pointer feel changes after pressing `Mode`, press `Mode` again to switch back.
 
 ## Mouse Layer
 
@@ -57,7 +58,7 @@ On the mouse layer:
 - `Ptr` speed keys adjust pointer speed.
 - `Scroll` speed keys adjust hold-to-scroll, native edge-wheel, and absolute edge-scroll speed.
 - `Mode` toggles the Cirque trackpad between relative mode and absolute mode.
-- On the character layers, `E` + `R`, `D` + `F`, and `C` + `V` provide right, left, and middle click with a 25 ms combo timeout.
+- The same click/navigation combos also work here: `E` + `R` for right click, `D` + `F` for left click, `C` + `V` for middle click, `F` + `G` for browser back, and `R` + `T` for browser forward.
 
 ## Implementation Notes
 
@@ -67,7 +68,7 @@ Sweep Pro's right half defines the Cirque hardware in `sweep_right_trackpad.over
 - `sensitivity = "2x"`.
 - `startup-delay-ms = <600>` to give the controller time to recover after resets or firmware flashing.
 - `idle-packets-count = <3>` so relative-mode tap/drag release can be detected after finger lift.
-- `primary-tap-enable`, `glide-extend-enable`, `sleep-mode-enable`, and `invert-y`.
+- `primary-tap-enable`, `glide-extend-enable`, and `invert-y`. GlideExtend is only used after switching to relative mode.
 - Absolute-mode tuning for touch threshold, tap timing, tap-drag, lower-right secondary tap, edge auto-pan, and right-edge scroll.
 
 The shared keymap connects the trackpad listener to two processors:

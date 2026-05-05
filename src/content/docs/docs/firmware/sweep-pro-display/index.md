@@ -23,7 +23,7 @@ The `sweep_display` shield selects ZMK's custom display status screen and render
 | Center | Logo | NXTKB logo image plus the `NXTkb` wordmark. |
 | Below logo | Split status | Left/right keyboard symbols. The right side is shown as connected or disconnected based on the split peripheral transport state. |
 | Keyboard name | Keyboard name | The value of `CONFIG_ZMK_KEYBOARD_NAME`. |
-| Trackpad row | Trackpad status | Runtime Cirque mode and pointing speeds, for example `Trackpad: R P2 S1`. `R` means relative mode, `A` means absolute mode, `P` is pointer speed index, and `S` is scroll speed index. Sweep Pro boots the trackpad in relative mode by default. |
+| Trackpad row | Trackpad status | Runtime Cirque mode and pointing speeds, for example `Trackpad: A P2 S1`. `A` means absolute mode, `R` means relative mode, `P` is pointer speed index, and `S` is scroll speed index. Sweep Pro boots the trackpad in absolute mode by default. |
 | Bottom left | Layer status | The highest active layer. If a layer has `display-name`, that name is shown; otherwise the layer index is shown. Long names are clipped to 18 characters. |
 | Bottom right | HID indicators | Active modifier and Caps Lock state. The widget tracks Alt, Ctrl, Command/GUI, Shift, and Caps Lock, and marks active entries with an underline. |
 
