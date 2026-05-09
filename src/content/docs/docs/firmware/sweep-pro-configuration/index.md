@@ -27,10 +27,10 @@ Use [ZMK Studio](/docs/setup/keymap/how-to-update-keymaps/) for live keymap edit
 | Goal | Change here | Notes |
 | :--- | :--- | :--- |
 | Change key bindings or layers | `config/sweep.keymap` | Re-render the keymap diagrams after changing public defaults. |
-| Change encoder actions | `sensor-bindings` in each layer of `config/sweep.keymap` | The current defaults are left encoder volume and right encoder brightness. |
-| Tune pointer or scroll speed curves | `pointer_processor` and `drag_scroll_processor` in `config/sweep.keymap` | The mouse layer `Ptr` and `Scroll` keys adjust runtime speed; these processors define the baseline behavior. |
+| Change encoder actions | `sensor-bindings` in each layer of `config/sweep.keymap` | Character layers use left encoder volume and right encoder brightness. The mouse layer uses the left encoder for pointer speed and the right encoder for scroll speed. |
+| Tune pointer or scroll speed curves | `pointer_processor` and `drag_scroll_processor` in `config/sweep.keymap` | The mouse layer `Z` / `X` keys fine-adjust pointer speed, `C` / `V` fine-adjust scroll speed, and encoder presses reset each speed to `1.00x`. These processors define the baseline `1.00x` value and allowed multiplier range. |
 | Change `Z` hold-to-scroll behavior | `ds_z` and `drag_scroll_processor` in `config/sweep.keymap` | `Z` toggles drag-scroll while held. The current drag-scroll processor supports conditional horizontal wheel behavior when enabled. |
-| Change mouse click combos | `combo_er_right_click`, `combo_df_left_click`, and `combo_cv_middle_click` in `config/sweep.keymap` | Current timeout is 25 ms. `X` is a normal character key on the base character layers. |
+| Change mouse click combos | `combo_er_right_click`, `combo_df_left_click`, and `combo_cv_middle_click` in `config/sweep.keymap` | Current timeout is 25 ms. `X` taps as the character and holds as left click on the base character layers. |
 | Change Bluetooth or battery behavior | `config/sweep.conf` | Includes battery reporting interval, split battery proxy options, Bluetooth 2M PHY setting, TX power, and sleep policy. |
 | Change display firmware capabilities | `config/sweep_left_display_hw.conf` | Display, LVGL, display thread, font, and memory-pool build options live here. The custom status screen UI comes from `zmk-vfx-sweep-pro-display`. |
 | Change right-trackpad firmware capabilities | `config/sweep_right_trackpad.conf` | I2C and input thread stack options live here; daily trackpad behavior is covered in [Use the Trackpad](/docs/setup/keymap/trackpad/). |

@@ -23,7 +23,7 @@ Ferris Sweep Pro 可以在左手半边使用一块 152 x 152 的黑白墨水屏�
 | 中部 | Logo | NXTKB logo 图片和 `NXTkb` 字样。 |
 | Logo 下方 | 分体状态 | 左右键盘图标。右手半边会根据 split peripheral transport 状态显示为已连接或断开。 |
 | 键盘名称 | 键盘名称 | 来自 `CONFIG_ZMK_KEYBOARD_NAME` 的值。 |
-| 触控板行 | 触控板状态 | 运行时 Cirque 模式和速度档位，例如 `Trackpad: A P2 S1`。`A` 表示绝对模式，`R` 表示相对模式，`P` 是指针速度档位，`S` 是滚动速度档位。Sweep Pro 默认以绝对模式启动触控板。 |
+| 触控板行 | 触控板状态 | 运行时 Cirque 模式和指针/滚动速度倍率。该行使用鼠标图标，`A` 或 `R` 表示绝对/相对模式，`P` 和 `S` 以两位小数显示倍率，例如 `P 1.00x`、`S 1.00x`。Sweep Pro 默认以绝对模式启动触控板。 |
 | 左下角 | 层状态 | 当前最高优先级的激活层。如果层有 `display-name`，显示该名称；否则显示层编号。过长名称会截断到 18 个字符。 |
 | 右下角 | HID 指示状态 | 当前激活的修饰键和 Caps Lock 状态。该 widget 会跟踪 Alt、Ctrl、Command/GUI、Shift 和 Caps Lock，并用下划线标记当前激活项。 |
 
@@ -39,7 +39,7 @@ Ferris Sweep Pro 可以在左手半边使用一块 152 x 152 的黑白墨水屏�
 | 电池 | 本机电池状态、USB 供电状态、分体从属电量上报，以及分体连接变化。 |
 | 分体连接 | Split peripheral transport 状态；同时有一个短周期刷新，避免连接状态停留在旧值。 |
 | 层 | `zmk_layer_state_changed` 和 ZMK keymap layer name。 |
-| 触控板 | `zmk_trackpad_status_changed`，以及来自触控板/pointing 模块的 Cirque 模式、指针速度档位和滚动速度档位。该行跟随运行时模式变化，而不是固定显示启动时模式。 |
+| 触控板 | `zmk_trackpad_status_changed`，以及来自触控板/pointing 模块的 Cirque 模式、指针速度倍率和滚动速度倍率。该行跟随运行时模式和速度变化，而不是固定显示启动时状态。 |
 | HID 指示 | HID indicator 变化和修饰键 keycode 状态变化。 |
 
 由于 display shield 设置了 `CONFIG_ZMK_DISPLAY_BLANK_ON_IDLE=n`，键盘空闲时墨水屏不会清空，而是保留最后一次显示的状态。
@@ -69,7 +69,7 @@ Ferris Sweep Pro 可以在左手半边使用一块 152 x 152 的黑白墨水屏�
 
 - 层名称来自 `config/sweep.keymap` 里的 `display-name`。
 - 键盘名称来自 `CONFIG_ZMK_KEYBOARD_NAME`。
-- 触控板模式、指针速度和滚动速度跟随运行时 Cirque/pointing-speed 状态。
+- 触控板模式、指针速度倍率和滚动速度倍率跟随运行时 Cirque/pointing-speed 状态。
 - 电池和输出状态跟随 ZMK 正常的 USB、BLE、电池和分体事件。
 
 SSD1680 节点、152 x 152 尺寸、旋转、GPIO 和 partial refresh 波形等硬件级显示设置在 Sweep-Pro 键盘 shield 中。布局、logo、字体和 widget 选择在 `zmk-vfx-sweep-pro-display` 模块中。

@@ -32,7 +32,7 @@ The source code for this keymap is available at [nxtkb/Sweep-Pro](https://github
 - The default layer and Windows layer are the character layers.
 - Both layers use home-row modifiers: `CTRL`, `OPTION (ALT)`, and `COMMAND (WINDOWS)` share the same positions as character keys on the ring, middle, and index fingers. Hold the key for the modifier, or tap it for the character.
 - Hold `Z` and move on the trackpad to scroll in any direction. For right-edge scrolling, hold `Z` to convert the edge gesture from vertical scrolling to horizontal scrolling at the firmware level.
-- `X` is a normal character key on these layers.
+- Tap `X` to type the character, or hold `X` for left click.
 - Mouse combos use a 25 ms timeout: `E` + `R` for right click, `D` + `F` for left click, `C` + `V` for middle click, `F` + `G` for browser back, and `R` + `T` for browser forward.
 - left encoder:
   - rotation: adjust volume
@@ -80,7 +80,12 @@ The source code for this keymap is available at [nxtkb/Sweep-Pro](https://github
 - Hold the left thumb `Tab` and press `Space` to toggle the mouse layer.
 - Press `Q` or `P` to leave the mouse layer.
 - `M4` and `M5` are browser back and forward. `F` + `G` and `R` + `T` provide the same back/forward buttons as combos.
-- The bottom-left keys adjust pointer and scroll speed. `Mode` toggles the Cirque trackpad mode.
+- On the left side, `Z` / `X` adjust pointer speed down/up in `0.01x` steps, and `C` / `V` adjust scroll speed down/up in `0.01x` steps.
+- The left encoder adjusts pointer speed coarsely; pressing it resets pointer speed to `1.00x`.
+- The right encoder adjusts scroll speed coarsely; pressing it resets scroll speed to `1.00x`.
+- Pointer speed ranges from `0.10x` to `4.00x`; scroll speed ranges from `0.10x` to `10.00x`.
+- Speed settings are saved separately for USB and each Bluetooth profile.
+- `Mode` toggles the Cirque trackpad mode.
 - Sweep Pro boots the Cirque trackpad in absolute mode by default; `Mode` switches between absolute and relative mode at runtime.
 
 ![mouse layer](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_mouse_layer.svg)

@@ -18,10 +18,11 @@ Ferris Sweep Pro versions with the Cirque trackpad can handle pointer movement, 
 | Hold-to-scroll | Hold `Z`, then move on the trackpad. Pointer movement becomes wheel movement while held, so horizontal finger movement sends horizontal wheel events and vertical finger movement sends vertical wheel events. |
 | Horizontal edge scroll | Hold `Z`, then use the right-edge scroll gesture. Sweep Pro converts the native right-edge wheel event into a horizontal wheel event while `Z` is held. |
 | App-level horizontal scroll | Some desktop apps also treat `Shift` + vertical wheel as horizontal scroll. This is handled by the app or operating system, not by the trackpad firmware. |
+| `X` hold left click | Tap `X` to type the character, or hold it for left click. This is useful for drag selection without switching layers. |
 | Mouse click combos | Press `D` + `F` for left click, `E` + `R` for right click, or `C` + `V` for middle click. These combos use a short 25 ms timeout so normal typing is less likely to trigger them by accident. |
 | Browser navigation combos | Press `F` + `G` for browser back (`MB4`) or `R` + `T` for browser forward (`MB5`). |
 
-`Z` still types a normal character when tapped, and only enables drag-scroll while held. `X` is a normal character key on the base character layers.
+`Z` still types a normal character when tapped, and only enables drag-scroll while held. `X` still types a normal character when tapped, and becomes left click when held.
 
 ## Trackpad Modes
 
@@ -55,8 +56,12 @@ On the mouse layer:
 - `MB4` and `MB5` are browser back and forward.
 - `MCLK`, `LCLK`, and `RCLK` send middle, left, and right mouse clicks.
 - The arrow-style mouse keys move the pointer or send wheel events without using the trackpad.
-- `Ptr` speed keys adjust pointer speed.
-- `Scroll` speed keys adjust hold-to-scroll, native edge-wheel, and absolute edge-scroll speed.
+- `Z` / `X` adjust pointer speed down/up in `0.01x` steps. Hold either key to repeat quickly.
+- `C` / `V` adjust scroll speed down/up in `0.01x` steps. Hold either key to repeat quickly.
+- The left encoder adjusts pointer speed coarsely; pressing it resets pointer speed to `1.00x`.
+- The right encoder adjusts scroll speed coarsely; pressing it resets scroll speed to `1.00x`.
+- Pointer speed is adjustable from `0.10x` to `4.00x`; scroll speed is adjustable from `0.10x` to `10.00x`.
+- Speed settings are saved separately for USB and each Bluetooth profile.
 - `Mode` toggles the Cirque trackpad between relative mode and absolute mode.
 - The same click/navigation combos also work here: `E` + `R` for right click, `D` + `F` for left click, `C` + `V` for middle click, `F` + `G` for browser back, and `R` + `T` for browser forward.
 
@@ -79,7 +84,7 @@ The shared keymap connects the trackpad listener to two processors:
 };
 ```
 
-`pointer_processor` handles runtime pointer speed when `Z` is not held. `drag_scroll_processor` handles hold-to-scroll, native edge-wheel scaling, and the `horizontal-when-enabled` conversion that turns right-edge wheel into horizontal wheel while `Z` is held.
+`pointer_processor` handles runtime pointer speed when `Z` is not held. `drag_scroll_processor` handles hold-to-scroll, native edge-wheel scaling, and the `horizontal-when-enabled` conversion that turns right-edge wheel into horizontal wheel while `Z` is held. Both processors use multiplier-based runtime speed rather than fixed speed levels.
 
 ## Tips
 

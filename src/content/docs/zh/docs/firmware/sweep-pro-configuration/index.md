@@ -27,10 +27,10 @@ Ferris Sweep Pro 的自定义大致分两类：
 | 目标 | 修改位置 | 备注 |
 | :--- | :--- | :--- |
 | 修改按键或层 | `config/sweep.keymap` | 如果改的是公开默认键位，记得重新生成键位图。 |
-| 修改旋钮行为 | `config/sweep.keymap` 每层的 `sensor-bindings` | 当前默认是左旋钮音量、右旋钮亮度。 |
-| 调整指针或滚动速度曲线 | `config/sweep.keymap` 中的 `pointer_processor` 和 `drag_scroll_processor` | 鼠标层 `Ptr`、`Scroll` 是运行时调速；这里定义基础处理行为。 |
+| 修改旋钮行为 | `config/sweep.keymap` 每层的 `sensor-bindings` | 字符层默认是左旋钮音量、右旋钮亮度；鼠标层左旋钮调指针速度，右旋钮调滚动速度。 |
+| 调整指针或滚动速度曲线 | `config/sweep.keymap` 中的 `pointer_processor` 和 `drag_scroll_processor` | 鼠标层 `Z` / `X` 精调指针速度，`C` / `V` 精调滚动速度；按下旋钮让对应速度回到 `1.00x`。这里定义 `1.00x` 基准值和允许倍率范围。 |
 | 修改 `Z` 按住滚动行为 | `config/sweep.keymap` 中的 `ds_z` 和 `drag_scroll_processor` | `Z` 按住时启用 drag-scroll；当前 drag-scroll 处理器支持启用时的条件横向滚轮。 |
-| 修改鼠标点击 combo | `config/sweep.keymap` 中的 `combo_er_right_click`、`combo_df_left_click` 和 `combo_cv_middle_click` | 当前 timeout 为 25 ms。`X` 在基础字符层中是普通字符键。 |
+| 修改鼠标点击 combo | `config/sweep.keymap` 中的 `combo_er_right_click`、`combo_df_left_click` 和 `combo_cv_middle_click` | 当前 timeout 为 25 ms。`X` 在基础字符层中轻按输入字符，按住是鼠标左键。 |
 | 修改蓝牙或电池行为 | `config/sweep.conf` | 包含电池上报间隔、分体电池代理、蓝牙 2M PHY、发射功率和睡眠策略。 |
 | 修改显示屏固件能力 | `config/sweep_left_display_hw.conf` | 是否启用显示、LVGL、显示线程、字体和内存池等编译配置在这里；自定义状态屏 UI 来自 `zmk-vfx-sweep-pro-display`。 |
 | 修改右手触控板固件能力 | `config/sweep_right_trackpad.conf` | 是否启用 I2C 和 input 线程栈等编译配置在这里；日常触控板用法见[使用触控板](/zh/docs/setup/keymap/trackpad/)。 |

@@ -244,23 +244,27 @@ text.label {
 </g>
 <g transform="translate(29, 200)" class="key keypos-20">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
-<text x="0" y="0" class="key tap">Ptr</text>
-<text x="0" y="25" class="key hold">Prev</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.53em">Ptr</tspan><tspan x="0" dy="1.05em">-0.01</tspan>
+</text>
 </g>
 <g transform="translate(87, 163)" class="key keypos-21">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
-<text x="0" y="0" class="key tap">Ptr</text>
-<text x="0" y="25" class="key hold">Next</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.53em">Ptr</tspan><tspan x="0" dy="1.05em">+0.01</tspan>
+</text>
 </g>
 <g transform="translate(145, 145)" class="key keypos-22">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
-<text x="0" y="0" class="key tap">Scroll</text>
-<text x="0" y="25" class="key hold">Prev</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.53em">Scr</tspan><tspan x="0" dy="1.05em">-0.01</tspan>
+</text>
 </g>
 <g transform="translate(203, 162)" class="key keypos-23">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
-<text x="0" y="0" class="key tap">Scroll</text>
-<text x="0" y="25" class="key hold">Next</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.53em">Scr</tspan><tspan x="0" dy="1.05em">+0.01</tspan>
+</text>
 </g>
 <g transform="translate(261, 169)" class="key keypos-24">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
@@ -288,7 +292,9 @@ text.label {
 </g>
 <g transform="translate(162, 235)" class="key keypos-30">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
-<text x="0" y="0" class="key tap">MUTE</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.53em">Ptr</tspan><tspan x="0" dy="1.05em">1x</tspan>
+</text>
 </g>
 <g transform="translate(229, 228) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
@@ -312,7 +318,9 @@ text.label {
 </g>
 <g transform="translate(534, 235)" class="key keypos-35">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key"/>
-<text x="0" y="0" class="key tap">Studio</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.53em">Scr</tspan><tspan x="0" dy="1.05em">1x</tspan>
+</text>
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="160" y="24" width="28" height="26" class="combo"/>

@@ -23,7 +23,7 @@ The `sweep_display` shield selects ZMK's custom display status screen and render
 | Center | Logo | NXTKB logo image plus the `NXTkb` wordmark. |
 | Below logo | Split status | Left/right keyboard symbols. The right side is shown as connected or disconnected based on the split peripheral transport state. |
 | Keyboard name | Keyboard name | The value of `CONFIG_ZMK_KEYBOARD_NAME`. |
-| Trackpad row | Trackpad status | Runtime Cirque mode and pointing speeds, for example `Trackpad: A P2 S1`. `A` means absolute mode, `R` means relative mode, `P` is pointer speed index, and `S` is scroll speed index. Sweep Pro boots the trackpad in absolute mode by default. |
+| Trackpad row | Trackpad status | Runtime Cirque mode and pointing speed multipliers. The row uses a mouse icon, `A` or `R` for absolute/relative mode, and two-decimal `P` and `S` values such as `P 1.00x` and `S 1.00x`. Sweep Pro boots the trackpad in absolute mode by default. |
 | Bottom left | Layer status | The highest active layer. If a layer has `display-name`, that name is shown; otherwise the layer index is shown. Long names are clipped to 18 characters. |
 | Bottom right | HID indicators | Active modifier and Caps Lock state. The widget tracks Alt, Ctrl, Command/GUI, Shift, and Caps Lock, and marks active entries with an underline. |
 
@@ -39,7 +39,7 @@ The screen is event-driven. Each widget subscribes to the relevant ZMK events an
 | Battery | Local battery state, USB power state, split peripheral battery reports, and split peripheral connection changes. |
 | Split connection | Split peripheral transport state, with a short periodic refresh so stale connection state is corrected. |
 | Layer | `zmk_layer_state_changed` and ZMK keymap layer names. |
-| Trackpad | `zmk_trackpad_status_changed`, Cirque mode, pointer speed index, and scroll speed index from the trackpad/pointing modules. The row follows runtime mode changes instead of assuming the boot-time mode. |
+| Trackpad | `zmk_trackpad_status_changed`, Cirque mode, pointer speed multiplier, and scroll speed multiplier from the trackpad/pointing modules. The row follows runtime mode and speed changes instead of assuming the boot-time state. |
 | HID indicators | HID indicator changes and keycode modifier state changes. |
 
 Because `CONFIG_ZMK_DISPLAY_BLANK_ON_IDLE=n` is set by the display shield, the e-ink panel keeps showing the last rendered state instead of blanking when the keyboard idles.
@@ -69,7 +69,7 @@ Most visible text follows existing keyboard configuration:
 
 - Layer labels come from `display-name` in `config/sweep.keymap`.
 - The keyboard name comes from `CONFIG_ZMK_KEYBOARD_NAME`.
-- Trackpad mode, pointer speed, and scroll speed follow the runtime Cirque/pointing-speed state.
+- Trackpad mode, pointer speed multiplier, and scroll speed multiplier follow the runtime Cirque/pointing-speed state.
 - Battery and output status follow ZMK's normal USB, BLE, battery, and split events.
 
 Hardware-level display settings, such as the SSD1680 node, 152 x 152 size, rotation, GPIOs, and partial refresh waveform, live in the Sweep-Pro keyboard shield. Layout, logo, fonts, and widget selection live in the `zmk-vfx-sweep-pro-display` module.
