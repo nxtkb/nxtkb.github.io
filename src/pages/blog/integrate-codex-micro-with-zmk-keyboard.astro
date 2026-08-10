@@ -1,0 +1,193 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Integrate Codex Micro with Your ZMK Keyboard | NXTKB"
+  description="Use the open-source zmk-feature-codex-micro module to add ChatGPT Agent Keys, commands, USB, Bluetooth, and optional status UI to your own ZMK keyboard."
+>
+  <section class="hero article-hero" style="--hero-image: url('/products/ferris-sweep/sweep-3.png')">
+    <div class="hero-content">
+      <p class="eyebrow">ZMK × Codex Micro</p>
+      <h1>Let your own keyboard control ChatGPT</h1>
+      <p>Add Agent and command keys to a compatible ZMK keyboard without requiring a particular matrix, key count, or display.</p>
+    </div>
+  </section>
+
+  <article class="article">
+    <div class="article-body">
+      <div class="article-meta">
+        <span>For: Custom ZMK keyboards</span>
+        <span>Connections: USB / Bluetooth</span>
+        <span>License: MIT</span>
+      </div>
+
+      <p class="article-lede">
+        <a href="https://github.com/nxtkb/zmk-feature-codex-micro" target="_blank" rel="noopener noreferrer">zmk-feature-codex-micro</a>
+        is a keyboard-independent ZMK module. It exposes six Codex Micro-style Agent Keys and the common commands as a standard ZMK behavior. Your keyboard repository keeps ownership of its matrix, layers, and physical keys; the module handles protocol framing, USB, Bluetooth, routing, and Agent state.
+      </p>
+
+      <aside class="article-note">
+        <p><strong>Experimental compatibility:</strong> This is an independent NXTKB interoperability project, not an official OpenAI or Work Louder SDK, firmware, or certified accessory. The ChatGPT desktop app currently has no documented third-party hardware discovery or certification path, so a successful firmware build does not guarantee that the app will discover a device.</p>
+      </aside>
+
+      <h2>Which keyboards can use it?</h2>
+      <p>
+        The module does not depend on Ferris Sweep, Sweep Pro, e-ink, or a particular matrix. A ZMK central half with USB device support and sufficient flash and RAM can bind <code>&amp;codex_key</code>. On a split keyboard, enable the feature only on the central; the peripheral uses normal firmware.
+      </p>
+      <ul>
+        <li><strong>With a display:</strong> subscribe to the public state event and render six-Agent status.</li>
+        <li><strong>Without a display:</strong> all Agent and command keys work; read status in ChatGPT.</li>
+        <li><strong>USB:</strong> a second vendor-defined HID interface leaves normal keyboard HID intact.</li>
+        <li><strong>Bluetooth:</strong> an encrypted HID-over-GATT channel follows the active ZMK profile.</li>
+      </ul>
+
+      <div class="protocol-flow" aria-label="Structure of a custom keyboard Codex Micro integration">
+        <div class="protocol-node"><strong>Your keymap</strong><span>Chooses layers and physical keys</span></div>
+        <div class="protocol-arrow" aria-hidden="true">→</div>
+        <div class="protocol-node"><strong>ZMK module</strong><span>Actions, protocol, and routing</span></div>
+        <div class="protocol-arrow" aria-hidden="true">→</div>
+        <div class="protocol-node"><strong>ChatGPT</strong><span>Interprets actions and returns state</span></div>
+      </div>
+
+      <h2>Before you begin</h2>
+      <ul>
+        <li>Start from a ZMK config repository that already builds successfully.</li>
+        <li>Identify the central half, usually the half that connects over USB.</li>
+        <li>Pin tested ZMK and module commits or release tags.</li>
+        <li>Keep a known-good firmware build without Codex for diagnosis and rollback.</li>
+      </ul>
+
+      <h2>Step 1: Add the module to the west manifest</h2>
+      <p>Add the NXTKB remote and module project to <code>config/west.yml</code>:</p>
+      <pre><code>manifest:
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+    - name: nxtkb
+      url-base: https://github.com/nxtkb
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      revision: &lt;tested-zmk-commit&gt;
+      import: app/west.yml
+    - name: zmk-feature-codex-micro
+      remote: nxtkb
+      revision: &lt;release-tag-or-commit&gt;
+  self:
+    path: config</code></pre>
+      <p>
+        Avoid depending on <code>main</code> for distributed firmware. Pinned revisions let you reproduce an older build after ZMK or the module evolves.
+      </p>
+
+      <h2>Step 2: Apply the temporary official-ZMK patch</h2>
+      <p>
+        Codex USB requires interrupt-OUT. Zephyr's current option gives both the normal keyboard <code>HID_0</code> and Codex <code>HID_1</code> an OUT endpoint, while official ZMK does not yet register an <code>HID_0</code> receive callback. Until an equivalent fix is merged upstream, apply the focused patch included with the module:
+      </p>
+      <pre><code>west update
+west patch -sm zmk-feature-codex-micro apply</code></pre>
+      <p>
+        <code>west update</code> and <code>west build</code> do not apply module patches automatically, so the explicit <code>west patch</code> step is required. The module also provides a reusable GitHub Actions workflow that performs this step before compiling. If the module is outside your west workspace, use <code>git apply</code> with <code>zephyr/patches/zmk/zmk-usb-hid-interrupt-out.patch</code> instead. This is not an NXTKB ZMK fork: the patch only lets the official ZMK keyboard interface safely consume or discard its own OUT report. Codex traffic remains isolated on <code>HID_1</code>. Stop applying the patch after the pinned official ZMK revision includes an equivalent callback.
+      </p>
+
+      <h2>Step 3: Choose USB or Bluetooth transport</h2>
+      <p>Add the snippet to the central build in <code>build.yaml</code>. USB only:</p>
+      <pre><code>include:
+  - board: nice_nano//zmk
+    shield: corne_left
+    snippet: nxtkb-codex-micro-usb</code></pre>
+      <p>USB and Bluetooth:</p>
+      <pre><code>include:
+  - board: nice_nano//zmk
+    shield: corne_left
+    snippet: nxtkb-codex-micro-usb nxtkb-codex-micro-ble</code></pre>
+      <p>Do not add a snippet to the right peripheral:</p>
+      <pre><code>  - board: nice_nano//zmk
+    shield: corne_right</code></pre>
+
+      <h2>Step 4: Bind actions in the keymap</h2>
+      <p>Include the module behavior and key IDs near the top of the keymap:</p>
+      <pre><code>#include &lt;behaviors.dtsi&gt;
+#include &lt;behaviors/codex_key.dtsi&gt;
+#include &lt;dt-bindings/nxtkb/codex.h&gt;</code></pre>
+      <p>Place the actions on any layer. This fragment shows the core bindings; a real layer must still contain the complete binding count required by your keyboard:</p>
+      <pre><code>codex_layer &lbrace;
+    bindings = &lt;
+        &amp;codex_key CODEX_AGENT_0
+        &amp;codex_key CODEX_AGENT_1
+        &amp;codex_key CODEX_AGENT_2
+        &amp;codex_key CODEX_AGENT_3
+        &amp;codex_key CODEX_AGENT_4
+        &amp;codex_key CODEX_AGENT_5
+        &amp;codex_key CODEX_FAST
+        &amp;codex_key CODEX_APPROVE
+        &amp;codex_key CODEX_DECLINE
+        &amp;codex_key CODEX_SPLIT
+        &amp;codex_key CODEX_MIC
+        &amp;codex_key CODEX_SEND
+    &gt;;
+&rbrace;;</code></pre>
+
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>Constant</th><th>ChatGPT action</th></tr></thead>
+          <tbody>
+            <tr><td><code>CODEX_AGENT_0</code>–<code>CODEX_AGENT_5</code></td><td>Select the six Agent slots</td></tr>
+            <tr><td><code>CODEX_FAST</code></td><td>Fast mode</td></tr>
+            <tr><td><code>CODEX_APPROVE</code></td><td>Approve an action</td></tr>
+            <tr><td><code>CODEX_DECLINE</code></td><td>Decline an action</td></tr>
+            <tr><td><code>CODEX_SPLIT</code></td><td>Split the current chat into a new chat</td></tr>
+            <tr><td><code>CODEX_MIC</code></td><td>Use the computer microphone for voice input</td></tr>
+            <tr><td><code>CODEX_SEND</code></td><td>Send the current input</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Use the repository's complete <a href="https://github.com/nxtkb/zmk-feature-codex-micro/tree/main/examples/corne" target="_blank" rel="noopener noreferrer">Corne example</a> as a reference. CI also builds it as the non-NXTKB integration test.
+      </p>
+
+      <h2>Optional: render Agent state</h2>
+      <p>
+        A display is not a protocol dependency. A screen or LED module can subscribe to <code>nxtkb_codex_state_changed</code>, then call <code>nxtkb_codex_state_get()</code>. The snapshot contains six slots, the active slot, normalized states, selection flags, and original RGB values.
+      </p>
+      <pre><code>#include &lt;nxtkb/codex/events.h&gt;
+#include &lt;nxtkb/codex/state.h&gt;</code></pre>
+      <p>Your UI remains in the keyboard or display module, keeping the Codex core independent of any screen.</p>
+
+      <h2>Pair Bluetooth again after the first upgrade</h2>
+      <p>
+        Hosts cache a keyboard's HID report map. After first enabling the BLE snippet, forget the old keyboard on the computer, clear the matching ZMK profile, and pair again. Toggling Bluetooth alone normally does not replace the cached capability description.
+      </p>
+      <p>
+        Codex actions follow the currently selected ZMK USB output or Bluetooth profile. Other computers remain connected and retain independent Agent state; switching Codex does not require disconnecting every host.
+      </p>
+
+      <h2>Device identity and ChatGPT discovery</h2>
+      <aside class="article-callout">
+        <h2>Do not copy another vendor's identity</h2>
+        <p>The public module contains no NXTKB lab identity. Never put another vendor's VID, PID, manufacturer, model, serial number, or Bluetooth Device Information into firmware you distribute.</p>
+      </aside>
+      <p>
+        The ChatGPT desktop app currently has no documented third-party Codex Micro registration flow. Integrators must use identifiers they are authorized to use and validate how the installed app discovers devices. Until an official discovery or certification path exists, treat this project as development, research, and interoperability work—not an officially certified integration.
+      </p>
+
+      <h2>Pre-release checklist</h2>
+      <ul>
+        <li>Both USB-only and USB+BLE central builds pass.</li>
+        <li>The peripheral still builds without a Codex snippet.</li>
+        <li>Normal keyboard, consumer, mouse, trackpad, and ZMK Studio behavior has no regression.</li>
+        <li>Check flash and RAM on the target controller, not only UF2 file size.</li>
+        <li>Re-pair every Bluetooth profile that has gained Codex BLE.</li>
+        <li>Test USB, Bluetooth, output switching, and separate computers.</li>
+        <li>Never publish a UF2 built with an experimental identity.</li>
+      </ul>
+
+      <h2>Where to start</h2>
+      <p>
+        The module, patch, integration documentation, and Corne example live in
+        <a href="https://github.com/nxtkb/zmk-feature-codex-micro" target="_blank" rel="noopener noreferrer">nxtkb/zmk-feature-codex-micro</a>.
+        First reproduce the example in your ZMK environment, then carry the same west project, snippets, and behavior bindings into your actual keyboard.
+      </p>
+    </div>
+  </article>
+</SiteLayout>

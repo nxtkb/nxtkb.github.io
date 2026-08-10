@@ -68,12 +68,22 @@ title: "Ferris Sweep Pro 键位映射"
   - `BT 0` 到 `BT 4`: 选择要连接的蓝牙配置位。
   - `BT CLR`: 清除当前选择的蓝牙配置位，之后可以重新配对。
   - `OUT TOG`: 在USB和蓝牙输出之间切换。
-  - `WIN toggle`: 在默认层和Windows层之间切换。
+  - `CODEX`: 按 `I` 进入 Codex 层。
   - `Studio`: 解锁键盘，以便使用[ZMK Studio](https://zmk.dev/docs/features/studio#keymap-changes)设置按键。
   - `Off`: 进入软关机模式，只能通过已配置的唤醒键唤醒。
 - 松开拇指 `Tab` 返回默认层或Windows层。
 
 ![功能层](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_func_layer.svg)
+
+### Codex 层
+
+- 同时按住两个拇指 `Tab` 键，再按 `I` 进入 Codex 层。
+- `Q`–`Y` 选择 Agent 对话 1–6。
+- `A`、`S`、`D`、`F` 分别对应批准、分叉当前对话、拒绝和 Fast。
+- `H` 启动语音输入，`J` 发送当前输入。
+- 按 `P` 退出 Codex 层。
+
+![Codex 层](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_codex_layer.svg)
 
 ### 鼠标层
 

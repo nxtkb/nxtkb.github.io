@@ -24,19 +24,17 @@ The source code for this keymap is available at [nxtkb/zmk-config-4-ferris-sweep
 
 ## Keymap Layers
 
-### Characters (Default/Windows Layer)
+### Characters (Default Layer)
 
-- The default layer and Windows layer are where you type characters.
-- Both layers place `CTRL`, `OPTION (ALT)`, and `COMMAND (WINDOWS)` on the same keys as the home-row characters under your ring, middle, and index fingers. Hold the key for the modifier, or tap it for the character.
+- The default layer is where you type characters.
+- `CTRL`, `OPTION (ALT)`, and `COMMAND (WINDOWS)` share the home-row character keys under your ring, middle, and index fingers. Hold the key for the modifier, or tap it for the character.
 
 ![default layer](/keymaps/ferris-sweep/ferris_sweep_keymap_default_layer.svg)
-
-![windows layer](/keymaps/ferris-sweep/ferris_sweep_keymap_win_layer.svg)
 
 ### Numbers and Navigation
 
 - Hold the right `TAB` layer key to enter the numbers and navigation layer.
-- Release the right `TAB` key to return to the default or Windows layer.
+- Release the right `TAB` key to return to the default layer.
 - Special keys:
   - `Boot`: make the right half of the split keyboard enter bootloader mode so you can copy new firmware to it.
 
@@ -45,7 +43,7 @@ The source code for this keymap is available at [nxtkb/zmk-config-4-ferris-sweep
 ### Symbols (Punctuations)
 
 - Hold the left `TAB` layer key to enter the symbols layer.
-- Release the left `TAB` key to return to the default or Windows layer.
+- Release the left `TAB` key to return to the default layer.
 - Special keys:
   - `Report`: type out battery information.
   - `Boot`: make the left half of the split keyboard enter bootloader mode so you can copy new firmware to it.
@@ -59,10 +57,10 @@ The source code for this keymap is available at [nxtkb/zmk-config-4-ferris-sweep
   - `BT 0` to `BT 4`: select the Bluetooth profile you are connecting or want to connect with.
   - `BT CLR`: clear the connection for the selected profile, then reconnect that profile with your device.
   - `OUT TOG`: toggle between USB and Bluetooth output, so you can connect up to 6 devices: 5 over Bluetooth and 1 over USB.
-  - `WIN`: toggle the Windows layer, so you can switch between the default and Windows layers.
+  - `CODEX`: press `I` to enter the Codex layer. This requires Codex Micro-enabled firmware.
   - `Studio`: unlock the keyboard so you can use [ZMK Studio](https://zmk.dev/docs/features/studio#keymap-changes) to set up keys.
   - `Off`: enter soft-off mode. This is similar to deep sleep, but the keyboard can only wake from the configured wake key, currently the left thumb `LSHIFT` key.
-- Release the `TAB` layer keys to return to the default or Windows layer.
+- Release the `TAB` layer keys to return to the default layer.
 
 ![func layer](/keymaps/ferris-sweep/ferris_sweep_keymap_func_layer.svg)
 
@@ -73,6 +71,19 @@ The source code for this keymap is available at [nxtkb/zmk-config-4-ferris-sweep
 - `MB4` is browser back and `MB5` is browser forward.
 
 ![mouse layer](/keymaps/ferris-sweep/ferris_sweep_keymap_mouse_layer.svg)
+
+### Codex
+
+- Hold both `TAB` layer keys to open the function layer, then press `I` to toggle the Codex layer.
+- `Q`–`Y` select Agents 1–6.
+- `A`, `S`, `D`, and `F` are Approve, Split chat, Decline, and Fast.
+- `H` starts Voice input and `J` sends the current input.
+- Press `P` to leave the Codex layer and restore normal typing.
+- Ferris Sweep has no display, so check Agent status in the ChatGPT desktop app. All control keys still work normally.
+
+![Codex layer](/keymaps/ferris-sweep/ferris_sweep_keymap_codex_layer.svg)
+
+See [Using Codex Micro on the Ferris Sweep family](/blog/codex-micro-chatgpt-protocol/) for connection, Bluetooth re-pairing, and troubleshooting guidance.
 
 ## References
 
