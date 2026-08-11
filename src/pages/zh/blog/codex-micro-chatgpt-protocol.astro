@@ -1,0 +1,224 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="在 Ferris Sweep 系列上使用 Codex Micro | NXTKB"
+  description="Ferris Sweep 与 Sweep Pro 的 Codex Micro 兼容功能完整指南：连接 ChatGPT、切换六个对话、使用命令按键，以及 USB、蓝牙和多设备使用方法。"
+  lang="zh"
+>
+  <section class="hero article-hero" style="--hero-image: url('/products/ferris-sweep-pro/display.png')">
+    <div class="hero-content">
+      <p class="eyebrow">Ferris Sweep × ChatGPT</p>
+      <h1>把 ChatGPT 对话放到键盘上</h1>
+      <p>用六个 Agent 键切换对话，用命令键批准、拒绝、说话和发送；Sweep Pro 还可以在墨水屏上显示实时状态。</p>
+    </div>
+  </section>
+
+  <article class="article">
+    <div class="article-body">
+      <div class="article-meta">
+        <span>适用：Ferris Sweep / Sweep Pro</span>
+        <span>连接：USB / Bluetooth</span>
+        <span>需要：ChatGPT 桌面应用</span>
+      </div>
+
+      <p class="article-lede">
+        NXTKB 的 Codex Micro 兼容功能，让 Ferris Sweep 和 Sweep Pro 都能在不离开键盘的情况下管理 ChatGPT 对话。你可以切换六个对话、批准或拒绝操作、把当前对话分叉为新对话、使用电脑麦克风输入，以及发送消息；带墨水屏的 Sweep Pro 还会显示对话状态。
+      </p>
+
+      <aside class="article-note">
+        <p><strong>兼容性说明：</strong>这是 NXTKB 为 Ferris Sweep 系列独立实现的兼容功能，并非 OpenAI 或 Work Louder 官方硬件。需要安装带 Codex Micro 支持的固件；功能也可能随 ChatGPT 桌面应用更新而调整。</p>
+      </aside>
+
+      <h2>你可以用它做什么</h2>
+      <div class="protocol-flow" aria-label="Ferris Sweep 系列与 ChatGPT 的交互方式">
+        <div class="protocol-node">
+          <strong>六个对话</strong>
+          <span>查看状态并快速切换</span>
+        </div>
+        <div class="protocol-arrow" aria-hidden="true">+</div>
+        <div class="protocol-node">
+          <strong>六个动作</strong>
+          <span>批准、分叉对话、拒绝、Fast、语音、发送</span>
+        </div>
+        <div class="protocol-arrow" aria-hidden="true">+</div>
+        <div class="protocol-node">
+          <strong>状态显示</strong>
+          <span>Sweep Pro 墨水屏跟随当前电脑</span>
+        </div>
+      </div>
+      <p>
+        这些功能不是普通的系统快捷键。键盘和 ChatGPT 之间有一条双向连接：键盘把你的操作发送给 ChatGPT，ChatGPT 再把六个对话的状态传回键盘。它可以通过 USB 或蓝牙工作，不需要 Work Louder Input，也不会替代键盘原有的打字、鼠标、触控板或 ZMK Studio 功能。无屏幕的 Ferris Sweep 接收状态但不显示它们。
+      </p>
+
+      <h2>开始之前</h2>
+      <ul>
+        <li>在电脑上安装并登录 ChatGPT 桌面应用。</li>
+        <li>确认键盘已刷入带 Codex Micro 支持的固件。</li>
+        <li>使用 USB 数据线连接，或通过蓝牙重新配对键盘。</li>
+        <li>在 macOS 首次提示时，允许 ChatGPT 使用 Input Monitoring。</li>
+        <li>如果需要语音输入，同时允许 ChatGPT 使用电脑麦克风。</li>
+      </ul>
+      <p>
+        ChatGPT 第一次识别到兼容键盘后，可以在 <strong>Settings → Codex Micro</strong> 中配置六个 Agent 键跟随哪些对话，以及单击是否直接把 ChatGPT 带到前台。更多原版功能行为可以参考 <a href="https://learn.chatgpt.com/docs/features/codex-micro" target="_blank" rel="noopener noreferrer">OpenAI 的 Codex Micro 说明</a>。
+      </p>
+
+      <h2>如何进入 Codex 层</h2>
+      <ol>
+        <li>同时按住拇指区左右两个 <kbd>Tab</kbd> 层键，进入 <strong>FUN</strong> 层。</li>
+        <li>按 <kbd>I</kbd>，切换到 <strong>CODEX</strong> 层。</li>
+        <li>松开层键后，Codex 层会继续保持；按 <kbd>P</kbd> 退出。</li>
+      </ol>
+      <p>
+        <kbd>I</kbd> 是 Codex 层入口。FUN 层上的 <kbd>O</kbd> 仍然是系统静音键，不会和 Codex 入口冲突。进入后，普通字母键会临时变成下面的 Agent 和命令按键，因此需要打字时请先按 <kbd>P</kbd> 退出。
+      </p>
+
+      <h2>Codex 层键位</h2>
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>按键</th><th>功能</th><th>使用方式</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Q W E R T Y</kbd></td><td>Agent 1–6</td><td>切换或聚焦对应的 ChatGPT 对话</td></tr>
+            <tr><td><kbd>A</kbd></td><td>Approve</td><td>批准当前等待确认的操作</td></tr>
+            <tr><td><kbd>S</kbd></td><td>Split chat</td><td>保留当前上下文，并在一个新对话中继续</td></tr>
+            <tr><td><kbd>D</kbd></td><td>Decline</td><td>拒绝当前等待确认的操作</td></tr>
+            <tr><td><kbd>F</kbd></td><td>Fast</td><td>切换当前对话的 Fast 模式</td></tr>
+            <tr><td><kbd>H</kbd></td><td>Push-to-talk</td><td>按住说话；快速双击可锁定录音</td></tr>
+            <tr><td><kbd>J</kbd></td><td>Send</td><td>发送当前输入</td></tr>
+            <tr><td><kbd>P</kbd></td><td>Exit</td><td>退出 Codex 层，恢复普通键位</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>六个 Agent 键如何工作</h2>
+      <p>
+        <kbd>Q</kbd> 到 <kbd>Y</kbd> 对应 Agent 1 到 Agent 6。默认情况下，它们跟随最近更新的六个 ChatGPT 对话，不要求对话已经固定。你也可以在 ChatGPT 的 Codex Micro 设置中选择最近、固定、优先或自定义分配方式。
+      </p>
+      <ul>
+        <li><strong>单击一次：</strong>切换到对应对话，但默认不抢走当前应用的焦点。</li>
+        <li><strong>350ms 内双击：</strong>切换对话并把 ChatGPT 窗口带到前台。</li>
+        <li><strong>单击即聚焦：</strong>可以在 ChatGPT 的 Codex Micro 设置中开启。</li>
+      </ul>
+      <p>
+        六是键盘提供的快捷槽位数量，不是 ChatGPT 只能保存六个对话。其他对话仍然保留在 ChatGPT 中，只是没有同时映射到这六个物理按键。
+      </p>
+
+      <h2>语音键没有内置麦克风</h2>
+      <p>
+        <kbd>H</kbd> 控制的是电脑上的 ChatGPT 语音输入。键盘本身没有麦克风，所以录音质量和权限取决于电脑内置麦克风、耳机或外接麦克风。
+      </p>
+      <ul>
+        <li>按住 <kbd>H</kbd> 说话，松开后结束。</li>
+        <li>在 350ms 内快速按两次，可以锁定录音，不必一直按住。</li>
+        <li>录音锁定后再按一次 <kbd>H</kbd>，停止录音。</li>
+      </ul>
+      <p>
+        如果按键有反应但没有声音输入，请先检查系统的麦克风隐私权限和 ChatGPT 当前选择的输入设备。
+      </p>
+
+      <h2>Agent 状态与墨水屏</h2>
+      <p>
+        带墨水屏的 Sweep Pro 会显示类似 <code>A2&nbsp; 1I 2W 3N 4? 5! 6-</code> 的状态行。<code>A2</code> 表示当前选中 Agent 2；后面的 1–6 分别对应六个 Agent 键。墨水屏只在状态改变时刷新，因此静止不闪烁是正常现象。
+      </p>
+      <p>
+        无屏幕的 Ferris Sweep 使用相同的 Agent 和动作按键，但不会在键盘上显示状态；请直接在 ChatGPT 桌面应用中查看当前对话。没有屏幕不会影响 Codex 控制。
+      </p>
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>屏幕符号</th><th>ChatGPT 状态</th><th>含义</th></tr></thead>
+          <tbody>
+            <tr><td><code>-</code></td><td>未分配</td><td>这个 Agent 键当前没有跟随对话</td></tr>
+            <tr><td><code>I</code></td><td>Idle</td><td>对话空闲</td></tr>
+            <tr><td><code>W</code></td><td>Thinking</td><td>ChatGPT 正在工作</td></tr>
+            <tr><td><code>N</code></td><td>Complete</td><td>任务完成，并且有未读更新</td></tr>
+            <tr><td><code>?</code></td><td>Requires input</td><td>需要你的批准或回复</td></tr>
+            <tr><td><code>!</code></td><td>Error</td><td>对话执行出错</td></tr>
+            <tr><td><code>U</code></td><td>Unknown</td><td>ChatGPT 返回了固件尚未识别的新状态</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        原版 Codex Micro 使用白、蓝、绿、琥珀和红色灯光表达这些状态。Sweep Pro 的墨水屏把它们转换成字符，使状态在低功耗黑白屏上仍然清楚可读。
+      </p>
+
+      <h2>USB、蓝牙与多台电脑</h2>
+      <p>
+        Codex 控制会自动跟随键盘当前选中的输出端点。你不需要再为 ChatGPT 单独切换一次：用键盘原有的 USB/蓝牙输出切换键或蓝牙 profile 键选择电脑后，Agent 按键和可用的显示状态也会一起切换。具体设备切换键位可以查看 <a href="/zh/docs/setup/keymap/ferris-sweep-keymap/">Ferris Sweep</a> 或 <a href="/zh/docs/setup/keymap/ferris-sweep-pro-keymap/">Sweep Pro</a> 键位说明。
+      </p>
+      <ul>
+        <li><strong>USB：</strong>适合固定桌面，延迟低，也不依赖电池。</li>
+        <li><strong>蓝牙：</strong>Codex 控制和普通键盘输入共用当前蓝牙 profile。</li>
+        <li><strong>多台电脑：</strong>每台已连接电脑保留自己的六个 Agent 状态；切回时恢复该电脑最后一次状态。</li>
+        <li><strong>其他电脑不会被断开：</strong>切换输出只改变按键当前发送到哪里，不会主动断开仍连接的 USB 或蓝牙设备。</li>
+      </ul>
+      <p>
+        如果 USB 和蓝牙同时连接到同一台电脑，系统可能看到两个 Codex 接口，但按键仍只跟随当前选中的键盘输出。通常可以正常共存；如果 ChatGPT 反复重连，暂时断开不使用的那条连接有助于确认问题来自哪一路。
+      </p>
+
+      <h2>为什么蓝牙升级后需要重新配对</h2>
+      <p>
+        电脑会缓存蓝牙键盘提供的功能描述。第一次刷入带 Codex 蓝牙支持的固件后，旧配对记录可能仍把键盘当作普通键盘，因此仅关闭再打开蓝牙通常不够。
+      </p>
+      <ol>
+        <li>在电脑的蓝牙设置中忽略或删除旧的键盘。</li>
+        <li>在键盘上切换到对应蓝牙 profile，并清除该 profile 的配对。</li>
+        <li>重新进入配对状态，在电脑上重新连接。</li>
+        <li>打开 ChatGPT，等待它检测并连接 Codex Micro 兼容接口。</li>
+      </ol>
+      <p>
+        这个步骤通常只在首次启用该功能，或固件更新改变蓝牙功能描述时需要执行。
+      </p>
+
+      <h2>连接失败或按键无响应</h2>
+      <div class="article-callout">
+        <h2>按这个顺序检查</h2>
+        <ol>
+          <li>确认正在使用 ChatGPT 桌面应用，而不是浏览器网页。</li>
+          <li>确认键盘当前输出选择的是这台电脑。</li>
+          <li>重新进入 Codex 层：按住两个 Tab 层键，再按 I。</li>
+          <li>在 macOS 中确认 ChatGPT 已获得 Input Monitoring；语音还需要麦克风权限。</li>
+          <li>USB 模式下换一条确定支持数据传输的线，并重新插拔。</li>
+          <li>蓝牙模式下按上一节完整删除旧配对并重新配对。</li>
+          <li>暂时退出 Karabiner、键盘重映射器或可能拦截 HID 的安全软件。</li>
+          <li>退出并重新打开 ChatGPT；仍不工作时重启电脑。</li>
+        </ol>
+      </div>
+      <p>
+        如果 ChatGPT 显示“found your Codex Micro but couldn't connect”，通常表示系统已经识别到兼容接口，但双向通信没有建立。此时重点检查权限、旧蓝牙配对、HID 拦截软件和是否选择了正确的键盘输出，而不是反复按 Agent 键。
+      </p>
+      <p>
+        如果只有麦克风键不工作，优先检查麦克风权限。如果只有墨水屏状态没有变化，先在 ChatGPT 中确认六个 Agent 键已经分配对话，并确认键盘当前选中的正是运行 ChatGPT 的那台电脑。
+      </p>
+
+      <h2>连接背后的简单原理</h2>
+      <p>
+        Ferris Sweep 系列通过操作系统的 HID 设备通道与 ChatGPT 桌面应用通信。键盘向上发送 Agent 和命令按键的按下、松开事件；ChatGPT 向下发送连接状态和六个对话的状态。USB 和蓝牙承载的是同一类双向消息，所以两种连接可以提供一致的 Codex 操作体验。
+      </p>
+      <p>
+        当前兼容层只处理完成这些功能所需的按键动作和状态，不把对话正文、提示词或代码内容显示或保存到键盘。它也不会赋予键盘额外的 ChatGPT 账户权限；所有实际操作仍由已经登录的 ChatGPT 桌面应用执行。
+      </p>
+
+      <h2>当前支持范围</h2>
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>功能</th><th>支持情况</th></tr></thead>
+          <tbody>
+            <tr><td>六个 Agent 对话键</td><td>支持</td></tr>
+            <tr><td>Approve、Split chat、Decline、Fast、语音、Send</td><td>支持</td></tr>
+            <tr><td>单击、双击、长按和按键松开</td><td>支持，由 ChatGPT 解释</td></tr>
+            <tr><td>USB 控制</td><td>支持</td></tr>
+            <tr><td>蓝牙控制与多 profile</td><td>支持</td></tr>
+            <tr><td>墨水屏 Agent 状态</td><td>Sweep Pro 支持；无屏幕 Ferris Sweep 不显示</td></tr>
+            <tr><td>Codex Micro 模拟摇杆与旋钮自定义</td><td>不适用于当前 Ferris Sweep 系列键位</td></tr>
+            <tr><td>完整 RGB 灯效编辑与设备固件更新</td><td>不支持</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Ferris Sweep 与 Sweep Pro 都覆盖了完整的控制流程：连接当前电脑、进入 Codex 层、选择六个对话并执行常用命令；Sweep Pro 额外通过墨水屏显示 ChatGPT 是否正在工作、等待输入或已经完成。
+      </p>
+    </div>
+  </article>
+</SiteLayout>

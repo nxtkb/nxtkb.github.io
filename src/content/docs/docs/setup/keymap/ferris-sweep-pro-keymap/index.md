@@ -68,12 +68,22 @@ The source code for this keymap is available at [nxtkb/Sweep-Pro](https://github
   - `BT 0` to `BT 4`: select the Bluetooth profile to connect.
   - `BT CLR`: clear the selected Bluetooth profile so it can be paired again.
   - `OUT TOG`: toggle between USB and Bluetooth output.
-  - `WIN toggle`: switch between the default and Windows layers.
+  - `CODEX`: press `I` to enter the Codex layer.
   - `Studio`: unlock the keyboard for [ZMK Studio](https://zmk.dev/docs/features/studio#keymap-changes).
   - `Off`: enter soft off. The keyboard can only wake from configured wake-up keys.
 - Release the thumb `Tab` keys to return to the default or Windows layer.
 
 ![func layer](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_func_layer.svg)
+
+### Codex
+
+- Hold both thumb `Tab` keys and press `I` to enter the Codex layer.
+- `Q`–`Y` select Agent chats 1–6.
+- `A`, `S`, `D`, and `F` are Approve, Split chat, Decline, and Fast.
+- `H` starts Voice input and `J` sends the current input.
+- Press `P` to leave the Codex layer.
+
+![Codex layer](/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_codex_layer.svg)
 
 ### Mouse
 

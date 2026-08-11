@@ -1,0 +1,194 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="为自己的 ZMK 键盘集成 Codex Micro | NXTKB"
+  description="使用开源 zmk-feature-codex-micro 模块，为自己的 ZMK 键盘增加 ChatGPT Agent、命令、USB、蓝牙和可选状态显示支持。"
+  lang="zh"
+>
+  <section class="hero article-hero" style="--hero-image: url('/products/ferris-sweep/sweep-3.png')">
+    <div class="hero-content">
+      <p class="eyebrow">ZMK × Codex Micro</p>
+      <h1>让你自己的键盘控制 ChatGPT</h1>
+      <p>不限定矩阵、键数或屏幕，把 Agent 与命令按键加入任何兼容的 ZMK 键盘。</p>
+    </div>
+  </section>
+
+  <article class="article">
+    <div class="article-body">
+      <div class="article-meta">
+        <span>适用：自制 ZMK 键盘</span>
+        <span>连接：USB / Bluetooth</span>
+        <span>许可证：MIT</span>
+      </div>
+
+      <p class="article-lede">
+        <a href="https://github.com/nxtkb/zmk-feature-codex-micro" target="_blank" rel="noopener noreferrer">zmk-feature-codex-micro</a>
+        是一个与具体键盘无关的 ZMK module。它把 Codex Micro 风格的六个 Agent 键和常用命令作为标准 ZMK behavior 提供出来。键盘仓库仍然只管理自己的矩阵、层和按键；协议、USB、蓝牙与会话状态由模块负责。
+      </p>
+
+      <aside class="article-note">
+        <p><strong>实验性兼容功能：</strong>这是 NXTKB 独立实现的互操作项目，不是 OpenAI 或 Work Louder 官方 SDK、固件或认证配件。当前 ChatGPT 桌面应用没有公开第三方硬件发现与认证机制，因此编译成功不等于应用一定会识别设备。</p>
+      </aside>
+
+      <h2>哪些键盘可以集成</h2>
+      <p>
+        模块不依赖 Ferris Sweep、Sweep Pro、墨水屏或特定矩阵。只要中央侧支持 ZMK USB device、拥有足够的 Flash 和 RAM，就可以绑定 <code>&amp;codex_key</code>。分体键盘只在 central 一侧启用，peripheral 使用普通固件。
+      </p>
+      <ul>
+        <li><strong>有屏幕：</strong>可以订阅模块状态事件，显示六个 Agent 的状态。</li>
+        <li><strong>无屏幕：</strong>Agent 与命令按键完整可用，状态直接在 ChatGPT 中查看。</li>
+        <li><strong>USB：</strong>增加第二个 vendor-defined HID 接口，不替换普通键盘接口。</li>
+        <li><strong>蓝牙：</strong>在当前 ZMK Bluetooth profile 上增加加密 HID-over-GATT 通道。</li>
+      </ul>
+
+      <div class="protocol-flow" aria-label="自制键盘集成 Codex Micro 的结构">
+        <div class="protocol-node"><strong>你的 keymap</strong><span>选择层与物理按键</span></div>
+        <div class="protocol-arrow" aria-hidden="true">→</div>
+        <div class="protocol-node"><strong>ZMK module</strong><span>按键、协议与端点路由</span></div>
+        <div class="protocol-arrow" aria-hidden="true">→</div>
+        <div class="protocol-node"><strong>ChatGPT</strong><span>解释动作并返回状态</span></div>
+      </div>
+
+      <h2>开始之前</h2>
+      <ul>
+        <li>准备一个可以正常构建的 ZMK config 仓库。</li>
+        <li>确认哪一半是 central；通常是通过 USB 连接电脑的半边。</li>
+        <li>为 ZMK 和本模块固定经过测试的 commit 或 release tag。</li>
+        <li>保留一份不启用 Codex 的已知可用固件，方便排查和回退。</li>
+      </ul>
+
+      <h2>第一步：把模块加入 west manifest</h2>
+      <p>在键盘配置仓库的 <code>config/west.yml</code> 中加入 NXTKB remote 和模块项目：</p>
+      <pre><code>manifest:
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+    - name: nxtkb
+      url-base: https://github.com/nxtkb
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      revision: &lt;tested-zmk-commit&gt;
+      import: app/west.yml
+    - name: zmk-feature-codex-micro
+      remote: nxtkb
+      revision: &lt;release-tag-or-commit&gt;
+  self:
+    path: config</code></pre>
+      <p>
+        不建议长期使用 <code>main</code>。固定 revision 可以确保未来 ZMK 或模块更新时，旧固件仍能被重复构建。
+      </p>
+
+      <h2>第二步：应用临时的官方 ZMK 补丁</h2>
+      <p>
+        Codex USB 接口需要 interrupt-OUT。Zephyr 当前的开关会同时给普通键盘 <code>HID_0</code> 和 Codex <code>HID_1</code> 创建 OUT endpoint，而官方 ZMK 的 <code>HID_0</code> 尚未注册接收回调。因此在上游合并等价修复前，需要应用模块附带的小补丁：
+      </p>
+      <pre><code>west update
+west patch -sm zmk-feature-codex-micro apply</code></pre>
+      <p>
+        <code>west update</code> 和 <code>west build</code> 不会自动应用模块补丁，因此必须显式执行 <code>west patch</code>。模块也提供了可复用的 GitHub Actions workflow，会在编译前完成这一步。如果模块不在 west workspace 内，可以改用 <code>git apply</code> 应用 <code>zephyr/patches/zmk/zmk-usb-hid-interrupt-out.patch</code>。这不是 NXTKB ZMK fork，只是让官方 ZMK 主键盘接口安全读取或丢弃它自己的 OUT report。模块的 Codex 数据仍由 <code>HID_1</code> 独立处理。官方 ZMK 提供等价回调后，应停止应用此补丁。
+      </p>
+
+      <h2>第三步：选择 USB 或蓝牙传输</h2>
+      <p>在 <code>build.yaml</code> 中给 central 构建增加 snippet。USB 模式：</p>
+      <pre><code>include:
+  - board: nice_nano//zmk
+    shield: corne_left
+    snippet: nxtkb-codex-micro-usb</code></pre>
+      <p>同时启用 USB 与蓝牙：</p>
+      <pre><code>include:
+  - board: nice_nano//zmk
+    shield: corne_left
+    snippet: nxtkb-codex-micro-usb nxtkb-codex-micro-ble</code></pre>
+      <p>右手 peripheral 不增加 snippet：</p>
+      <pre><code>  - board: nice_nano//zmk
+    shield: corne_right</code></pre>
+
+      <h2>第四步：在 keymap 中绑定按键</h2>
+      <p>在 keymap 顶部引入模块提供的 behavior 和按键 ID：</p>
+      <pre><code>#include &lt;behaviors.dtsi&gt;
+#include &lt;behaviors/codex_key.dtsi&gt;
+#include &lt;dt-bindings/nxtkb/codex.h&gt;</code></pre>
+      <p>然后把动作放入任意层。下面展示核心绑定，实际层仍需要满足你键盘的完整按键数量：</p>
+      <pre><code>codex_layer &lbrace;
+    bindings = &lt;
+        &amp;codex_key CODEX_AGENT_0
+        &amp;codex_key CODEX_AGENT_1
+        &amp;codex_key CODEX_AGENT_2
+        &amp;codex_key CODEX_AGENT_3
+        &amp;codex_key CODEX_AGENT_4
+        &amp;codex_key CODEX_AGENT_5
+        &amp;codex_key CODEX_FAST
+        &amp;codex_key CODEX_APPROVE
+        &amp;codex_key CODEX_DECLINE
+        &amp;codex_key CODEX_SPLIT
+        &amp;codex_key CODEX_MIC
+        &amp;codex_key CODEX_SEND
+    &gt;;
+&rbrace;;</code></pre>
+
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>常量</th><th>ChatGPT 动作</th></tr></thead>
+          <tbody>
+            <tr><td><code>CODEX_AGENT_0</code>–<code>CODEX_AGENT_5</code></td><td>选择六个 Agent 槽位</td></tr>
+            <tr><td><code>CODEX_FAST</code></td><td>Fast 模式</td></tr>
+            <tr><td><code>CODEX_APPROVE</code></td><td>批准操作</td></tr>
+            <tr><td><code>CODEX_DECLINE</code></td><td>拒绝操作</td></tr>
+            <tr><td><code>CODEX_SPLIT</code></td><td>把当前对话分叉为新对话</td></tr>
+            <tr><td><code>CODEX_MIC</code></td><td>使用电脑麦克风语音输入</td></tr>
+            <tr><td><code>CODEX_SEND</code></td><td>发送当前输入</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        可直接参考仓库中的 <a href="https://github.com/nxtkb/zmk-feature-codex-micro/tree/main/examples/corne" target="_blank" rel="noopener noreferrer">Corne 完整示例</a>。它同时也是 CI 使用的非 NXTKB 键盘编译测试。
+      </p>
+
+      <h2>可选：显示 Agent 状态</h2>
+      <p>
+        显示并不是协议模块的依赖。屏幕或 LED 模块可以订阅 <code>nxtkb_codex_state_changed</code>，然后调用 <code>nxtkb_codex_state_get()</code>。快照提供六个槽位、当前选中槽位、标准化状态、选择标记和原始 RGB 值。
+      </p>
+      <pre><code>#include &lt;nxtkb/codex/events.h&gt;
+#include &lt;nxtkb/codex/state.h&gt;</code></pre>
+      <p>这样显示代码仍属于你的键盘或显示 module，Codex 核心不会依赖某块屏幕。</p>
+
+      <h2>蓝牙首次升级后必须重新配对</h2>
+      <p>
+        主机会缓存键盘的 HID report map。第一次启用 BLE snippet 后，请在电脑中删除旧键盘，在键盘上清除对应 ZMK profile，再重新配对。只关闭再打开蓝牙通常不会更新缓存的功能描述。
+      </p>
+      <p>
+        Codex 动作会跟随 ZMK 当前选择的 USB 输出或蓝牙 profile。其他电脑保持连接并保存自己的 Agent 状态，不需要为了切换 Codex 而全部断开。
+      </p>
+
+      <h2>设备身份与 ChatGPT 发现限制</h2>
+      <aside class="article-callout">
+        <h2>不要复制其他厂商的身份</h2>
+        <p>公开模块不包含 NXTKB 本地实验身份。不要把其他厂商的 VID、PID、manufacturer、model、serial number 或 Bluetooth Device Information 写进要分发的固件。</p>
+      </aside>
+      <p>
+        当前 ChatGPT 桌面应用没有公开第三方 Codex Micro 设备注册流程。集成者必须使用自己有权使用的设备标识，并验证所安装版本的 ChatGPT 如何发现设备。在官方提供第三方发现或认证机制之前，本项目适合开发、研究和互操作测试，不应宣传为官方认证兼容。
+      </p>
+
+      <h2>发布前检查清单</h2>
+      <ul>
+        <li>central 的 USB-only 和 USB+BLE 构建均通过。</li>
+        <li>peripheral 在不启用 Codex snippet 时仍可构建。</li>
+        <li>普通键盘、consumer、鼠标、触控板和 ZMK Studio 功能没有回归。</li>
+        <li>检查目标控制器的 Flash 与 RAM，而不只看 UF2 文件大小。</li>
+        <li>重新配对每个启用过 Codex BLE 的 profile。</li>
+        <li>分别测试 USB、蓝牙、输出切换以及多台电脑。</li>
+        <li>不要发布带实验身份的 UF2。</li>
+      </ul>
+
+      <h2>从哪里开始</h2>
+      <p>
+        模块、补丁、集成文档和 Corne 示例都位于
+        <a href="https://github.com/nxtkb/zmk-feature-codex-micro" target="_blank" rel="noopener noreferrer">nxtkb/zmk-feature-codex-micro</a>。
+        建议先让示例在自己的 ZMK 环境中通过，再把同样的 west 项目、snippets 和 behavior 绑定迁移到实际键盘。
+      </p>
+    </div>
+  </article>
+</SiteLayout>

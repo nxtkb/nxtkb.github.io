@@ -1,0 +1,223 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Use Codex Micro on the Ferris Sweep Family | NXTKB"
+  description="A complete guide to Codex Micro compatibility on Ferris Sweep and Sweep Pro: connect ChatGPT, switch six chats, use command keys, and work across USB, Bluetooth, and multiple computers."
+>
+  <section class="hero article-hero" style="--hero-image: url('/products/ferris-sweep-pro/display.png')">
+    <div class="hero-content">
+      <p class="eyebrow">Ferris Sweep × ChatGPT</p>
+      <h1>Put your ChatGPT chats on the keyboard</h1>
+      <p>Switch between six chats, approve actions, use voice input, and send messages. Sweep Pro can also show live status on its e-ink display.</p>
+    </div>
+  </section>
+
+  <article class="article">
+    <div class="article-body">
+      <div class="article-meta">
+        <span>For: Ferris Sweep / Sweep Pro</span>
+        <span>Connections: USB / Bluetooth</span>
+        <span>Requires: ChatGPT desktop app</span>
+      </div>
+
+      <p class="article-lede">
+        NXTKB's Codex Micro compatibility turns Ferris Sweep and Sweep Pro into compact control surfaces for ChatGPT. Without leaving the keyboard, you can switch between six chats, approve or decline an action, split the current chat into a new chat, dictate through your computer microphone, and send a message. Sweep Pro models with e-ink also show chat status.
+      </p>
+
+      <aside class="article-note">
+        <p><strong>Compatibility note:</strong> This is an independent NXTKB implementation for the Ferris Sweep family, not official OpenAI or Work Louder hardware. It requires firmware with Codex Micro support, and behavior may need to evolve as the ChatGPT desktop app changes.</p>
+      </aside>
+
+      <h2>What it lets you do</h2>
+      <div class="protocol-flow" aria-label="How the Ferris Sweep family works with ChatGPT">
+        <div class="protocol-node">
+          <strong>Six chats</strong>
+          <span>See status and switch instantly</span>
+        </div>
+        <div class="protocol-arrow" aria-hidden="true">+</div>
+        <div class="protocol-node">
+          <strong>Six actions</strong>
+          <span>Approve, split chat, decline, Fast, voice, send</span>
+        </div>
+        <div class="protocol-arrow" aria-hidden="true">+</div>
+        <div class="protocol-node">
+          <strong>Status display</strong>
+          <span>Sweep Pro e-ink follows the selected computer</span>
+        </div>
+      </div>
+      <p>
+        These are not ordinary operating-system shortcuts. The keyboard and ChatGPT keep a two-way connection: the keyboard sends your actions, and ChatGPT sends the status of six chats back. It works over USB or Bluetooth, does not require Work Louder Input, and does not replace normal typing, mouse, trackpad, or ZMK Studio features. The screenless Ferris Sweep receives status without rendering it.
+      </p>
+
+      <h2>Before you begin</h2>
+      <ul>
+        <li>Install and sign in to the ChatGPT desktop app.</li>
+        <li>Make sure the keyboard has firmware with Codex Micro support.</li>
+        <li>Connect with a USB data cable, or pair the keyboard again over Bluetooth.</li>
+        <li>On macOS, grant ChatGPT Input Monitoring access when prompted.</li>
+        <li>For voice input, also grant ChatGPT access to the computer microphone.</li>
+      </ul>
+      <p>
+        After ChatGPT detects a compatible keyboard for the first time, open <strong>Settings → Codex Micro</strong> to choose which chats the six Agent Keys follow and whether a single tap should bring ChatGPT forward. See the <a href="https://learn.chatgpt.com/docs/features/codex-micro" target="_blank" rel="noopener noreferrer">official OpenAI Codex Micro guide</a> for the original device behavior.
+      </p>
+
+      <h2>Enter the Codex layer</h2>
+      <ol>
+        <li>Hold both thumb <kbd>Tab</kbd> layer keys to open the <strong>FUN</strong> layer.</li>
+        <li>Press <kbd>I</kbd> to toggle the <strong>CODEX</strong> layer.</li>
+        <li>Release the layer keys. The Codex layer stays active until you press <kbd>P</kbd> to exit.</li>
+      </ol>
+      <p>
+        <kbd>I</kbd> is the Codex entry key. <kbd>O</kbd> on the FUN layer remains system mute, so the two actions do not conflict. While CODEX is active, letter keys temporarily become Agent and command controls; press <kbd>P</kbd> before returning to normal typing.
+      </p>
+
+      <h2>Codex layer keymap</h2>
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>Key</th><th>Action</th><th>How to use it</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Q W E R T Y</kbd></td><td>Agents 1–6</td><td>Switch to or focus the matching ChatGPT chat</td></tr>
+            <tr><td><kbd>A</kbd></td><td>Approve</td><td>Approve the current action waiting for confirmation</td></tr>
+            <tr><td><kbd>S</kbd></td><td>Split chat</td><td>Continue the current chat in a new chat, preserving its context</td></tr>
+            <tr><td><kbd>D</kbd></td><td>Decline</td><td>Decline the current action waiting for confirmation</td></tr>
+            <tr><td><kbd>F</kbd></td><td>Fast</td><td>Toggle Fast mode for the current chat</td></tr>
+            <tr><td><kbd>H</kbd></td><td>Push-to-talk</td><td>Hold to talk; double-press to latch recording</td></tr>
+            <tr><td><kbd>J</kbd></td><td>Send</td><td>Send the current input</td></tr>
+            <tr><td><kbd>P</kbd></td><td>Exit</td><td>Leave the Codex layer and restore normal keys</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How the six Agent Keys work</h2>
+      <p>
+        <kbd>Q</kbd> through <kbd>Y</kbd> represent Agent 1 through Agent 6. By default, they follow your six most recently updated ChatGPT chats, whether or not those chats are pinned. In ChatGPT's Codex Micro settings, you can switch to recent, pinned, priority, or custom assignment modes.
+      </p>
+      <ul>
+        <li><strong>Single tap:</strong> switch to that chat without taking focus from your current app.</li>
+        <li><strong>Double tap within 350ms:</strong> switch chats and bring the ChatGPT window forward.</li>
+        <li><strong>Focus on one tap:</strong> enable this option in ChatGPT's Codex Micro settings.</li>
+      </ul>
+      <p>
+        Six is the number of physical shortcut slots, not a limit on the chats ChatGPT can keep. All other chats remain available in ChatGPT even when they are not mapped to an Agent Key.
+      </p>
+
+      <h2>The voice key uses your computer microphone</h2>
+      <p>
+        <kbd>H</kbd> controls ChatGPT voice input on the computer. The keyboard does not contain a microphone, so audio quality and permissions depend on the computer's built-in microphone, a headset, or another selected input device.
+      </p>
+      <ul>
+        <li>Hold <kbd>H</kbd> while speaking, then release it to finish.</li>
+        <li>Press twice within 350ms to latch recording without holding the key.</li>
+        <li>Press <kbd>H</kbd> again to stop a latched recording.</li>
+      </ul>
+      <p>
+        If the key responds but no audio arrives, check the operating system microphone privacy setting and the input device selected by ChatGPT.
+      </p>
+
+      <h2>Agent status and the e-ink display</h2>
+      <p>
+        A Sweep Pro with the display may show a line such as <code>A2&nbsp; 1I 2W 3N 4? 5! 6-</code>. <code>A2</code> means Agent 2 is selected; the following entries represent Agents 1–6. E-ink refreshes only when state changes, so a still, flicker-free status line is normal.
+      </p>
+      <p>
+        The screenless Ferris Sweep uses the same Agent and action keys but does not show status on the keyboard. Check the current chat in the ChatGPT desktop app instead; the missing display does not limit Codex controls.
+      </p>
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>Display symbol</th><th>ChatGPT status</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>-</code></td><td>Unassigned</td><td>This Agent Key does not currently follow a chat</td></tr>
+            <tr><td><code>I</code></td><td>Idle</td><td>The chat is idle</td></tr>
+            <tr><td><code>W</code></td><td>Thinking</td><td>ChatGPT is working</td></tr>
+            <tr><td><code>N</code></td><td>Complete</td><td>The task completed with an unread update</td></tr>
+            <tr><td><code>?</code></td><td>Requires input</td><td>ChatGPT needs your approval or response</td></tr>
+            <tr><td><code>!</code></td><td>Error</td><td>Something went wrong in the chat</td></tr>
+            <tr><td><code>U</code></td><td>Unknown</td><td>ChatGPT returned a newer state the firmware does not recognize yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The original Codex Micro represents these states with white, blue, green, amber, and red lighting. Sweep Pro translates them into characters that remain clear on a low-power monochrome display.
+      </p>
+
+      <h2>USB, Bluetooth, and multiple computers</h2>
+      <p>
+        Codex controls automatically follow the output currently selected on the keyboard. There is no separate ChatGPT device switch: after you use the normal USB/Bluetooth output key or a Bluetooth profile key, Agent controls and any available display state follow the same computer. See the <a href="/docs/setup/keymap/ferris-sweep-keymap/">Ferris Sweep</a> or <a href="/docs/setup/keymap/ferris-sweep-pro-keymap/">Sweep Pro</a> keymap guide for the device-switching keys.
+      </p>
+      <ul>
+        <li><strong>USB:</strong> ideal for a fixed desk, with low latency and no battery dependency.</li>
+        <li><strong>Bluetooth:</strong> Codex controls share the currently selected profile with normal keyboard input.</li>
+        <li><strong>Multiple computers:</strong> each connected computer keeps its own six-Agent state; returning to it restores the last known state.</li>
+        <li><strong>Other computers stay connected:</strong> selecting an output changes where keys go without deliberately disconnecting other USB or Bluetooth hosts.</li>
+      </ul>
+      <p>
+        If USB and Bluetooth connect to the same computer at once, the operating system may see two Codex interfaces, but actions still follow the selected keyboard output. This can normally coexist. If ChatGPT repeatedly reconnects, temporarily disconnecting the unused path is a useful way to isolate which connection is failing.
+      </p>
+
+      <h2>Why Bluetooth may need to be paired again</h2>
+      <p>
+        Computers cache the capabilities advertised by a Bluetooth keyboard. After you first install firmware with Codex Bluetooth support, an old bond may still describe the device as an ordinary keyboard. Simply turning Bluetooth off and on is then not enough.
+      </p>
+      <ol>
+        <li>Forget or remove the old keyboard entry in the computer's Bluetooth settings.</li>
+        <li>Select the matching Bluetooth profile on the keyboard and clear that profile's bond.</li>
+        <li>Put the profile into pairing mode and connect it again from the computer.</li>
+        <li>Open ChatGPT and wait for it to detect and connect to the compatible interface.</li>
+      </ol>
+      <p>
+        You should normally need this only when enabling the feature for the first time or after a firmware update changes the Bluetooth capabilities.
+      </p>
+
+      <h2>Connection failures and unresponsive keys</h2>
+      <div class="article-callout">
+        <h2>Check these in order</h2>
+        <ol>
+          <li>Use the ChatGPT desktop app, not ChatGPT in a browser tab.</li>
+          <li>Make sure the keyboard currently targets this computer.</li>
+          <li>Enter CODEX again: hold both Tab layer keys, then press I.</li>
+          <li>On macOS, grant Input Monitoring access; voice also needs microphone access.</li>
+          <li>For USB, try a cable known to carry data and reconnect it.</li>
+          <li>For Bluetooth, completely remove the old bond and pair again as described above.</li>
+          <li>Temporarily quit Karabiner, keyboard remappers, or security tools that may intercept HID devices.</li>
+          <li>Quit and reopen ChatGPT. Restart the computer if the connection still fails.</li>
+        </ol>
+      </div>
+      <p>
+        If ChatGPT says it found your Codex Micro but could not connect, the compatible interface was discovered but two-way communication did not start. Focus on permissions, stale Bluetooth pairing, HID interception, and the selected keyboard output instead of repeatedly pressing Agent Keys.
+      </p>
+      <p>
+        If only the microphone key fails, check microphone access first. If only e-ink status stays unchanged, confirm that ChatGPT has assigned chats to the six Agent slots and that Sweep Pro currently targets the computer running ChatGPT.
+      </p>
+
+      <h2>The simple idea behind the connection</h2>
+      <p>
+        The Ferris Sweep family talks to the ChatGPT desktop app through the operating system's HID device channel. The keyboard sends press and release events for Agent and command keys; ChatGPT sends connection information and six chat states back. USB and Bluetooth carry the same kind of two-way messages, which is why both transports can provide the same core experience.
+      </p>
+      <p>
+        The current compatibility layer handles only the controls and state needed for these features. It does not display or store chat text, prompts, or code on the keyboard. It also gives the keyboard no extra ChatGPT account access; every action is still performed by the signed-in ChatGPT desktop app.
+      </p>
+
+      <h2>Current support</h2>
+      <div class="article-table-wrap">
+        <table class="article-table">
+          <thead><tr><th>Feature</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Six Agent chat keys</td><td>Supported</td></tr>
+            <tr><td>Approve, Split chat, Decline, Fast, voice, and Send</td><td>Supported</td></tr>
+            <tr><td>Single tap, double tap, hold, and key release</td><td>Supported and interpreted by ChatGPT</td></tr>
+            <tr><td>USB control</td><td>Supported</td></tr>
+            <tr><td>Bluetooth control and multiple profiles</td><td>Supported</td></tr>
+            <tr><td>E-ink Agent status</td><td>Supported on Sweep Pro; not shown on screenless Ferris Sweep</td></tr>
+            <tr><td>Codex Micro analog stick and dial customization</td><td>Not applicable to the current Ferris Sweep family keymaps</td></tr>
+            <tr><td>Full RGB editor and device firmware updates</td><td>Not supported</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Ferris Sweep and Sweep Pro both cover the complete control workflow: connect the current computer, enter the Codex layer, choose one of six chats, and trigger common actions. Sweep Pro adds e-ink status for whether ChatGPT is working, waiting for input, or finished.
+      </p>
+    </div>
+  </article>
+</SiteLayout>
