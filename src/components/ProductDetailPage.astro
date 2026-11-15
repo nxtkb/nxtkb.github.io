@@ -1,0 +1,37 @@
+---
+import ProductLayout from '../layouts/ProductLayout.astro';
+import ProductVisual from './ProductVisual.astro';
+import ProductImage from './ProductImage.astro';
+import KeyboardConfigurator from './KeyboardConfigurator.astro';
+import { externalLinkAttrs } from '../utils/external-links.mjs';
+interface Copy {
+  name: string; description: string; headline: string; intro: string; price: string;
+  facts: string[][]; detailTitle: string; detailLead: string; details: string[][];
+}
+interface Photo { src: string; crop: [number, number, number, number]; alt: string }
+interface Props {
+  lang: 'en' | 'zh'; copy: Copy; buyHref: string; photo: Photo;
+  secondaryPhoto?: Photo; docsPath?: string; keymapPath?: string; legendImage?: string; configurator?: 'sweep';
+}
+const { lang, copy: t, buyHref, photo, secondaryPhoto = photo, docsPath, keymapPath, legendImage, configurator } = Astro.props;
+const isZh = lang === 'zh';
+const base = isZh ? '/zh' : '';
+const purchaseHref = configurator ? '#choose' : buyHref;
+---
+<ProductLayout title={`${t.name} | NXTKB`} description={t.description} lang={lang} product={{ name: t.name, buyHref: purchaseHref, price: t.price }}>
+  <section class="product-hero" id="overview"><div class="product-wrap">
+    <h1>{t.headline}</h1><p class="product-intro">{t.intro}</p><p class="product-price">{t.price}</p>
+    <div class="product-actions"><a class="product-button" href={purchaseHref} {...externalLinkAttrs(purchaseHref)}>{configurator ? (isZh ? '定制你的 Sweep' : 'Customize your Sweep') : (isZh ? '淘宝选购' : 'Buy on Taobao')}</a><a class="product-link" href={docsPath ? `${base}${docsPath}` : '#details'}>{isZh ? (docsPath ? '使用文档' : '了解细节') : (docsPath ? 'Read the docs' : 'Explore the details')}</a></div>
+  </div><div class="product-hero-stage"><div class="product-wrap"><ProductVisual {...photo} eager /></div></div></section>
+  <div class="product-wrap product-facts">{t.facts.map(([value, label]) => <div><strong>{value}</strong><span>{label}</span></div>)}</div>
+  <section class="product-section" id="details"><div class="product-wrap product-story">
+    <div><h2>{t.detailTitle}</h2><p>{t.detailLead}</p><dl class="product-details-list">{t.details.map(([label, copy]) => <div><dt>{label}</dt><dd>{copy}</dd></div>)}</dl></div>
+    <div class="product-detail-photo"><ProductVisual {...secondaryPhoto} /></div>
+  </div></section>
+  {keymapPath && <section class="product-section soft"><div class="product-wrap product-story"><div><p class="product-kicker">{isZh ? '分层输入' : '34 keys. Your flow.'}</p><h2>{isZh ? '紧凑布局，完整输入。' : 'Compact layout. Complete input.'}</h2><p>{isZh ? '通过层级访问数字、符号、导航和功能键。分层输入需要适应时间，建议购买前先了解默认键位。' : 'Access numbers, symbols, navigation, and functions through layers. Layers take time to learn, so explore the default keymap before buying.'}</p><a class="product-link" href={`${base}/docs/setup/keymap/ferris-sweep-keymap/`}>{isZh ? '探索默认键位' : 'Explore the keymap'}</a></div><div class="product-keymap"><img src={keymapPath} alt={isZh ? 'Ferris Sweep 默认字符层键位图' : 'Ferris Sweep default letter layer'} loading="lazy" width="756" height="405" /></div></div></section>}
+  {legendImage && <section class="product-section soft"><div class="product-wrap"><div class="product-heading"><h2>{isZh ? '正刻与侧刻，各有用处。' : 'Legends for every layer.'}</h2><p>{isZh ? '正面字符搭配侧面副层级标识，让紧凑布局更容易熟悉。黑白两色，按桌面风格选择。' : 'Top legends and side markings help you learn a compact layered layout. Choose black or white to match your desk.'}</p></div><div class="product-detail-photo"><ProductImage src={legendImage} alt={isZh ? '黑白键帽正面与侧面字符图例' : 'Top and side legends for white and black keycap kits'} variant="detail" /></div></div></section>}
+  {configurator ? <section class="product-section" id="choose"><div class="product-wrap"><KeyboardConfigurator lang={lang} model={configurator} /></div></section> : (
+  <section class="product-purchase soft"><div class="product-wrap"><h2>{isZh ? '为你的桌面，选好下一件。' : 'Find your next desk essential.'}</h2><p>{isZh ? '配色、套餐与实时售价，请以淘宝商品页为准。' : 'Check the Taobao listing for available options, bundles, and current pricing.'}</p><div class="product-actions"><a class="product-button" href={buyHref} {...externalLinkAttrs(buyHref)}>{isZh ? '淘宝选购' : 'Buy on Taobao'}</a><a class="product-link" href={`${base}/products/`}>{isZh ? '探索全部产品' : 'Explore all products'}</a></div><p class="product-note">{isZh ? '选购与使用咨询 · 微信：nxtkb888' : 'Product and setup questions · WeChat: nxtkb888'}</p></div></section>
+  )}
+
+</ProductLayout>

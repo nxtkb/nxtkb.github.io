@@ -7,9 +7,10 @@ interface Props {
   title: string;
   description?: string;
   lang?: 'en' | 'zh';
+  product?: { name: string; buyHref: string; price: string };
 }
 
-const { title, description = 'Ergonomic split keyboards by NXTKB.', lang = 'en' } = Astro.props;
+const { title, description = 'Ergonomic split keyboards by NXTKB.', lang = 'en', product } = Astro.props;
 const isZh = lang === 'zh';
 const nav = isZh
   ? [
@@ -26,6 +27,7 @@ const nav = isZh
       ['Tools', '/tools/'],
       ['Blog', '/blog/'],
     ];
+const headerNav = product ? nav.filter(([, href]) => href.endsWith('/products/') || href.endsWith('/docs/setup/')) : nav;
 const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const untranslatedPathFallbacks: Record<string, string> = {
   '/blog/welcome-to-nxtkb-blog/': '/zh/blog/',
@@ -49,14 +51,17 @@ const langLabel = isZh ? 'English' : '简体中文';
   </head>
   <body>
     <div class="site-shell">
-      <header class="site-header">
+      <header class:list={['site-header', { 'has-product-context': product }]}>
         <nav class="nav" aria-label="Main navigation">
-          <a class="brand" href={isZh ? '/zh/' : '/'}>
-            <img src="/icons/logo.svg" alt="" />
-            <span>NXTKB</span>
-          </a>
+          <div class="nav-product-context">
+            <a class="brand" href={isZh ? '/zh/' : '/'} aria-label="NXTKB">
+              <img src="/icons/logo.svg" alt="" />
+              <span>NXTKB</span>
+            </a>
+            {product && <a class="header-product-name" href="#overview" title={product.name}>{product.name}</a>}
+          </div>
           <div class="nav-links">
-            {nav.map(([label, href, kind]) => (
+            {headerNav.map(([label, href, kind]) => (
               <a
                 class={kind === 'tool' ? 'nav-tool-link' : undefined}
                 href={href}
@@ -68,26 +73,30 @@ const langLabel = isZh ? 'English' : '简体中文';
               </a>
             ))}
             <a class="lang-switch" href={langHref}>{langLabel}</a>
+            {product && <div class="header-purchase"><span class="header-product-price" data-header-price>{product.price}</span><a class="header-product-buy" href={product.buyHref} {...externalLinkAttrs(product.buyHref)}>{isZh ? '选购' : 'Buy'}</a></div>}
           </div>
-          <details class="mobile-nav">
-            <summary aria-label={isZh ? '打开导航菜单' : 'Open navigation menu'}>
-              <span class="mobile-nav-icon" aria-hidden="true"></span>
-            </summary>
-            <div class="mobile-nav-panel">
-              {nav.map(([label, href, kind]) => (
-                <a
-                  class={kind === 'tool' ? 'nav-tool-link' : undefined}
-                  href={href}
-                  data-astro-prefetch={href.endsWith('/products/') ? 'viewport' : undefined}
-                  aria-label={kind === 'tool' ? (isZh ? `${label}，在新标签页打开外部测试网站` : `${label}, opens the external tester site in a new tab`) : undefined}
-                  {...externalLinkAttrs(href)}
-                >
-                  {label}
-                </a>
-              ))}
-              <a class="lang-switch" href={langHref}>{langLabel}</a>
-            </div>
-          </details>
+          <div class="mobile-nav-actions">
+            {product && <div class="header-purchase"><span class="header-product-price" data-header-price>{product.price}</span><a class="header-product-buy" href={product.buyHref} {...externalLinkAttrs(product.buyHref)}>{isZh ? '选购' : 'Buy'}</a></div>}
+            <details class="mobile-nav">
+              <summary aria-label={isZh ? '打开导航菜单' : 'Open navigation menu'}>
+                <span class="mobile-nav-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="mobile-nav-panel">
+                {nav.map(([label, href, kind]) => (
+                  <a
+                    class={kind === 'tool' ? 'nav-tool-link' : undefined}
+                    href={href}
+                    data-astro-prefetch={href.endsWith('/products/') ? 'viewport' : undefined}
+                    aria-label={kind === 'tool' ? (isZh ? `${label}，在新标签页打开外部测试网站` : `${label}, opens the external tester site in a new tab`) : undefined}
+                    {...externalLinkAttrs(href)}
+                  >
+                    {label}
+                  </a>
+                ))}
+                <a class="lang-switch" href={langHref}>{langLabel}</a>
+              </div>
+            </details>
+          </div>
         </nav>
       </header>
       <main>

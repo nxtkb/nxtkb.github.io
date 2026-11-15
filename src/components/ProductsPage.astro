@@ -1,0 +1,23 @@
+---
+import ProductLayout from '../layouts/ProductLayout.astro';
+import ProductVisual from './ProductVisual.astro';
+interface Props { lang?: 'en' | 'zh' }
+const { lang = 'en' } = Astro.props;
+const isZh = lang === 'zh';
+const base = isZh ? '/zh' : '';
+const keyboards = [
+  { name: 'Ferris Sweep Pro', path: 'ferris-sweep-pro', image: '/products/ferris-sweep-pro/56.png', crop: [0, 390, 2000, 740] as [number, number, number, number], label: isZh ? '更多掌控' : 'More control', copy: isZh ? '34 键无线分体，双旋钮。可选 Cirque 触控板与电子墨水屏，让输入与操作更近一步。' : '34 wireless split keys and dual encoders. Add a Cirque trackpad and e-ink display to bring more controls to your fingertips.', price: isZh ? '¥620 起' : 'From ¥620' },
+  { name: 'Ferris Sweep', path: 'ferris-sweep', image: '/products/ferris-sweep/sweep-1.png', crop: [0, 790, 1728, 850] as [number, number, number, number], label: isZh ? '纯粹输入' : 'Just the essentials', copy: isZh ? '34 键矮轴无线分体，支持热插拔与 ZMK Studio。从简洁布局，开始自己的输入方式。' : 'A 34-key low-profile wireless split with hot-swap switches and ZMK Studio. A simple place to start making your layout your own.', price: isZh ? '¥600 起' : 'From ¥600' },
+];
+const accessories = [
+  { name: isZh ? '磁吸支架' : 'Magnetic Stand', path: 'magnetic-stand', image: '/products/magnetic-stand/stand-2.png', crop: [0, 260, 2000, 1240] as [number, number, number, number], label: isZh ? '调整姿态' : 'Set your angle', copy: isZh ? '金属磁吸万向支架一对，让左右半键盘分别找到合适的角度。' : 'A pair of metal magnetic ball-joint stands to position each half your way.', price: isZh ? '¥60 / 对' : '¥60 / pair' },
+  { name: isZh ? 'NXTKB 矮轴键帽' : 'NXTKB Low-profile Keycaps', path: 'low-profile-keycaps', image: '/products/low-profile-keycaps/white.png', crop: [0, 500, 2000, 1500] as [number, number, number, number], label: isZh ? '触感与细节' : 'Feel the details', copy: isZh ? '34 键 PBT 五面热升华键帽，正刻与副层级侧刻，提供黑白两色。' : '34-key PBT dye-sub set with top and side legends. Available in black or white.', price: isZh ? '¥70 / 套' : '¥70 / set' },
+];
+---
+<ProductLayout title={isZh ? '产品 | NXTKB' : 'Products | NXTKB'} description={isZh ? '探索 NXTKB 34 键分体键盘与配件，找到适合你的输入方式。' : 'Explore NXTKB 34-key split keyboards and accessories. Find your own way to work.'} lang={lang}>
+  <section class="product-section product-catalog"><div class="product-wrap">
+    <div class="product-heading"><h1>{isZh ? '输入，自有方式' : 'Find your own flow'}</h1><p>{isZh ? '从一把分体键盘开始，重新安排指尖与桌面的空间。' : 'Start with a split keyboard. Make more room for your hands and your desk.'}</p></div>
+    <div class="product-catalog-grid">{keyboards.map((p) => <article class="product-catalog-card"><div class="catalog-copy"><span class="product-kicker">{p.label}</span><h2>{p.name}</h2><p>{p.copy}</p><p>{p.price}</p><a class="product-link" href={`${base}/products/${p.path}/`}>{isZh ? '进一步了解' : 'Explore'}<span class="sr-only"> {p.name}</span></a></div><ProductVisual src={p.image} alt={p.name} crop={p.crop} eager /></article>)}</div>
+  </div></section>
+  <section class="product-section"><div class="product-wrap"><div class="product-heading"><h2>{isZh ? '让桌面，更合你意。' : 'Make the setup yours.'}</h2><p>{isZh ? '从角度到触感，为日常输入补上细节。' : 'From angle to feel, finish the details of your everyday setup.'}</p></div><div class="product-catalog-grid">{accessories.map((p) => <article class="product-catalog-card"><div class="catalog-copy"><span class="product-kicker">{p.label}</span><h2>{p.name}</h2><p>{p.copy}</p><p>{p.price}</p><a class="product-link" href={`${base}/products/${p.path}/`}>{isZh ? '进一步了解' : 'Explore'}<span class="sr-only"> {p.name}</span></a></div><ProductVisual src={p.image} alt={p.name} crop={p.crop} /></article>)}</div><p class="product-note">{isZh ? '价格为人民币，实际售价和可选配置请以商品页为准。支架与键帽图示中的键盘需另购。' : 'Prices in CNY. Confirm current prices and options on the product listing. Keyboards shown with accessories are sold separately.'}</p></div></section>
+</ProductLayout>

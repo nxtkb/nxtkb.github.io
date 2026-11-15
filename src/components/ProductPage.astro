@@ -1,405 +1,107 @@
 ---
-import SiteLayout from '../layouts/SiteLayout.astro';
-import ProductImage from './ProductImage.astro';
-import { externalLinkAttrs, isExternalHref } from '../utils/external-links.mjs';
-
-interface Props {
-  lang?: 'en' | 'zh';
-}
-
+import ProductLayout from '../layouts/ProductLayout.astro';
+import ProductVisual from './ProductVisual.astro';
+import SweepProConfigurator from './SweepProConfigurator.astro';
+import { sweepProConfiguration } from '../utils/sweep-pro-config.mjs';
+import { externalLinkAttrs } from '../utils/external-links.mjs';
+interface Props { lang?: 'en' | 'zh' }
 const { lang = 'en' } = Astro.props;
 const isZh = lang === 'zh';
 const base = isZh ? '/zh' : '';
-const assetBase = '/products/ferris-sweep-pro';
-const taobaoUrls = {
-  full: 'https://item.taobao.com/item.htm?ft=t&id=1021093959607&skuId=6033907845219',
-  touchpad: 'https://item.taobao.com/item.htm?id=1001738884648',
-  eink: 'https://item.taobao.com/item.htm?id=1022472315401',
-  plain: 'https://item.taobao.com/item.htm?id=1002520008622',
+const assets = '/products/ferris-sweep-pro';
+const initialHardwarePrice = sweepProConfiguration(true, true)!.price;
+const t = isZh ? {
+  description: 'Ferris Sweep Pro，34 键无线分体键盘。双旋钮、ZMK Studio 实时改键，可选电子墨水屏与 Cirque 触控板。',
+  headline: '少一些按键\n多一些自如',
+  intro: '34 键无线分体设计，让双手找到自己的位置。双旋钮、可选触控板与电子墨水屏，将日常操作收拢到指尖。',
+  price: '¥620 起', buy: '选择你的 Sweep Pro', docs: '使用文档',
+  facts: [['34 键', '分体式矮轴布局'], ['双旋钮', '旋转与按压控制'], ['蓝牙 + USB-C', '无线或有线连接'], ['4000mAh', '左右合计电池容量']],
+  featureTitle: '输入之外，也很顺手。', featureLead: '光标控制与状态显示，按你的工作习惯选择。',
+  trackpad: ['Cirque 触控板 · 可选', '光标，近在手边。', '40mm 圆形触控板支持移动、点击、双击、右键与边缘滚动。从输入到操作，少一次伸手。'],
+  display: ['电子墨水屏 · 可选', '当前状态，一眼明了。', '电量、连接和当前层级，直接在键盘上查看。1.54 英寸低功耗电子墨水屏，在明亮环境下也清晰可读。'],
+  keymapTitle: '34 键，\n打开更多可能。',
+  keymapCopy: '将字母留在主层，把数字、符号、导航与功能键放入不同层级。熟悉之后，常用输入就在手指附近。',
+  keymapNote: '分层布局需要适应时间。购买前，可以先查看默认键位，了解它是否符合你的输入习惯。',
+  keymapLink: '探索默认键位',
+  studioTitle: '让键位，跟上你的习惯。', studioCopy: '通过 ZMK Studio 调整日常键位并直接保存，无需每次重新编译固件。配合带副层级侧刻的 PBT 矮轴键帽，从记住键位到形成自己的布局。', studioLink: '了解实时改键',
+  colorTitle: '为桌面，添一点个性。', colorLead: '从简洁黑白到鲜明配色，找到你的搭配。',
+  faqTitle: '你可能还想了解。',
+  faqs: [
+    ['第一次使用 34 键键盘，需要适应吗？', '需要。数字、符号和功能键通过层级访问，与传统键盘不同。建议先阅读默认键位文档，再逐步调整为适合自己的布局。'],
+    ['电子墨水屏和触控板可以分别选择吗？', '可以。两项模块可独立选配，也可以同时选择或都不选，按你的使用习惯搭配。'],
+    ['改键需要自己编译固件吗？', '日常键位调整可通过 ZMK Studio 实时修改并保存。涉及固件配置的更改，再按照文档重新构建和刷写。'],
+    ['可以搭配磁吸支架吗？', '可以选择键盘与磁吸支架套餐。具体套餐内容与配色、轴体选项，请查看所选配置的商品页。'],
+  ],
+  supportTitle: '从第一次连接，到顺手使用。', supportLead: '使用文档、开源固件和选购咨询，随时可查。',
+  resources: [['使用指南', '连接、层级、改键和固件更新。', '阅读文档', `${base}/docs/setup/ferris-sweep-pro/`], ['开源固件', '了解键盘配置，探索自己的布局。', '前往 GitHub', 'https://github.com/nxtkb/Sweep-Pro']],
+  contactTitle: '选购与使用咨询', contactCopy: '微信：nxtkb888 · Discord：@lilin0522',
+} : {
+  description: 'Ferris Sweep Pro: a 34-key wireless split keyboard with dual encoders, ZMK Studio, and optional e-ink display and Cirque trackpad.',
+  headline: 'Fewer keys\nMore possibilities',
+  intro: 'A 34-key wireless split design that gives each hand its own space. Dual encoders, an optional trackpad, and e-ink status keep everyday controls close.',
+  price: 'From ¥620', buy: 'Choose your Sweep Pro', docs: 'Read the docs',
+  facts: [['34 keys', 'Low-profile split layout'], ['Dual encoders', 'Turn and press to control'], ['Bluetooth + USB-C', 'Wireless or wired'], ['4000mAh', 'Combined battery capacity']],
+  featureTitle: 'Go beyond typing.', featureLead: 'Choose pointer control and status display to suit the way you work.',
+  trackpad: ['Cirque trackpad · Optional', 'Keep your cursor close.', 'The 40mm circular trackpad supports movement, clicks, double clicks, right click, and edge scrolling. One less reach between typing and doing.'],
+  display: ['E-ink display · Optional', 'Your status, at a glance.', 'Check battery, connection, and the active layer right on your keyboard. The 1.54-inch low-power e-ink display stays readable in bright surroundings.'],
+  keymapTitle: '34 keys.\nRoom to do more.',
+  keymapCopy: 'Keep letters on the base layer and reach numbers, symbols, navigation, and functions through layers. Once familiar, everyday inputs stay close to your fingers.',
+  keymapNote: 'Layers take time to learn. Explore the default keymap before buying to see how it fits your workflow.', keymapLink: 'Explore the default keymap',
+  studioTitle: 'Make the layout your own.', studioCopy: 'Edit everyday key assignments in ZMK Studio and save them directly, without rebuilding firmware each time. PBT low-profile keycaps with side legends help you learn your layers along the way.', studioLink: 'Learn about live editing',
+  colorTitle: 'A little more you.', colorLead: 'Find your pairing, from understated black and white to expressive color.',
+  faqTitle: 'A few things to know.',
+  faqs: [
+    ['Is there a learning curve with 34 keys?', 'Yes. Numbers, symbols, and functions are accessed through layers. Start by exploring the default keymap, then adapt it to your own workflow.'],
+    ['Can I choose the display and trackpad separately?', 'Yes. Choose either module, both, or neither to suit your workflow.'],
+    ['Do I need to compile firmware to change keys?', 'Everyday key assignments can be edited and saved live in ZMK Studio. Firmware configuration changes may still require building and flashing, as explained in the docs.'],
+    ['Can I add magnetic stands?', 'Keyboard and magnetic-stand bundles are available. Check the matching product listing for bundle contents, colors, and switch choices.'],
+  ],
+  supportTitle: 'From first connection to daily flow.', supportLead: 'Guides, open-source firmware, and help choosing your setup.',
+  resources: [['Getting started', 'Connection, layers, live editing, and firmware updates.', 'Read the guide', `${base}/docs/setup/ferris-sweep-pro/`], ['Open-source firmware', 'Explore the configuration and make your layout your own.', 'View on GitHub', 'https://github.com/nxtkb/Sweep-Pro']],
+  contactTitle: 'Product and setup questions', contactCopy: 'WeChat: nxtkb888 · Discord: @lilin0522',
 };
-const taobaoUrl = taobaoUrls.full;
-
-const t = isZh
-  ? {
-      title: 'Ferris Sweep Pro | NXTKB',
-      description: '34 键分体式键盘，配备电子墨水屏、Cirque 触控板、双旋钮和 ZMK Studio。',
-      eyebrow: 'Ferris Sweep Pro',
-      h1: '专为程序员与发烧友打造的 34 键分体键盘。',
-      lead:
-        '超薄无线分体设计，可按需选择电子墨水屏和 40mm Cirque 触控板版本，配备双旋转编码器、4000mAh 总电池容量和 ZMK Studio 实时改键。',
-      buy: '立即购买',
-      docs: '使用文档',
-      highlights: ['34 键 Ferris Sweep 布局', '可选 Cirque GlidePoint 触控板', '可选 1.54 英寸电子墨水屏', '双带按键旋转编码器', '4000mAh 总容量', '蓝牙 + USB-C'],
-      featureTitle: '核心体验',
-      featureLead: '按版本把鼠标、状态信息、常用控制和可定制层级整合到键盘本体。',
-      trackpadTitle: '可选 Cirque 触控板',
-      trackpadCopy: '40mm 圆形触控板支持光标移动、点击、双击、右键和边缘滚动，减少手离开键盘的次数。',
-      displayTitle: '可选电子墨水屏',
-      displayCopy: '常亮、低功耗、强光下依然清晰，适合显示电量、层级、连接和左右手同步状态。',
-      keycapTitle: '专属定制键帽',
-      keycapCopy: '为 34 键布局设计的 PBT 矮轴球帽，五面热升华，侧刻副层级字符，兼顾触感与辨识度。',
-      studioTitle: 'ZMK Studio 支持',
-      studioCopy: '日常键位调整可以直接保存生效，不需要每次重新编译和刷写固件。',
-      galleryTitle: '配色展示',
-      supportTitle: '支持与购买',
-      versionTitle: '四种 Ferris Sweep Pro 版本',
-      versionLead: '先按是否需要电子墨水屏和 Cirque 触控板选择硬件版本，再进入淘宝选择轴体、配色和是否搭配磁吸支架。',
-      buyingTitle: '购买前确认',
-      buyingLead: '四个版本是独立淘宝商品，价格、配色和轴体选项会略有差异，下单前以对应淘宝页面为准。',
-      fitTitle: '适合谁',
-      pathTitle: '上手路径',
-      keymapTitle: '默认键位预览',
-      keymapLead: '34 键看起来少，但默认层级已经覆盖字符、数字导航、符号、功能和鼠标层。',
-      openTitle: '开源与社区',
-      openLead: 'NXTKB 的体验不只来自硬件，也来自可维护的固件、文档和用户反馈。',
-    }
-  : {
-      title: 'Ferris Sweep Pro | NXTKB',
-      description: 'A 34-key split keyboard with an e-ink display, Cirque trackpad, dual encoders, and ZMK Studio.',
-      eyebrow: 'Ferris Sweep Pro',
-      h1: 'A 34-key split keyboard built for serious daily use.',
-      lead:
-        'A low-profile wireless split keyboard with optional e-ink and 40mm Cirque trackpad versions, dual rotary encoders, 4000mAh total battery capacity, and ZMK Studio keymap editing.',
-      buy: 'Buy now',
-      docs: 'Read docs',
-      highlights: ['34-key Ferris Sweep layout', 'Optional Cirque GlidePoint trackpad', 'Optional 1.54-inch e-ink display', 'Dual clickable encoders', '4000mAh total capacity', 'Bluetooth + USB-C'],
-      featureTitle: 'The core experience',
-      featureLead: 'Depending on the version, pointer control, status, quick adjustments, and custom layers are built into the keyboard itself.',
-      trackpadTitle: 'Optional Cirque trackpad',
-      trackpadCopy: 'The 40mm circular trackpad supports cursor movement, clicks, double clicks, right click, and edge scrolling so your hands leave the keyboard less often.',
-      displayTitle: 'Optional e-ink status display',
-      displayCopy: 'Always visible, low power, and readable in bright light for battery, layer, connection, and split-side status.',
-      keycapTitle: 'Custom keycaps',
-      keycapCopy: 'PBT low-profile keycaps designed for the 34-key layout, with durable legends and side legends for layer recall.',
-      studioTitle: 'ZMK Studio support',
-      studioCopy: 'Make everyday keymap changes live and save them directly without rebuilding and reflashing firmware.',
-      galleryTitle: 'Color gallery',
-      supportTitle: 'Support and purchase',
-      versionTitle: 'Four Ferris Sweep Pro versions',
-      versionLead: 'Choose the hardware version by e-ink and Cirque trackpad needs first, then pick switches, colors, and the optional magnetic-stand kit on Taobao.',
-      buyingTitle: 'Before you buy',
-      buyingLead: 'The four versions are separate Taobao items. Price, color, and switch options vary slightly, so confirm the matching Taobao page before ordering.',
-      fitTitle: 'Who it is for',
-      pathTitle: 'Setup path',
-      keymapTitle: 'Default keymap preview',
-      keymapLead: '34 keys looks minimal, but the default layers cover characters, navigation, symbols, functions, and mouse controls.',
-      openTitle: 'Open source and community',
-      openLead: 'The experience is not only hardware. It also depends on maintainable firmware, docs, and user feedback.',
-    };
-
-const gallery = ['56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67'];
-const versions = isZh
-  ? [
-      ['全功能版', '电子墨水屏 + Cirque 触控板。', '¥850 起', '适合希望状态显示和光标控制一次到位的用户。', taobaoUrls.full],
-      ['触控板版', '无电子墨水屏 + Cirque 触控板。', '¥750 起', '适合更看重光标、滚动和鼠标键控制，但不需要屏幕的用户。', taobaoUrls.touchpad],
-      ['墨水屏版', '电子墨水屏 + 无触控板。', '¥720 起', '适合想保留电量、层级和连接状态显示，但仍使用外置鼠标的用户。', taobaoUrls.eink],
-      ['基础版', '无电子墨水屏 + 无触控板。', '¥620 起', '适合只需要 Sweep Pro 分体结构、低功耗无线和双旋钮的用户。', taobaoUrls.plain],
-    ]
-  : [
-      ['Full version', 'E-ink display plus Cirque trackpad.', 'From ¥850', 'Best if you want status display and pointer control built in from day one.', taobaoUrls.full],
-      ['Trackpad version', 'No e-ink display, with Cirque trackpad.', 'From ¥750', 'Best if cursor movement, scrolling, and mouse buttons matter more than the display.', taobaoUrls.touchpad],
-      ['E-ink version', 'E-ink display, no trackpad.', 'From ¥720', 'Best if battery, layer, and connection status matter while you still use an external mouse.', taobaoUrls.eink],
-      ['Plain version', 'No e-ink display, no trackpad.', 'From ¥620', 'Best if you only need the Sweep Pro split shape, wireless setup, and dual encoders.', taobaoUrls.plain],
-    ];
-const checks = isZh
-  ? [
-      ['价格范围', '当前解析到基础版 ¥620 起、墨水屏版 ¥720 起、触控板版 ¥750 起、全功能版 ¥850 起。'],
-      ['发货信息', '四个版本当前均显示浙江杭州发货、48 小时内发货、快递免运费。'],
-      ['轴体选择', '常见选项包括凯华孤岛 mini、凯华鲸落 mini、凯华遮山轴；部分版本还提供佳达隆青轴。'],
-      ['配色选择', '黑/白/蓝/橙/圣诞绿/绿色/深红/金色等配色会随版本变化，均有黑键帽或白键帽组合。'],
-      ['套餐类型', '每个版本都可选择官方标配或键盘 + 磁吸支架套餐。'],
-      ['售后入口', '淘宝、微信和文档入口都放在页面末尾，方便购买后继续上手。'],
-    ]
-  : [
-      ['Price range', 'Currently parsed as plain from ¥620, e-ink from ¥720, trackpad from ¥750, and full from ¥850.'],
-      ['Shipping', 'All four versions currently show Hangzhou shipping, 48-hour dispatch, and free domestic express shipping.'],
-      ['Switch options', 'Common choices include Kailh Islet mini, Kailh Whale Fall mini, and Kailh Zhe Shan; some versions also offer Gateron blue.'],
-      ['Color choices', 'Black, white, blue, orange, Christmas green, green, dark red, and gold options vary by version, with black or white keycap pairings.'],
-      ['Kit type', 'Each version can be ordered as the standard kit or with magnetic stands.'],
-      ['Support route', 'Purchase, WeChat, and documentation links stay visible so setup help is easy to reach.'],
-    ];
-const fit: Array<[string, string[]]> = isZh
-  ? [
-      ['适合', ['长期写代码、写作或高频输入', '愿意学习 34 键分层布局', '想把光标、滚动和常用控制留在键盘上']],
-      ['不适合', ['必须保留完整数字区和 F 区', '不想经历任何键位适应期', '只需要普通办公键盘的最低学习成本']],
-    ]
-  : [
-      ['Best for', ['Coding, writing, and high-frequency input', 'Users willing to learn a 34-key layered layout', 'People who want pointer, scroll, and controls on the keyboard']],
-      ['Not ideal for', ['Users who need a full numpad and F-row at all times', 'People who want zero keymap adjustment period', 'Basic office setups where learning cost matters most']],
-    ];
-const setup = isZh
-  ? [
-      ['连接键盘', '先完成蓝牙或 USB-C 连接。', `${base}/docs/setup/connect/`],
-      ['理解默认层', '查看字符、导航、符号、功能和鼠标层。', `${base}/docs/setup/keymap/ferris-sweep-pro-keymap/`],
-      ['实时改键', '用 ZMK Studio 调整日常键位。', `${base}/docs/setup/keymap/how-to-update-keymaps/`],
-      ['测试输入', '用 NXTKB Input Tester 验证键盘、鼠标键和滚轮事件。', 'https://input-test.nxtkb.com'],
-      ['必要时刷固件', '配置级变更再使用 UF2 固件刷写。', `${base}/docs/firmware/how-to-flash-a-firmware/`],
-    ]
-  : [
-      ['Connect', 'Pair over Bluetooth or plug in over USB-C.', `${base}/docs/setup/connect/`],
-      ['Learn the layers', 'Review character, navigation, symbol, function, and mouse layers.', `${base}/docs/setup/keymap/ferris-sweep-pro-keymap/`],
-      ['Edit live', 'Use ZMK Studio for everyday keymap changes.', `${base}/docs/setup/keymap/how-to-update-keymaps/`],
-      ['Test input', 'Use NXTKB Input Tester to verify keyboard, mouse button, and wheel events.', 'https://input-test.nxtkb.com'],
-      ['Flash when needed', 'Use UF2 firmware flashing for configuration-level changes.', `${base}/docs/firmware/how-to-flash-a-firmware/`],
-    ];
-const openLinks = isZh
-  ? [
-      ['Ferris Sweep Pro 固件', '查看键盘配置、默认键位和构建流程。', 'https://github.com/nxtkb/Sweep-Pro'],
-      ['NXTKB Input Tester', '测试按键、鼠标键、滚轮和触控板相关输入。', 'https://input-test.nxtkb.com'],
-      ['ZMK Studio', '目前使用官方工具进行实时改键，未来再考虑 NXTKB 定制体验。', 'https://zmk.studio'],
-      ['使用文档', '版本选择、连接、改键和固件更新。', `${base}/docs/setup/ferris-sweep-pro/`],
-    ]
-  : [
-      ['Ferris Sweep Pro firmware', 'Inspect configuration, default keymaps, and build flow.', 'https://github.com/nxtkb/Sweep-Pro'],
-      ['NXTKB Input Tester', 'Test keys, mouse buttons, wheel, and trackpad-related input.', 'https://input-test.nxtkb.com'],
-      ['ZMK Studio', 'Use the official tool for live keymap editing while a custom NXTKB experience is future work.', 'https://zmk.studio'],
-      ['Documentation', 'Hardware versions, connection, keymap editing, and firmware updates.', `${base}/docs/setup/ferris-sweep-pro/`],
-    ];
+const colors = [ ['56', isZh ? '白色' : 'White'], ['67', isZh ? '黑色' : 'Black'], ['57', isZh ? '绿色' : 'Green'], ['58', isZh ? '蓝色' : 'Blue'], ['59', isZh ? '红色' : 'Red'], ['60', isZh ? '橙色' : 'Orange'] ];
 ---
-
-<SiteLayout title={t.title} description={t.description} lang={lang}>
-  <section class="hero">
-    <ProductImage src={`${assetBase}/background-poster.png`} alt="" variant="hero" />
-    <div class="hero-content">
-      <p class="eyebrow">{t.eyebrow}</p>
-      <h1>{t.h1}</h1>
-      <p>{t.lead}</p>
-      <div class="actions">
-        <a class="button primary" href={taobaoUrl} {...externalLinkAttrs(taobaoUrl)}>{t.buy}</a>
-        <a class="button secondary" href={`${base}/docs/setup/ferris-sweep-pro/`}>{t.docs}</a>
+<ProductLayout title="Ferris Sweep Pro | NXTKB" description={t.description} lang={lang} product={{ name: 'Ferris Sweep Pro', buyHref: '#choose', price: isZh ? `¥${initialHardwarePrice} 起` : `From ¥${initialHardwarePrice}` }}>
+  <section class="product-hero" id="overview">
+    <div class="product-wrap">
+      <h1>{t.headline}</h1>
+      <p class="product-intro">{t.intro}</p>
+      <p class="product-price">{t.price}</p>
+      <div class="product-actions"><a class="product-button" href="#choose">{t.buy}</a><a class="product-link" href={`${base}/docs/setup/ferris-sweep-pro/`}>{t.docs}</a></div>
+    </div>
+    <div class="product-hero-stage"><div class="product-wrap"><ProductVisual src={`${assets}/56.png`} alt={isZh ? '白色 Ferris Sweep Pro，左侧电子墨水屏、右侧圆形触控板与双旋钮' : 'White Ferris Sweep Pro with left e-ink display, right circular trackpad, and dual encoders'} crop={[0, 390, 2000, 740]} eager /></div></div>
+  </section>
+  <div class="product-wrap product-facts">{t.facts.map(([value, label]) => <div><strong>{value}</strong><span>{label}</span></div>)}</div>
+  <section class="product-section soft" id="details">
+    <div class="product-wrap">
+      <div class="product-heading"><h2>{t.featureTitle}</h2><p>{t.featureLead}</p></div>
+      <div class="product-feature-grid">
+        <article class="product-feature"><div class="product-feature-copy"><p class="product-kicker">{t.trackpad[0]}</p><h3>{t.trackpad[1]}</h3><p>{t.trackpad[2]}</p></div><ProductVisual src={`${assets}/56.png`} alt={isZh ? '右半键盘上的 Cirque 触控板与旋钮' : 'Cirque trackpad and encoder on the right half'} crop={[930, 450, 960, 660]} /></article>
+        <article class="product-feature"><div class="product-feature-copy"><p class="product-kicker">{t.display[0]}</p><h3>{t.display[1]}</h3><p>{t.display[2]}</p></div><ProductVisual src={`${assets}/56.png`} alt={isZh ? '左半键盘上的电子墨水状态屏与旋钮' : 'E-ink status display and encoder on the left half'} crop={[80, 450, 960, 660]} /></article>
       </div>
+      <p class="product-note">{isZh ? '图示配备电子墨水屏与触控板，两项模块均可独立选配。' : 'E-ink display and trackpad shown. Both modules are optional and can be selected independently.'}</p>
     </div>
   </section>
-
-  <section class="trust-strip" aria-label={isZh ? '购买信任信息' : 'Purchase confidence'}>
-    <div class="wrap trust-grid">
-      {(isZh
-        ? [
-            ['版本', '4 个硬件版本'],
-            ['价格范围', '¥620-¥850 起'],
-            ['发货', '48 小时内发货 / 免运费'],
-            ['支持与改键', '微信、文档和 ZMK Studio'],
-          ]
-        : [
-            ['Versions', '4 hardware options'],
-            ['Price range', 'From ¥620-¥850'],
-            ['Shipping', '48-hour dispatch / free shipping'],
-            ['Support and editing', 'Docs, WeChat, and ZMK Studio'],
-          ]).map(([label, copy]) => (
-        <div class="trust-item">
-          <strong>{label}</strong>
-          <span>{copy}</span>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="section dark">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>{t.featureTitle}</h2>
-        <p>{t.featureLead}</p>
-      </div>
-      <div class="spec-grid">
-        {t.highlights.map((item) => (
-          <div class="spec">
-            <span>Spec</span>
-            <strong>{item}</strong>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>{t.versionTitle}</h2>
-        <p>{t.versionLead}</p>
-      </div>
-      <div class="comparison-grid">
-        {versions.map(([name, summary, price, recommendation, href]) => (
-          <article class="comparison-card">
-            <h3>{name}</h3>
-            <p>{summary}</p>
-            <strong>{price}</strong>
-            <p>{recommendation}</p>
-            <div class="actions">
-              <a class="button outline" href={href} {...externalLinkAttrs(href)}>{t.buy}</a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>{t.buyingTitle}</h2>
-        <p>{t.buyingLead}</p>
-      </div>
-      <div class="check-grid">
-        {checks.map(([label, copy]) => (
-          <article class="check-card">
-            <span>✓</span>
-            <div>
-              <h3>{label}</h3>
-              <p>{copy}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap decision-grid">
-      {fit.map(([title, items]) => (
-        <article class="decision-card">
-          <h2>{title}</h2>
-          <ul>
-            {items.map((item) => <li>{item}</li>)}
-          </ul>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap media-row">
-      <div class="media-copy">
-        <h2>{t.trackpadTitle}</h2>
-        <p>{t.trackpadCopy}</p>
-      </div>
-      <div class="media-frame">
-        <ProductImage src={`${assetBase}/trackpad.png`} alt={t.trackpadTitle} />
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap media-row reverse">
-      <div class="media-copy">
-        <h2>{t.displayTitle}</h2>
-        <p>{t.displayCopy}</p>
-      </div>
-      <div class="media-frame">
-        <ProductImage src={`${assetBase}/display.png`} alt={t.displayTitle} />
-      </div>
-    </div>
-  </section>
-
-  <section class="section dark">
-    <div class="wrap media-row">
-      <div class="media-copy">
-        <h2>{t.keymapTitle}</h2>
-        <p>{t.keymapLead}</p>
-        <div class="actions">
-          <a class="button primary" href={`${base}/docs/setup/keymap/ferris-sweep-pro-keymap/`}>{isZh ? '查看完整键位' : 'View full keymap'}</a>
-        </div>
-      </div>
-      <div class="media-frame keymap-frame">
-        <img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap.svg" alt={t.keymapTitle} loading="lazy" />
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>{t.pathTitle}</h2>
-      </div>
-      <div class="path-list">
-        {setup.map(([label, copy, href], index) => (
-          <a
-            class="path-step"
-            href={href}
-            target={isExternalHref(href) ? '_blank' : undefined}
-            rel={isExternalHref(href) ? 'noopener noreferrer' : undefined}
-          >
-            <span>{index + 1}</span>
-            <div>
-              <h3>{label}</h3>
-              <p>{copy}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>{t.openTitle}</h2>
-        <p>{t.openLead}</p>
-      </div>
-      <div class="info-grid">
-        {openLinks.map(([label, copy, href]) => (
-          <a
-            class="info-card link-card"
-            href={href}
-            target={isExternalHref(href) ? '_blank' : undefined}
-            rel={isExternalHref(href) ? 'noopener noreferrer' : undefined}
-          >
-            <h3>{label}</h3>
-            <p>{copy}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap media-row">
-      <div class="media-copy">
-        <h2>{t.keycapTitle}</h2>
-        <p>{t.keycapCopy}</p>
-      </div>
-      <div class="media-frame">
-        <ProductImage src={`${assetBase}/keycaps2.jpeg`} alt={t.keycapTitle} />
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap media-row reverse">
-      <div class="media-copy">
-        <h2>{t.studioTitle}</h2>
-        <p>{t.studioCopy}</p>
-      </div>
-      <div class="media-frame">
-        <ProductImage src={`${assetBase}/studio.png`} alt={t.studioTitle} />
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>{t.galleryTitle}</h2>
-      </div>
-      <div class="gallery">
-        {gallery.map((name) => <ProductImage src={`${assetBase}/${name}.png`} alt={`${t.galleryTitle} ${name}`} variant="gallery" />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section dark" id="support">
-    <div class="wrap info-grid">
-      <article class="info-card">
-        <h3>{isZh ? '淘宝购买' : 'Taobao'}</h3>
-        <p><a href={taobaoUrl} {...externalLinkAttrs(taobaoUrl)}>{isZh ? '打开商品页面' : 'Open the product page'}</a></p>
-      </article>
-      <article class="info-card">
-        <h3>Discord</h3>
-        <p>@lilin0522</p>
-      </article>
-      <article class="info-card">
-        <h3>{isZh ? '微信' : 'WeChat'}</h3>
-        <p>nxtkb888</p>
-      </article>
-    </div>
-  </section>
-</SiteLayout>
+  <section class="product-section"><div class="product-wrap product-story">
+    <div><p class="product-kicker">{isZh ? '分层输入' : '34 keys. Your flow.'}</p><h2>{t.keymapTitle}</h2><p>{t.keymapCopy}</p><p class="product-note">{t.keymapNote}</p><a class="product-link" href={`${base}/docs/setup/keymap/ferris-sweep-pro-keymap/`}>{t.keymapLink}</a></div>
+    <div class="product-keymap"><img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_default_layer.svg" alt={isZh ? 'Ferris Sweep Pro 默认字符层键位图' : 'Ferris Sweep Pro default letter layer'} loading="lazy" width="756" height="405" /></div>
+  </div></section>
+  <section class="product-section soft"><div class="product-wrap product-story">
+    <div class="product-detail-photo"><ProductVisual src={`${assets}/keycaps2.jpeg`} alt={isZh ? '矮轴球帽的外形与表面细节' : 'Low-profile keycap shapes and surface details'} crop={[0, 0, 2378, 1296]} /></div>
+    <div><p class="product-kicker">ZMK Studio</p><h2>{t.studioTitle}</h2><p>{t.studioCopy}</p><a class="product-link" href={`${base}/docs/setup/keymap/how-to-update-keymaps/`}>{t.studioLink}</a></div>
+  </div></section>
+  <section class="product-section"><div class="product-wrap">
+    <div class="product-heading"><h2>{t.colorTitle}</h2><p>{t.colorLead}</p></div>
+    <div class="product-colors">{colors.map(([image, label]) => <figure class="product-color"><ProductVisual src={`${assets}/${image}.png`} alt={`${label} Ferris Sweep Pro`} crop={[0, 390, 2000, 740]} /><figcaption>{label}</figcaption></figure>)}</div>
+    <p class="product-note">{isZh ? '图示配色供参考，可选组合请查看对应配置的商品页。' : 'Colors shown for reference. See the product listing for available combinations.'}</p>
+  </div></section>
+  <section class="product-section" id="choose"><div class="product-wrap">
+    <SweepProConfigurator lang={lang} />
+  </div></section>
+  <section class="product-section"><div class="product-wrap product-faq"><div class="product-heading"><h2>{t.faqTitle}</h2></div>{t.faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+  <section class="product-section soft" id="support"><div class="product-wrap">
+    <div class="product-heading"><h2>{t.supportTitle}</h2><p>{t.supportLead}</p></div>
+    <div class="product-resources">{t.resources.map(([title, copy, label, href]) => <article class="product-resource"><h3>{title}</h3><p>{copy}</p><a class="product-link" href={href} {...externalLinkAttrs(href)}>{label}</a></article>)}<article class="product-resource"><h3>{t.contactTitle}</h3><p>{t.contactCopy}</p></article></div>
+  </div></section>
+</ProductLayout>

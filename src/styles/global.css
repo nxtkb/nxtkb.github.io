@@ -1081,3 +1081,29 @@ img {
     flex-direction: column;
   }
 }
+
+/* Product details use one site header with an inline product name and purchase action. */
+.nav-product-context { display: flex; align-items: center; min-width: 0; gap: 1.2rem; }
+.nav-product-context .brand { flex-shrink: 0; }
+.header-product-name { min-width: 0; padding-left: 1.2rem; border-left: 1px solid var(--line); color: var(--ink); font-size: .98rem; font-weight: 600; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.has-product-context { background: rgb(255 255 255 / 94%); }
+.has-product-context .nav { gap: 1rem; }
+.has-product-context .nav-links { flex-shrink: 0; }
+.nav-links a.header-product-buy, a.header-product-buy { display: inline-flex; align-items: center; justify-content: center; min-height: 2.25rem; padding: .4rem 1rem; border-radius: 99px; background: var(--teal); color: #fff; font-size: .85rem; font-weight: 600; text-decoration: none; }
+.nav-links a.header-product-buy:hover, a.header-product-buy:hover { background: #006763; color: #fff; }
+.header-product-name:focus-visible, .header-product-buy:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
+.mobile-nav-actions { display: none; }
+@media (max-width: 860px) {
+  .mobile-nav-actions { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+  .has-product-context .nav-product-context { flex: 1; gap: .7rem; }
+  .has-product-context .brand span { display: none; }
+  .header-product-name { border: 0; padding-left: 0; font-size: .9rem; }
+  .has-product-context .nav { gap: .6rem; }
+}
+.header-purchase { display: flex; align-items: center; gap: .85rem; }
+.header-product-price { color: var(--muted); font-size: .85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) {
+  .header-purchase { display: grid; justify-items: center; gap: .15rem; }
+  .header-product-price { font-size: .7rem; line-height: 1.2; }
+  .header-purchase a.header-product-buy { min-height: 1.7rem; padding: .2rem .85rem; font-size: .78rem; }
+}

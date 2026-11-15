@@ -1,0 +1,6 @@
+---
+import KeyboardConfigurator from './KeyboardConfigurator.astro';
+interface Props { lang: 'en' | 'zh' }
+const { lang } = Astro.props;
+---
+<KeyboardConfigurator lang={lang} model="sweep-pro" />

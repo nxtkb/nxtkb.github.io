@@ -1,0 +1,9 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import '../styles/product.css';
+interface Props { title: string; description: string; lang?: 'en' | 'zh'; product?: { name: string; buyHref: string; price: string } }
+const { title, description, lang = 'en', product } = Astro.props;
+---
+<SiteLayout title={title} description={description} lang={lang} product={product}>
+  <div class="product-page"><slot /></div>
+</SiteLayout>

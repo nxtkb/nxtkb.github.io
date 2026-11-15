@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import { productImage } from '../utils/product-images';
+interface Props {
+  src: string;
+  alt: string;
+  crop: [number, number, number, number];
+  eager?: boolean;
+}
+const { src, alt, crop: [x, y, width, height], eager = false } = Astro.props;
+const source = productImage(src);
+// Present the product area of existing photography without the marketplace poster copy.
+const imageWidth = Math.min(source.width, 1920);
+const widths = [480, 960, imageWidth].filter((value, index, all) => all.indexOf(value) === index && value <= imageWidth).sort((a, b) => a - b);
+---
+<div class="product-visual" style={`aspect-ratio:${width}/${height}`}>
+  <Image src={source} alt={alt} width={imageWidth} widths={widths}
+    sizes="(max-width: 760px) 100vw, 1200px" format="webp" quality={90}
+    loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'}
+    style={`width:${source.width / width * 100}%;left:${-x / width * 100}%;top:${-y / height * 100}%;`} />
+</div>

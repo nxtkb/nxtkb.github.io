@@ -60,6 +60,26 @@ size. The `detail` preset uses higher quality for images containing small legend
 Card, feature, and gallery variants are cropped at build time to their CSS display
 ratios, so visitors do not download pixels that would be hidden by `object-fit`.
 
+Product detail pages use `ProductLayout.astro`, which passes the product name, starting price, and
+purchase link into the single site header. Keep the product header on one row;
+secondary navigation remains available in the mobile menu.
+
+Use `ProductVisual.astro` to frame the product area of an existing marketplace
+poster. Its `crop` is `[x, y, width, height]` in original-image pixels; it uses CSS
+clipping with Astro-optimized images and preserves the original files.
+
+### Keyboard customization
+
+`KeyboardConfigurator.astro` serves both Sweep and Sweep Pro. Update available
+colors, switches, keycap colors, and preview-photo mappings in
+`src/utils/keyboard-customization.ts`. Sweep Pro hardware starting prices and
+matching purchase links live in `src/utils/sweep-pro-config.mjs`. The single header price follows the selected hardware configuration, including
+the initial selection, on desktop and mobile. Keep appearance
+selections separate from hardware pricing; do not imply unverified choices are
+free. These selections are a preview and a copyable checklist, and must be
+confirmed on Taobao. Missing color photos must remain explicitly labeled as
+appearance references.
+
 Internal links prefetch on hover; the main Products navigation link prefetches
 when visible. Cloudflare Pages applies `public/_headers`: HTML routes have a short
 freshness window, while fingerprinted Astro assets are immutable for one year.
