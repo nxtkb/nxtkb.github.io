@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
+import { readFileSync } from 'node:fs';
 import starlight from '@astrojs/starlight';
 import { rehypeExternalLinks } from './src/utils/external-links.mjs';
 
 const site = process.env.SITE || 'https://nxtkb.com';
+const sitePreferences = readFileSync(new URL('./public/scripts/site-preferences.js', import.meta.url), 'utf8');
 
 export default defineConfig({
   site,
@@ -17,9 +19,7 @@ export default defineConfig({
       head: [
         {
           tag: 'script',
-          attrs: {
-            src: '/scripts/site-preferences.js',
-          },
+          content: sitePreferences,
         },
       ],
       logo: {

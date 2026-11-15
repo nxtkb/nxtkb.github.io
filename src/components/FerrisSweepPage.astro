@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import ProductImage from './ProductImage.astro';
 import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const isZh = lang === 'zh';
 const base = isZh ? '/zh' : '';
-const assetBase = isZh ? '/zh/products/ferris-sweep' : '/products/ferris-sweep';
+const assetBase = '/products/ferris-sweep';
 const taobaoUrl =
   'https://item.taobao.com/item.htm?id=818899575086&mi_id=0000vbbrI9IbnKujM5-ONDwr6gQkqoYUtGd1s7COILWkB6o&skuId=6089823135222&spm=a21xtw.29178619.0.0&xxc=shop';
 
@@ -78,7 +79,8 @@ const t = isZh
 ---
 
 <SiteLayout title={t.title} description={t.description} lang={lang}>
-  <section class="hero" style={`--hero-image: url('${assetBase}/sweep-1.png')`}>
+  <section class="hero">
+    <ProductImage src={`${assetBase}/sweep-1.png`} alt="" variant="hero" />
     <div class="hero-content">
       <p class="eyebrow">{t.eyebrow}</p>
       <h1>{t.h1}</h1>
@@ -121,7 +123,7 @@ const t = isZh
         </div>
       </div>
       <div class="media-frame">
-        <img src={`${assetBase}/sweep-2.png`} alt={t.title} />
+        <ProductImage src={`${assetBase}/sweep-2.png`} alt={t.title} />
       </div>
     </div>
   </section>
@@ -147,11 +149,9 @@ const t = isZh
         <h2>{t.galleryTitle}</h2>
       </div>
       <div class="gallery">
-        <img src={`${assetBase}/sweep-1.png`} alt={t.galleryTitle} loading="lazy" />
-        <img src={`${assetBase}/sweep-2.png`} alt={t.galleryTitle} loading="lazy" />
-        <img src={`${assetBase}/sweep-3.png`} alt={t.galleryTitle} loading="lazy" />
-        <img src={`${assetBase}/sweep-4.png`} alt={t.galleryTitle} loading="lazy" />
-        <img src={`${assetBase}/sweep-5.png`} alt={t.galleryTitle} loading="lazy" />
+        {[1, 2, 3, 4, 5].map((number) => (
+          <ProductImage src={`${assetBase}/sweep-${number}.png`} alt={t.galleryTitle} variant="gallery" />
+        ))}
       </div>
     </div>
   </section>

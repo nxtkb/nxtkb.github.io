@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import ProductImage from './ProductImage.astro';
 import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
@@ -63,7 +64,8 @@ const base = isZh ? '/zh' : '';
 ---
 
 <SiteLayout title={t.title} description={t.description} lang={lang}>
-  <section class="hero" style={`--hero-image: url('/products/ferris-sweep-pro/background-poster.png')`}>
+  <section class="hero">
+    <ProductImage src="/products/ferris-sweep-pro/background-poster.png" alt="" variant="hero" />
     <div class="hero-content">
       <p class="eyebrow">{t.eyebrow}</p>
       <h1>{t.h1}</h1>
@@ -120,35 +122,35 @@ const base = isZh ? '/zh' : '';
       </div>
       <div class="product-grid">
         <a class="product-card" href={`${base}/products/ferris-sweep-pro/`}>
-          <img src="/products/ferris-sweep-pro/poster.png" alt="Ferris Sweep Pro" />
+          <ProductImage src="/products/ferris-sweep-pro/poster.png" alt="Ferris Sweep Pro" variant="card" />
           <div class="body">
             <h3>Ferris Sweep Pro</h3>
             <p>{isZh ? '触控板、电子墨水屏、双旋钮、4000mAh 电池，可选磁吸支架套餐。' : 'Trackpad, e-ink display, dual encoders, a 4000mAh battery, and an optional magnetic-stand kit.'}</p>
           </div>
         </a>
         <a class="product-card" href={`${base}/products/ferris-sweep/`}>
-          <img src="/products/ferris-sweep/sweep-1.png" alt="Ferris Sweep" />
+          <ProductImage src="/products/ferris-sweep/sweep-1.png" alt="Ferris Sweep" variant="card" />
           <div class="body">
             <h3>Ferris Sweep</h3>
             <p>{isZh ? '34 键矮轴无线分体键盘，支持热插拔和 ZMK Studio。' : '34-key low-profile wireless split keyboard with hot-swap switches and ZMK Studio support.'}</p>
           </div>
         </a>
         <a class="product-card" href={`${base}/products/magnetic-stand/`}>
-          <img src="/products/magnetic-stand/stand-1.png" alt={isZh ? '分体键盘磁吸支架' : 'Magnetic stand for split keyboards'} />
+          <ProductImage src="/products/magnetic-stand/stand-1.png" alt={isZh ? '分体键盘磁吸支架' : 'Magnetic stand for split keyboards'} variant="card" />
           <div class="body">
             <h3>{isZh ? '磁吸支架' : 'Magnetic stand'}</h3>
             <p>{isZh ? '黑色金属夹持式支架一对，用于稳定分体键盘角度。' : 'A pair of black metal clamp-style stands for stable split-keyboard positioning.'}</p>
           </div>
         </a>
         <a class="product-card" href={`${base}/products/low-profile-keycaps/`}>
-          <img src="/products/low-profile-keycaps/white.png" alt={isZh ? 'NXTKB 矮轴键帽' : 'NXTKB low-profile keycaps'} />
+          <ProductImage src="/products/low-profile-keycaps/white.png" alt={isZh ? 'NXTKB 矮轴键帽' : 'NXTKB low-profile keycaps'} variant="card" />
           <div class="body">
             <h3>{isZh ? 'NXTKB 矮轴键帽' : 'NXTKB low-profile keycaps'}</h3>
             <p>{isZh ? '34 键 PBT 热升华矮轴键帽，提供白色和黑色。' : '34-key PBT dye-sub low-profile keycaps, available in white and black.'}</p>
           </div>
         </a>
         <article class="product-card">
-          <img src="/products/ferris-sweep-pro/studio.png" alt="ZMK Studio" />
+          <ProductImage src="/products/ferris-sweep-pro/studio.png" alt="ZMK Studio" variant="card" />
           <div class="body">
             <h3>ZMK Studio</h3>
             <p>{isZh ? '图形化实时改键，更适合第一次接触 34 键分体键盘的用户。' : 'Live graphical keymap editing for users new to compact split layouts.'}</p>
@@ -168,7 +170,7 @@ const base = isZh ? '/zh' : '';
         </div>
       </div>
       <div class="media-frame">
-        <img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_default_layer.svg" alt={isZh ? '默认键位图' : 'Default keymap'} />
+        <img src="/keymaps/ferris-sweep-pro/ferris_sweep_pro_keymap_default_layer.svg" alt={isZh ? '默认键位图' : 'Default keymap'} loading="lazy" decoding="async" />
       </div>
     </div>
   </section>

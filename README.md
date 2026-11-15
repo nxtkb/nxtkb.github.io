@@ -46,6 +46,18 @@ The site will be available at `http://localhost:4321`
 - Chinese documentation lives in `/src/content/docs/zh/docs/`
 - Static files live in `/public/`
 
+### Product images
+
+Use `src/components/ProductImage.astro` with a canonical `/products/...` source
+in both languages. It imports the existing public originals for Astro's
+build-time optimization, generates responsive WebP files with hashed URLs, and
+sets image dimensions. Existing direct links to the originals remain valid.
+
+Use `variant="hero"` for the decorative image directly inside a `.hero` section;
+it loads eagerly with high priority. Images further down the page load lazily.
+Choose `card`, `feature` (default), `gallery`, or `detail` to match their display
+size. The `detail` preset uses higher quality for images containing small legends.
+
 ```bash
 npm run dev
 ```

@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import ProductImage from './ProductImage.astro';
 import { externalLinkAttrs, isExternalHref } from '../utils/external-links.mjs';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const isZh = lang === 'zh';
 const base = isZh ? '/zh' : '';
-const assetBase = isZh ? '/zh/products/ferris-sweep-pro' : '/products/ferris-sweep-pro';
+const assetBase = '/products/ferris-sweep-pro';
 const taobaoUrls = {
   full: 'https://item.taobao.com/item.htm?ft=t&id=1021093959607&skuId=6033907845219',
   touchpad: 'https://item.taobao.com/item.htm?id=1001738884648',
@@ -157,7 +158,8 @@ const openLinks = isZh
 ---
 
 <SiteLayout title={t.title} description={t.description} lang={lang}>
-  <section class="hero" style={`--hero-image: url('${assetBase}/background-poster.png')`}>
+  <section class="hero">
+    <ProductImage src={`${assetBase}/background-poster.png`} alt="" variant="hero" />
     <div class="hero-content">
       <p class="eyebrow">{t.eyebrow}</p>
       <h1>{t.h1}</h1>
@@ -271,7 +273,7 @@ const openLinks = isZh
         <p>{t.trackpadCopy}</p>
       </div>
       <div class="media-frame">
-        <img src={`${assetBase}/trackpad.png`} alt={t.trackpadTitle} />
+        <ProductImage src={`${assetBase}/trackpad.png`} alt={t.trackpadTitle} />
       </div>
     </div>
   </section>
@@ -283,7 +285,7 @@ const openLinks = isZh
         <p>{t.displayCopy}</p>
       </div>
       <div class="media-frame">
-        <img src={`${assetBase}/display.png`} alt={t.displayTitle} />
+        <ProductImage src={`${assetBase}/display.png`} alt={t.displayTitle} />
       </div>
     </div>
   </section>
@@ -356,7 +358,7 @@ const openLinks = isZh
         <p>{t.keycapCopy}</p>
       </div>
       <div class="media-frame">
-        <img src={`${assetBase}/keycaps2.jpeg`} alt={t.keycapTitle} />
+        <ProductImage src={`${assetBase}/keycaps2.jpeg`} alt={t.keycapTitle} />
       </div>
     </div>
   </section>
@@ -368,7 +370,7 @@ const openLinks = isZh
         <p>{t.studioCopy}</p>
       </div>
       <div class="media-frame">
-        <img src={`${assetBase}/studio.png`} alt={t.studioTitle} />
+        <ProductImage src={`${assetBase}/studio.png`} alt={t.studioTitle} />
       </div>
     </div>
   </section>
@@ -379,7 +381,7 @@ const openLinks = isZh
         <h2>{t.galleryTitle}</h2>
       </div>
       <div class="gallery">
-        {gallery.map((name) => <img src={`${assetBase}/${name}.png`} alt={`${t.galleryTitle} ${name}`} loading="lazy" />)}
+        {gallery.map((name) => <ProductImage src={`${assetBase}/${name}.png`} alt={`${t.galleryTitle} ${name}`} variant="gallery" />)}
       </div>
     </div>
   </section>
