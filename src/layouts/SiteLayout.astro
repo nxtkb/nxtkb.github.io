@@ -60,6 +60,7 @@ const langLabel = isZh ? 'English' : '简体中文';
               <a
                 class={kind === 'tool' ? 'nav-tool-link' : undefined}
                 href={href}
+                data-astro-prefetch={href.endsWith('/products/') ? 'viewport' : undefined}
                 aria-label={kind === 'tool' ? (isZh ? `${label}，在新标签页打开外部测试网站` : `${label}, opens the external tester site in a new tab`) : undefined}
                 {...externalLinkAttrs(href)}
               >
@@ -77,6 +78,7 @@ const langLabel = isZh ? 'English' : '简体中文';
                 <a
                   class={kind === 'tool' ? 'nav-tool-link' : undefined}
                   href={href}
+                  data-astro-prefetch={href.endsWith('/products/') ? 'viewport' : undefined}
                   aria-label={kind === 'tool' ? (isZh ? `${label}，在新标签页打开外部测试网站` : `${label}, opens the external tester site in a new tab`) : undefined}
                   {...externalLinkAttrs(href)}
                 >

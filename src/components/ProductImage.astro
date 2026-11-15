@@ -13,33 +13,41 @@ const image = productImage(src);
 const presets = {
   hero: {
     widths: [640, 960, 1440, 1920],
+    aspectRatio: undefined,
     sizes: '(max-width: 672px) 672px, 100vw',
   },
   card: {
     widths: [400, 800, 1200],
+    aspectRatio: 16 / 10,
     sizes: '(max-width: 860px) calc(100vw - 2rem), (max-width: 1212px) 33vw, 382px',
   },
   feature: {
     widths: [400, 800, 1200],
+    aspectRatio: 4 / 3,
     sizes: '(max-width: 860px) calc(100vw - 2rem), (max-width: 1212px) 52vw, 612px',
   },
   gallery: {
     widths: [320, 640, 800],
+    aspectRatio: 1,
     sizes: '(max-width: 860px) 50vw, (max-width: 1212px) 25vw, 285px',
   },
   detail: {
     widths: [640, 1200, 1920],
+    aspectRatio: undefined,
     sizes: '(max-width: 1212px) calc(100vw - 2rem), 1180px',
   },
 };
 const preset = presets[variant];
+const width = preset.widths.at(-1)!;
 const isHero = variant === 'hero';
 ---
 
 <Image
   src={image}
   alt={alt}
-  width={preset.widths.at(-1)!}
+  width={width}
+  height={preset.aspectRatio ? Math.round(width / preset.aspectRatio) : undefined}
+  fit={preset.aspectRatio ? 'cover' : undefined}
   widths={preset.widths}
   sizes={preset.sizes}
   format="webp"

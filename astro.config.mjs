@@ -8,6 +8,7 @@ const sitePreferences = readFileSync(new URL('./public/scripts/site-preferences.
 
 export default defineConfig({
   site,
+  prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   markdown: {
     rehypePlugins: [[rehypeExternalLinks, { site }]],
   },
