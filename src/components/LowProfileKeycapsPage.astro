@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import ProductImage from './ProductImage.astro';
 import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const isZh = lang === 'zh';
 const base = isZh ? '/zh' : '';
-const assetBase = isZh ? '/zh/products/low-profile-keycaps' : '/products/low-profile-keycaps';
+const assetBase = '/products/low-profile-keycaps';
 const taobaoUrl =
   'https://item.taobao.com/item.htm?id=1028293273125&mi_id=0000G3EVNeypsZ9T0TAyCUzKLFATYuWyNxGO6FVQ0VUx67c';
 
@@ -74,7 +75,8 @@ const t = isZh
 ---
 
 <SiteLayout title={t.title} description={t.description} lang={lang}>
-  <section class="hero" style={`--hero-image: url('${assetBase}/white.png')`}>
+  <section class="hero">
+    <ProductImage src={`${assetBase}/white.png`} alt="" variant="hero" />
     <div class="hero-content">
       <p class="eyebrow">{t.eyebrow}</p>
       <h1>{t.h1}</h1>
@@ -116,7 +118,7 @@ const t = isZh
         </div>
       </div>
       <div class="media-frame">
-        <img src={`${assetBase}/white.png`} alt={isZh ? '白色 NXTKB 矮轴键帽' : 'White NXTKB low-profile keycaps'} />
+        <ProductImage src={`${assetBase}/white.png`} alt={isZh ? '白色 NXTKB 矮轴键帽' : 'White NXTKB low-profile keycaps'} />
       </div>
     </div>
   </section>
@@ -128,7 +130,7 @@ const t = isZh
         <p>{t.legendLead}</p>
       </div>
       <div class="detail-image-frame">
-        <img src={`${assetBase}/keymap.png`} alt={t.legendTitle} loading="lazy" />
+        <ProductImage src={`${assetBase}/keymap.png`} alt={t.legendTitle} variant="detail" />
       </div>
     </div>
   </section>
@@ -139,8 +141,8 @@ const t = isZh
         <h2>{t.galleryTitle}</h2>
       </div>
       <div class="gallery">
-        <img src={`${assetBase}/white.png`} alt={isZh ? '白色 NXTKB 矮轴键帽' : 'White NXTKB low-profile keycaps'} loading="lazy" />
-        <img src={`${assetBase}/black.png`} alt={isZh ? '黑色 NXTKB 矮轴键帽' : 'Black NXTKB low-profile keycaps'} loading="lazy" />
+        <ProductImage src={`${assetBase}/white.png`} alt={isZh ? '白色 NXTKB 矮轴键帽' : 'White NXTKB low-profile keycaps'} variant="gallery" />
+        <ProductImage src={`${assetBase}/black.png`} alt={isZh ? '黑色 NXTKB 矮轴键帽' : 'Black NXTKB low-profile keycaps'} variant="gallery" />
       </div>
     </div>
   </section>

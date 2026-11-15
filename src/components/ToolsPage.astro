@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import ProductImage from './ProductImage.astro';
 import { externalLinkAttrs } from '../utils/external-links.mjs';
 
 interface Props {
@@ -61,7 +62,8 @@ const t = isZh
 ---
 
 <SiteLayout title={t.title} description={t.description} lang={lang}>
-  <section class="hero" style="--hero-image: url('/products/ferris-sweep-pro/studio.png')">
+  <section class="hero">
+    <ProductImage src="/products/ferris-sweep-pro/studio.png" alt="" variant="hero" />
     <div class="hero-content">
       <p class="eyebrow">{t.eyebrow}</p>
       <h1>{t.h1}</h1>
@@ -87,7 +89,7 @@ const t = isZh
         </div>
       </article>
       <article class="product-card">
-        <img src="/products/ferris-sweep-pro/studio.png" alt={t.studioTitle} />
+        <ProductImage src="/products/ferris-sweep-pro/studio.png" alt={t.studioTitle} />
         <div class="body">
           <h3>{t.studioTitle}</h3>
           <p>{t.studioCopy}</p>

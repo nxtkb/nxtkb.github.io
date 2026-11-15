@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import { productImage } from '../utils/product-images';
+
+interface Props {
+  src: string;
+  alt: string;
+  variant?: 'hero' | 'card' | 'feature' | 'gallery' | 'detail';
+}
+
+const { src, alt, variant = 'feature' } = Astro.props;
+const image = productImage(src);
+const presets = {
+  hero: {
+    widths: [640, 960, 1440, 1920],
+    sizes: '(max-width: 672px) 672px, 100vw',
+  },
+  card: {
+    widths: [400, 800, 1200],
+    sizes: '(max-width: 860px) calc(100vw - 2rem), (max-width: 1212px) 33vw, 382px',
+  },
+  feature: {
+    widths: [400, 800, 1200],
+    sizes: '(max-width: 860px) calc(100vw - 2rem), (max-width: 1212px) 52vw, 612px',
+  },
+  gallery: {
+    widths: [320, 640, 800],
+    sizes: '(max-width: 860px) 50vw, (max-width: 1212px) 25vw, 285px',
+  },
+  detail: {
+    widths: [640, 1200, 1920],
+    sizes: '(max-width: 1212px) calc(100vw - 2rem), 1180px',
+  },
+};
+const preset = presets[variant];
+const isHero = variant === 'hero';
+---
+
+<Image
+  src={image}
+  alt={alt}
+  width={preset.widths.at(-1)!}
+  widths={preset.widths}
+  sizes={preset.sizes}
+  format="webp"
+  quality={variant === 'detail' ? 95 : 85}
+  loading={isHero ? 'eager' : 'lazy'}
+  decoding="async"
+  fetchpriority={isHero ? 'high' : 'auto'}
+  class={isHero ? 'hero-image' : undefined}
+  aria-hidden={isHero ? 'true' : undefined}
+/>
