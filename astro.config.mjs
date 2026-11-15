@@ -51,6 +51,16 @@ export default defineConfig({
               translations: { 'zh-CN': '入门指南' },
             },
             {
+              slug: 'docs/setup/ferris-sweep-pro',
+              label: 'Sweep Pro User Guide',
+              translations: { 'zh-CN': 'Sweep Pro 使用指南' },
+            },
+            {
+              slug: 'docs/setup/ferris-sweep',
+              label: 'Ferris Sweep User Guide',
+              translations: { 'zh-CN': 'Ferris Sweep 使用指南' },
+            },
+            {
               slug: 'docs/setup/connect',
               label: 'Connect to Your Device',
               translations: { 'zh-CN': '连接到设备' },

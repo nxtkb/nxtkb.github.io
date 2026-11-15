@@ -11,14 +11,14 @@ Use this page as the first-run checklist for a new NXTKB keyboard. The goal is s
 3. Open [Keyboard & Mouse Test](keymap/input-tester/) and press a few keys.
 4. Pair over Bluetooth if you want wireless use.
 5. Review the default keymap for your model.
-6. For Sweep Pro versions with extra hardware, read the trackpad or display guide.
+6. Read your model's user guide for hardware options, everyday controls, and the matching firmware.
 
 ## Choose Your Keyboard
 
 | Keyboard | Start here | Extra guides |
 | :--- | :--- | :--- |
-| Ferris Sweep Pro | [Ferris Sweep Pro Keymap](keymap/ferris-sweep-pro-keymap/) | [Trackpad](keymap/trackpad/), [E-ink display](../firmware/sweep-pro-display/) |
-| Ferris Sweep | [Ferris Sweep Keymap](keymap/ferris-sweep-keymap/) | [Ferris Sweep Configuration](../firmware/ferris-sweep-configuration/) |
+| Ferris Sweep Pro | [Sweep Pro User Guide](ferris-sweep-pro/) | [Keymap](keymap/ferris-sweep-pro-keymap/), [Trackpad](keymap/trackpad/), [E-ink display](../firmware/sweep-pro-display/) |
+| Ferris Sweep | [Ferris Sweep User Guide](ferris-sweep/) | [Keymap](keymap/ferris-sweep-keymap/), [Configuration](../firmware/ferris-sweep-configuration/) |
 
 ## Common Next Steps
 

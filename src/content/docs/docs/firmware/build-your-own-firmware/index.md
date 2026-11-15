@@ -149,6 +149,8 @@ source .venv/bin/activate
 
 ### 4. Build Ferris Sweep Pro
 
+First check out the official ZMK revision pinned in Sweep Pro's `config/west.yml` and apply the display module's split USB power patch to that clean checkout. The shared config enables power reporting for both halves. The version-matched [local build guide](https://github.com/nxtkb/Sweep-Pro/blob/main/docs/en/local-build.md) provides the commands. Codex builds also need the Codex module, its USB patch, and the USB/Bluetooth snippets described there; the examples below are the ordinary Studio builds.
+
 ```sh
 NXTKB_ROOT="$HOME/git-repo/nxtkb"
 EXTRA_MODULES="$NXTKB_ROOT/Sweep-Pro;$NXTKB_ROOT/zmk-vfx-sweep-pro-display;$NXTKB_ROOT/cirque-input-module;$NXTKB_ROOT/zmk-behavior-report;$NXTKB_ROOT/zmk-behavior-send-string"

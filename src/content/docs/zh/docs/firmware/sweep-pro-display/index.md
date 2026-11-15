@@ -19,15 +19,18 @@ Ferris Sweep Pro 可以在左手半边使用一块 152 x 152 的黑白墨水屏�
 | 区域 | Widget | 含义 |
 | :--- | :--- | :--- |
 | 左上角 | 输出状态 | USB 和蓝牙输出状态。下划线表示当前选中的输出。蓝牙标记会显示当前 profile 编号，`-` 表示该 profile 仍可配对，勾号表示已连接，叉号表示已绑定但未连接。 |
-| 右上角 | 电池状态 | 主控半边电量；当能拿到数据时，也会显示右手从属半边电量。USB 供电时，主控电量后会带充电图标。 |
+| 右上角 | 电池状态 | 可用时显示左右两半电量。配套固件启用分体供电上报后，各半边都可显示自己的 USB 供电图标；图标表示接入 USB 供电，不表示充电芯片正在充电或电池已充满。 |
 | 中部 | Logo | NXTKB logo 图片和 `NXTkb` 字样。 |
 | Logo 下方 | 分体状态 | 左右键盘图标。右手半边会根据 split peripheral transport 状态显示为已连接或断开。 |
 | 键盘名称 | 键盘名称 | 来自 `CONFIG_ZMK_KEYBOARD_NAME` 的值。 |
+| 辅助行 | Codex Agent 状态 | 当前 Agent 与六个 Agent 的状态。启用 Codex 后，默认在字符层和 Codex 层显示；鼠标层改为显示触控板状态。 |
 | 触控板行 | 触控板状态 | 运行时 Cirque 模式和指针/滚动速度倍率。该行使用鼠标图标，`A` 或 `R` 表示绝对/相对模式，`P` 和 `S` 以两位小数显示倍率，例如 `P 1.00x`、`S 1.00x`。Sweep Pro 默认以绝对模式启动触控板。 |
 | 左下角 | 层状态 | 当前最高优先级的激活层。如果层有 `display-name`，显示该名称；否则显示层编号。过长名称会截断到 18 个字符。 |
 | 右下角 | HID 指示状态 | 当前激活的修饰键和 Caps Lock 状态。该 widget 会跟踪 Alt、Ctrl、Command/GUI、Shift 和 Caps Lock，并用下划线标记当前激活项。 |
 
 模块里还包含可选的 WPM widget（`CUSTOM_WIDGET_WPM_STATUS`），但 Sweep Pro 默认屏幕配置不会启用它。
+
+Agent 与触控板状态共用辅助区域，可随当前层切换显示内容；启用 Codex 时，字符层不显示触控板行属于正常行为。[使用指南](/zh/docs/setup/ferris-sweep-pro/)提供配套固件选择和常用操作入口。
 
 ## 状态来源
 
@@ -37,6 +40,7 @@ Ferris Sweep Pro 可以在左手半边使用一块 152 x 152 的黑白墨水屏�
 | :--- | :--- |
 | 输出 | `zmk_endpoint_changed`、USB 连接变化和 BLE active profile 变化。 |
 | 电池 | 本机电池状态、USB 供电状态、分体从属电量上报，以及分体连接变化。 |
+| Agent | 当前选中输出上，桌面端会话发送的 Codex Agent 状态事件。 |
 | 分体连接 | Split peripheral transport 状态；同时有一个短周期刷新，避免连接状态停留在旧值。 |
 | 层 | `zmk_layer_state_changed` 和 ZMK keymap layer name。 |
 | 触控板 | `zmk_trackpad_status_changed`，以及来自触控板/pointing 模块的 Cirque 模式、指针速度倍率和滚动速度倍率。该行跟随运行时模式和速度变化，而不是固定显示启动时状态。 |
@@ -81,7 +85,8 @@ SSD1680 节点、152 x 152 尺寸、旋转、GPIO 和 partial refresh 波形等�
 - 如果屏幕没有内容，先确认左手刷的是 `sweep_left_display`，不是 `sweep_left`。
 - 如果本地构建找不到 `sweep_display`，确认 `ZMK_EXTRA_MODULES` 包含 `zmk-vfx-sweep-pro-display`。
 - 如果构建时显示硬件节点冲突，确认硬件 overlay 只来自 `sweep_left_display_hw`；`sweep_display` 应只提供 UI。
-- 如果触控板行缺失，确认构建包含 Cirque input module，并且启用了 `CONFIG_CUSTOM_WIDGET_TRACKPAD_STATUS=y`。
+- 启用 Codex 时，先切到鼠标层查看触控板状态；若仍缺失，再确认构建包含 Cirque input module，且启用了 `CONFIG_CUSTOM_WIDGET_TRACKPAD_STATUS=y`。
+- 如果右半 USB 供电图标不随插拔变化，请为左右两半刷入配套、支持分体供电上报的固件。
 - 如果右手电量或分体连接状态缺失，确认右手半边已开机，并重新连接到左手。
 - 如果层名不是预期内容，检查 `config/sweep.keymap` 中各层的 `display-name`。
 
