@@ -149,6 +149,8 @@ source .venv/bin/activate
 
 ### 4. 构建 Ferris Sweep Pro
 
+先检出 Sweep Pro `config/west.yml` 固定的官方 ZMK 版本，再向干净的 checkout 应用显示模块维护的分体 USB 供电补丁；共享配置会为左右两半启用供电上报。对应版本的命令见仓库[本地编译指南](https://github.com/nxtkb/Sweep-Pro/blob/main/docs/zh_CN/local-build.md)。Codex 构建还需加入 Codex 模块、USB 补丁和相应 USB／蓝牙 snippets，详见该指南；下面是普通 Studio 构建示例。
+
 ```sh
 NXTKB_ROOT="$HOME/git-repo/nxtkb"
 EXTRA_MODULES="$NXTKB_ROOT/Sweep-Pro;$NXTKB_ROOT/zmk-vfx-sweep-pro-display;$NXTKB_ROOT/cirque-input-module;$NXTKB_ROOT/zmk-behavior-report;$NXTKB_ROOT/zmk-behavior-send-string"

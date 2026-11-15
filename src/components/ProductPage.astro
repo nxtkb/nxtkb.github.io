@@ -146,13 +146,13 @@ const openLinks = isZh
       ['Ferris Sweep Pro 固件', '查看键盘配置、默认键位和构建流程。', 'https://github.com/nxtkb/Sweep-Pro'],
       ['NXTKB Input Tester', '测试按键、鼠标键、滚轮和触控板相关输入。', 'https://input-test.nxtkb.com'],
       ['ZMK Studio', '目前使用官方工具进行实时改键，未来再考虑 NXTKB 定制体验。', 'https://zmk.studio'],
-      ['使用文档', '连接、改键、刷固件和人体工学说明。', `${base}/docs/setup/`],
+      ['使用文档', '版本选择、连接、改键和固件更新。', `${base}/docs/setup/ferris-sweep-pro/`],
     ]
   : [
       ['Ferris Sweep Pro firmware', 'Inspect configuration, default keymaps, and build flow.', 'https://github.com/nxtkb/Sweep-Pro'],
       ['NXTKB Input Tester', 'Test keys, mouse buttons, wheel, and trackpad-related input.', 'https://input-test.nxtkb.com'],
       ['ZMK Studio', 'Use the official tool for live keymap editing while a custom NXTKB experience is future work.', 'https://zmk.studio'],
-      ['Documentation', 'Connection, keymap editing, firmware flashing, and ergonomics.', `${base}/docs/setup/`],
+      ['Documentation', 'Hardware versions, connection, keymap editing, and firmware updates.', `${base}/docs/setup/ferris-sweep-pro/`],
     ];
 ---
 
@@ -164,7 +164,7 @@ const openLinks = isZh
       <p>{t.lead}</p>
       <div class="actions">
         <a class="button primary" href={taobaoUrl} {...externalLinkAttrs(taobaoUrl)}>{t.buy}</a>
-        <a class="button secondary" href={`${base}/docs/setup/`}>{t.docs}</a>
+        <a class="button secondary" href={`${base}/docs/setup/ferris-sweep-pro/`}>{t.docs}</a>
       </div>
     </div>
   </section>

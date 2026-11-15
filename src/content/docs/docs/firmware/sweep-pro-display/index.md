@@ -19,15 +19,18 @@ The `sweep_display` shield selects ZMK's custom display status screen and render
 | Area | Widget | What it means |
 | :--- | :--- | :--- |
 | Top left | Output status | USB and Bluetooth output state. The underline marks the selected output. The Bluetooth marker shows the active profile number, `-` for an open/unpaired profile, a check mark for connected, or a close mark for bonded but disconnected. |
-| Top right | Battery status | Central-side battery percentage and, when available, right-side peripheral battery percentage. A charge icon is added to the central battery when USB power is present. |
+| Top right | Battery status | Battery percentage for each half when available. Each half can show its own USB power icon when running matching firmware with split power reporting. The icon indicates USB power presence, not the charger's charging/full state. |
 | Center | Logo | NXTKB logo image plus the `NXTkb` wordmark. |
 | Below logo | Split status | Left/right keyboard symbols. The right side is shown as connected or disconnected based on the split peripheral transport state. |
 | Keyboard name | Keyboard name | The value of `CONFIG_ZMK_KEYBOARD_NAME`. |
+| Auxiliary row | Codex Agent status | Current Agent and six Agent states. With Codex enabled, this row is shown on the character and Codex layers by default; the mouse layer shows trackpad status instead. |
 | Trackpad row | Trackpad status | Runtime Cirque mode and pointing speed multipliers. The row uses a mouse icon, `A` or `R` for absolute/relative mode, and two-decimal `P` and `S` values such as `P 1.00x` and `S 1.00x`. Sweep Pro boots the trackpad in absolute mode by default. |
 | Bottom left | Layer status | The highest active layer. If a layer has `display-name`, that name is shown; otherwise the layer index is shown. Long names are clipped to 18 characters. |
 | Bottom right | HID indicators | Active modifier and Caps Lock state. The widget tracks Alt, Ctrl, Command/GUI, Shift, and Caps Lock, and marks active entries with an underline. |
 
 The module also includes an optional WPM widget (`CUSTOM_WIDGET_WPM_STATUS`), but Sweep Pro's default display configuration does not enable it.
+
+The Agent and trackpad widgets share the auxiliary area. Their visibility can follow the active layer, so a hidden trackpad row on a character layer is normal with Codex enabled. The [user guide](/docs/setup/ferris-sweep-pro/) links to the matching firmware pair and everyday controls.
 
 ## State Sources
 
@@ -37,6 +40,7 @@ The screen is event-driven. Each widget subscribes to the relevant ZMK events an
 | :--- | :--- |
 | Output | `zmk_endpoint_changed`, USB connection changes, and BLE active profile changes. |
 | Battery | Local battery state, USB power state, split peripheral battery reports, and split peripheral connection changes. |
+| Agent | Codex Agent-state events from the desktop session on the selected output. |
 | Split connection | Split peripheral transport state, with a short periodic refresh so stale connection state is corrected. |
 | Layer | `zmk_layer_state_changed` and ZMK keymap layer names. |
 | Trackpad | `zmk_trackpad_status_changed`, Cirque mode, pointer speed multiplier, and scroll speed multiplier from the trackpad/pointing modules. The row follows runtime mode and speed changes instead of assuming the boot-time state. |
@@ -81,7 +85,8 @@ In normal keymap customization you should not need to edit the display module. E
 - If the screen stays blank, confirm the left half was flashed with `sweep_left_display`, not `sweep_left`.
 - If a local build cannot find `sweep_display`, confirm `zmk-vfx-sweep-pro-display` is included in `ZMK_EXTRA_MODULES`.
 - If the display hardware node conflicts during build, confirm the hardware overlay is only coming from `sweep_left_display_hw`; `sweep_display` should provide UI only.
-- If the trackpad row is missing, confirm the build includes the Cirque input module and `CONFIG_CUSTOM_WIDGET_TRACKPAD_STATUS=y`.
+- To see trackpad status with Codex enabled, switch to the mouse layer first. If the row is still missing, confirm the build includes the Cirque input module and `CONFIG_CUSTOM_WIDGET_TRACKPAD_STATUS=y`.
+- If the right-side USB power icon does not follow USB connection changes, update both halves with matching firmware that supports split power reporting.
 - If the right-side battery or split connection state is missing, power on the right half and reconnect it to the left half.
 - If the layer text is wrong, check the `display-name` values in `config/sweep.keymap`.
 

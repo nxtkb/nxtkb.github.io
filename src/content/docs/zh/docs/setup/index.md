@@ -11,14 +11,14 @@ title: "入门指南"
 3. 打开[键鼠测试](keymap/input-tester/)，按几个键确认有输入。
 4. 如果需要无线使用，再进行蓝牙配对。
 5. 查看对应型号的默认键位。
-6. 如果你的 Sweep Pro 带触控板或墨水屏，再查看对应功能说明。
+6. 按型号查看使用指南，了解硬件版本、常用操作和对应固件。
 
 ## 选择你的键盘
 
 | 键盘 | 先看这里 | 额外说明 |
 | :--- | :--- | :--- |
-| Ferris Sweep Pro | [Ferris Sweep Pro 键位](keymap/ferris-sweep-pro-keymap/) | [触控板](keymap/trackpad/)、[墨水屏](../firmware/sweep-pro-display/) |
-| Ferris Sweep | [Ferris Sweep 键位](keymap/ferris-sweep-keymap/) | [Ferris Sweep 配置文件](../firmware/ferris-sweep-configuration/) |
+| Ferris Sweep Pro | [Sweep Pro 使用指南](ferris-sweep-pro/) | [键位](keymap/ferris-sweep-pro-keymap/)、[触控板](keymap/trackpad/)、[墨水屏](../firmware/sweep-pro-display/) |
+| Ferris Sweep | [Ferris Sweep 使用指南](ferris-sweep/) | [键位](keymap/ferris-sweep-keymap/)、[配置文件](../firmware/ferris-sweep-configuration/) |
 
 ## 常用下一步
 
