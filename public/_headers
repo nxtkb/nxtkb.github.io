@@ -1,0 +1,10 @@
+# Keep HTML fresh while allowing short browser reuse and link prefetching.
+/
+  Cache-Control: public, max-age=60, stale-while-revalidate=300
+
+/*/
+  Cache-Control: public, max-age=60, stale-while-revalidate=300
+
+# Astro fingerprints these assets, so content changes get a new URL.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

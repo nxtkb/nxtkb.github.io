@@ -57,6 +57,13 @@ Use `variant="hero"` for the decorative image directly inside a `.hero` section;
 it loads eagerly with high priority. Images further down the page load lazily.
 Choose `card`, `feature` (default), `gallery`, or `detail` to match their display
 size. The `detail` preset uses higher quality for images containing small legends.
+Card, feature, and gallery variants are cropped at build time to their CSS display
+ratios, so visitors do not download pixels that would be hidden by `object-fit`.
+
+Internal links prefetch on hover; the main Products navigation link prefetches
+when visible. Cloudflare Pages applies `public/_headers`: HTML routes have a short
+freshness window, while fingerprinted Astro assets are immutable for one year.
+These custom response headers are not applied by the GitHub Pages mirror.
 
 ```bash
 npm run dev
