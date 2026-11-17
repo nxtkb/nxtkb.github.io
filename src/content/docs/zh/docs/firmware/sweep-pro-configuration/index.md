@@ -32,9 +32,41 @@ Ferris Sweep Pro 的自定义大致分两类：
 | 修改 `Z` 按住滚动行为 | `config/sweep.keymap` 中的 `ds_z` 和 `drag_scroll_processor` | `Z` 按住时启用 drag-scroll；当前 drag-scroll 处理器支持启用时的条件横向滚轮。 |
 | 修改鼠标点击 combo | `config/sweep.keymap` 中的 `combo_er_right_click`、`combo_df_left_click` 和 `combo_cv_middle_click` | 当前 timeout 为 25 ms。`X` 在基础字符层中轻按输入字符，按住是鼠标左键。 |
 | 修改蓝牙或电池行为 | `config/sweep.conf` | 包含电池上报间隔、分体电池代理、蓝牙 2M PHY、发射功率和睡眠策略。 |
+| 选择 Full 或 Basic Consumer 报告 | `config/sweep_left.conf` | 默认 Full；Basic 是按需选择的主机兼容配置，取舍见下节。 |
 | 修改显示屏固件能力 | `config/sweep_left_display_hw.conf` | 是否启用显示、LVGL、显示线程、字体和内存池等编译配置在这里；自定义状态屏 UI 来自 `zmk-vfx-sweep-pro-display`。 |
 | 修改右手触控板固件能力 | `config/sweep_right_trackpad.conf` | 是否启用 I2C 和 input 线程栈等编译配置在这里；日常触控板用法见[使用触控板](/zh/docs/setup/keymap/trackpad/)。 |
 | 修改 GitHub Actions 产出的固件 | `build.yaml` | artifact 名称建议保持清晰：`sweep_left`、`sweep_left_display`、`sweep_right`、`sweep_right_trackpad`。 |
+
+## Full 与 Basic Consumer 报告
+
+本节 Full/Basic 指媒体和系统控制使用的 **Consumer HID 报告格式**，与键盘硬件版本及普通按键的 HKRO/NKRO 模式分别配置。
+
+Sweep Pro 默认保留 Full，以支持更多 Consumer 键码。目标主机复现兼容性问题、且能够接受键码范围缩小时，再按需选择 Basic。
+
+| 格式 | Consumer usage 范围 | 功能取舍 |
+| :--- | :--- | :--- |
+| Full | `0x0000`–`0x0FFF` | 包含计算器（`0x192`）、文件浏览器（`0x1B4`）、浏览器主页/后退（`0x223`/`0x224`）等高编号 Consumer 键码；部分主机可能有兼容性问题。 |
+| Basic | `0x00`–`0xFF` | 保留音量、静音、播放暂停、上一曲/下一曲和屏幕亮度；无法发送高于 `0xFF` 的 Consumer 键码。 |
+
+这些限制针对 Consumer 键码；部分相同的系统动作仍可通过普通键盘快捷键实现。Basic 是主控固件的整体选择，不能按蓝牙档位分别设置；它同时改变 USB 和蓝牙 Consumer 报告，需要重新编译、刷写，App/Studio 的键位编辑无法即时切换。
+
+要构建 Basic 兼容版，在 `config/sweep_left.conf` 添加：
+
+```ini
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_FULL=n
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=y
+```
+
+要显式切回 Full：
+
+```ini
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=n
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_FULL=y
+```
+
+两者只能有一个设为 `y`。重新构建并刷入**匹配硬件的左手主控固件**，随后在受影响的蓝牙主机上[取消旧配对并重新配对](../../setup/connect/#蓝牙媒体键兼容性)，刷新变化后的 HID 描述。仅做对照试验时，可使用单独的本地 `.conf` 覆盖文件，保留日常配置。
+
+参考 [ZMK HID 配置说明](https://zmk.dev/docs/config/system#hid)，以及[固定 ZMK 版本的 Consumer 报告定义](https://github.com/zmkfirmware/zmk/blob/4de313367288aad5aeaa1243890e40dc813f7008/app/include/zmk/hid.h)。
 
 ## 硬件版本和固件选择
 

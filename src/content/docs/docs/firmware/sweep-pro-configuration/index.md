@@ -32,9 +32,41 @@ Use [ZMK Studio](/docs/setup/keymap/how-to-update-keymaps/) for live keymap edit
 | Change `Z` hold-to-scroll behavior | `ds_z` and `drag_scroll_processor` in `config/sweep.keymap` | `Z` toggles drag-scroll while held. The current drag-scroll processor supports conditional horizontal wheel behavior when enabled. |
 | Change mouse click combos | `combo_er_right_click`, `combo_df_left_click`, and `combo_cv_middle_click` in `config/sweep.keymap` | Current timeout is 25 ms. `X` taps as the character and holds as left click on the base character layers. |
 | Change Bluetooth or battery behavior | `config/sweep.conf` | Includes battery reporting interval, split battery proxy options, Bluetooth 2M PHY setting, TX power, and sleep policy. |
+| Select Full or Basic Consumer reports | `config/sweep_left.conf` | Full is the default; Basic is an optional host-compatibility tradeoff. See the comparison below. |
 | Change display firmware capabilities | `config/sweep_left_display_hw.conf` | Display, LVGL, display thread, font, and memory-pool build options live here. The custom status screen UI comes from `zmk-vfx-sweep-pro-display`. |
 | Change right-trackpad firmware capabilities | `config/sweep_right_trackpad.conf` | I2C and input thread stack options live here; daily trackpad behavior is covered in [Use the Trackpad](/docs/setup/keymap/trackpad/). |
 | Change which firmware artifacts GitHub Actions builds | `build.yaml` | Keep artifact names clear: `sweep_left`, `sweep_left_display`, `sweep_right`, `sweep_right_trackpad`. |
+
+## Full and Basic Consumer Reports
+
+Full and Basic here describe the **Consumer HID report format** for media and system controls. This setting is independent of the keyboard's hardware variant and its ordinary-key HKRO/NKRO mode.
+
+Sweep Pro retains Full as the default to support more Consumer key codes. Select Basic when a target host has a reproducible compatibility problem and you accept the reduced range.
+
+| Format | Consumer usage range | Capability |
+| :--- | :--- | :--- |
+| Full | `0x0000`–`0x0FFF` | Includes higher-numbered Consumer usages, such as calculator (`0x192`), file browser (`0x1B4`), and browser Home/Back (`0x223`/`0x224`). Some hosts have compatibility issues. |
+| Basic | `0x00`–`0xFF` | Keeps volume, mute, play/pause, previous/next track, and display brightness. Cannot send Consumer key codes above `0xFF`. |
+
+These limits apply to Consumer usages; ordinary keyboard shortcuts can still provide some of the same host actions. Basic is a firmware-wide choice for the central half, rather than a separate setting for each Bluetooth profile. It changes both USB and Bluetooth Consumer reports and requires rebuilding and flashing; App/Studio keymap editing cannot switch it at runtime.
+
+For a Basic compatibility build, add to `config/sweep_left.conf`:
+
+```ini
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_FULL=n
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=y
+```
+
+To explicitly select Full again:
+
+```ini
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=n
+CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_FULL=y
+```
+
+Only one option may be `y`. Rebuild and flash the **left central half matching your hardware**, then [forget and re-pair on affected Bluetooth hosts](../../setup/connect/#bluetooth-media-key-compatibility) to refresh the changed HID descriptor. Use a separate local `.conf` override for a comparison build if you want to keep your normal configuration unchanged.
+
+See [ZMK's HID configuration](https://zmk.dev/docs/config/system#hid) and the [Consumer report definition in the pinned ZMK source](https://github.com/zmkfirmware/zmk/blob/4de313367288aad5aeaa1243890e40dc813f7008/app/include/zmk/hid.h).
 
 ## Hardware Variants
 

@@ -57,7 +57,22 @@ USB usually takes priority while plugged in. If you want to use Bluetooth, disco
 | Nothing types over USB | Confirm both halves are powered on. Try another USB-C cable and connect the left half directly to the computer. |
 | Left half works but right half does not | Turn on the right half, then power-cycle both halves. |
 | Bluetooth pairing fails | Verify USB input first, clear the selected Bluetooth slot with `BT_CLR`, remove old pairings from the host device, and pair again. |
-| Keyboard appears paired but does not type | Check whether USB is still selected or plugged in. Select the Bluetooth slot again and wait for reconnection. |
+| Keyboard appears paired but does not type | Select Bluetooth output and the target Bluetooth slot. USB may remain connected for power when Bluetooth output is explicitly selected. |
+| Letters work over Bluetooth, but volume or media keys do not | Check the [media-key compatibility notes](#bluetooth-media-key-compatibility), including the report format and cached Bluetooth pairing. |
 | Mouse or trackpad events are unclear | Use [Keyboard & Mouse Test](../keymap/input-tester/) to inspect mouse buttons, wheel events, and pointer movement. |
 
 If USB input works but Bluetooth repeatedly fails, flash `settings_reset` once to clear stored ZMK settings, then flash the normal firmware again. See [How to Flash a Firmware](../../firmware/how-to-flash-a-firmware/).
+
+## Bluetooth Media-Key Compatibility
+
+Sweep Pro uses **Full Consumer HID reports** by default to support a wider range of media and system-control key codes. Some hosts have compatibility issues with this format even when ordinary letters work. Basic is an optional compatibility setting with a smaller set of supported Consumer key codes; see [Full and Basic Consumer reports](../../firmware/sweep-pro-configuration/#full-and-basic-consumer-reports) for the tradeoff and build settings.
+
+If volume or media actions do not work:
+
+1. Confirm the intended layer, Bluetooth output, and target profile. Test ordinary typing and check the host's volume indicator; browsers may not expose media-key events.
+2. After firmware changes that alter the HID report format, forget the keyboard on the affected host, select that host's profile on the keyboard, clear it with `BT_CLR`, and pair again. Clear only the affected profile. The control's physical position depends on your current keymap.
+3. If letters still work but media keys do not, consider a Basic build for that host, after checking its key-code limitations. Re-pair again after switching formats. A different encoder binding alone does not change the report format.
+
+In a local Sweep Pro left-with-display **trial firmware** test on an Honor PPG-AN00 running Android 16 (2026-11-17), Full with a fresh pairing produced normal letters but no encoder volume response. Basic with a fresh pairing worked in both volume directions. The trial included experimental modules; this is not a compatibility verdict for all Honor/Android devices or a validation of every released firmware version. Full remains the default.
+
+ZMK documents both the [Full/Basic compatibility tradeoff and the need to refresh changed HID descriptors](https://zmk.dev/docs/config/system#hid).
